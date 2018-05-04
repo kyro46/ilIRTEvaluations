@@ -1,0 +1,18 @@
+// English Language File
+<!-- language file start -->
+
+//ilExteEvalOpenCPU
+tst_OpenCPU_title_long#:#Item Response Theory Calculations
+tst_OpenCPU_title_short#:#IRT
+tst_OpenCPU_description#:#IRT-Calculations via OpenCPU
+tst_OpenCPU_server_title#:#OpenCPU URL
+tst_OpenCPU_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed.</br>Recommended free server: https://cloud.opencpu.org
+
+//ilExteEvalOpenCPUBaseData
+tst_OpenCPUBaseData_title_long#:#Datamatrix for OpenCPU
+tst_OpenCPUBaseData_title_short#:#Datamatrix for OpenCPU
+tst_OpenCPUBaseData_description#:#These are the information sent to OpenCPU
+
+//ilExteEvalOpenCPUAlpha
+tst_OpenCPUAlpha_title_long#:#Cronbach's Alpha (OpenCPU)
+tst_OpenCPUAlpha_description#:#Intenal Consistencyz (Reliability)
