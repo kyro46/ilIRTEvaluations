@@ -14,5 +14,6 @@ tst_OpenCPUBaseData_title_short#:#Datenmatrix für OpenCPU
 tst_OpenCPUBaseData_description#:#Dies ist eine Übersicht der an OpenCPU gesendeten Informationen
 
 //ilExteEvalOpenCPUAlpha
-tst_OpenCPUAlpha_title_long#:#Cronbach's Alpha (OpenCPU)
-tst_OpenCPUAlpha_description#:#Innere Konsistenz (Reliabilität)
+tst_OpenCPUAlpha_title_long#:#Interne Konsistenz (OpenCPU)
+tst_OpenCPUAlpha_title_short#:#Interne Konsistenz pro Item
+tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet via OpenCPU und das R-Paket "Latent Trait Models under IRT" (ltm)
