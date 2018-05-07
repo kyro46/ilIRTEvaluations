@@ -1,5 +1,4 @@
 <?php
-// Copyright (c) 2017 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg, GPLv3, see LICENSE
 
 /**
  * Displays the basic matrix for IRT calculations which is transmitted to OpenCPU

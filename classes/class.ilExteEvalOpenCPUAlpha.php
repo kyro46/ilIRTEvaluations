@@ -1,5 +1,4 @@
 <?php
-// Copyright (c) 2017 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg, GPLv3, see LICENSE
 
 /**
  * Calculates Cronbach Alpha via OpenCPU
@@ -166,7 +165,8 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPUAlpha_table_id'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPUAlpha_table_title'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('alpha_if_removed', $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('alpha_if_removed_difference', $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference'),ilExteStatColumn::SORT_NUMBER,  $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment'))	
+				ilExteStatColumn::_create('alpha_if_removed_difference', $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference'),
+						ilExteStatColumn::SORT_NUMBER,  $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment'))	
 		);
 		
 		//pupulate rows
