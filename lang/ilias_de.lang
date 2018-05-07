@@ -2,18 +2,39 @@
 <!-- language file start -->
 
 //ilExteEvalOpenCPU
+//config
+tst_OpenCPU_server_title#:#URL von OpenCPU
+tst_OpenCPU_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete für IRT-Berechnungen müssen darauf installiert sein.</br>Empfohlener freier Server: https://cloud.opencpu.org
+//table
 tst_OpenCPU_title_long#:#OpenCPU Berechnungen
 tst_OpenCPU_title_short#:#OpenCPU Berechnungen
 tst_OpenCPU_description#:#Die IRT-Berechnungen
-tst_OpenCPU_server_title#:#URL von OpenCPU
-tst_OpenCPU_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete für IRT-Berechnungen müssen darauf installiert sein.</br>Empfohlener freier Server: https://cloud.opencpu.org
 
 //ilExteEvalOpenCPUBaseData
 tst_OpenCPUBaseData_title_long#:#Datenmatrix für OpenCPU
 tst_OpenCPUBaseData_title_short#:#Datenmatrix für OpenCPU
-tst_OpenCPUBaseData_description#:#Dies ist eine Übersicht der an OpenCPU gesendeten Informationen
+tst_OpenCPUBaseData_description#:#Dies ist eine Übersicht der an OpenCPU gesendeten Informationen.
 
 //ilExteEvalOpenCPUAlpha
+//config
+tst_OpenCPUAlpha_min_qst_title#:#Mindestanzahl Fragen
+tst_OpenCPUAlpha_min_qst_description#:#Minimale Anzahl Fragen im Test, ab der die interne Konsistenz berechnet wird.
+tst_OpenCPUAlpha_min_qst_alert#:#Die interne Konsistenz ist erst ab %s Fragen im Test ermittelbar.
+tst_OpenCPUAlpha_min_part_title#:#Mindestanzahl Teilnehmer
+tst_OpenCPUAlpha_min_part_description#:#Minimale Anzahl Teilnehmer im Test, ab der die interne Konsistenz berechnet wird.
+tst_OpenCPUAlpha_min_part_alert#:#Die interne Konsistenz ist erst ab %s Teilnehmern im Test ermittelbar.
+tst_OpenCPUAlpha_min_difference_title#:#Akzeptable Auswirkung des Items auf die Gesamtkonsistenz
+tst_OpenCPUAlpha_min_difference_description#:#Die Konsistenz des Tests kann sinken oder steigen, wenn ein Item entfernt wird. Der Akzeptable Umfang dieses Unterschiedes, wird hier angegeben. 
+tst_cic_min_medium_title#:#Mindestwert "mäßig"
+tst_cic_min_medium_description#:#Mindestwert, der als als "mäßig" bewertet wird. 0, falls keine Bewertung erwünscht ist.
+tst_cic_min_good_title#:#Mindestwert "gut"
+tst_cic_min_good_description#:#Mindestwert, der als "gut" bewertet wird. 0, falls keine Bewertung erwünscht ist.
+//table
 tst_OpenCPUAlpha_title_long#:#Interne Konsistenz (OpenCPU)
 tst_OpenCPUAlpha_title_short#:#Interne Konsistenz pro Item
-tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet via OpenCPU und das R-Paket "Latent Trait Models under IRT" (ltm)
+tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet via OpenCPU und das R-Paket "Latent Trait Models under IRT" (ltm).
+tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha if item is removed
+tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Differenz
+tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert
+tst_OpenCPUAlpha_table_title#:#Titel
+tst_OpenCPUAlpha_table_id#:#ID

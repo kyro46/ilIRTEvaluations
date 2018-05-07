@@ -2,11 +2,13 @@
 <!-- language file start -->
 
 //ilExteEvalOpenCPU
+//config
+tst_OpenCPU_server_title#:#OpenCPU URL
+tst_OpenCPU_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed.</br>Recommended free server: https://cloud.opencpu.org
+//table
 tst_OpenCPU_title_long#:#Item Response Theory Calculations
 tst_OpenCPU_title_short#:#IRT
 tst_OpenCPU_description#:#IRT-Calculations via OpenCPU
-tst_OpenCPU_server_title#:#OpenCPU URL
-tst_OpenCPU_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed.</br>Recommended free server: https://cloud.opencpu.org
 
 //ilExteEvalOpenCPUBaseData
 tst_OpenCPUBaseData_title_long#:#Datamatrix for OpenCPU
@@ -14,6 +16,25 @@ tst_OpenCPUBaseData_title_short#:#Datamatrix for OpenCPU
 tst_OpenCPUBaseData_description#:#These are the information sent to OpenCPU
 
 //ilExteEvalOpenCPUAlpha
+//config
+tst_OpenCPUAlpha_min_qst_title#:#Minimum Questions
+tst_OpenCPUAlpha_min_qst_description#:#Minimum number of questions in a test to calculate the internal consistency.
+tst_OpenCPUAlpha_min_qst_alert#:#The test must have a minimum of %s questions to calculate the internal consistency.
+tst_OpenCPUAlpha_min_part_title#:#Minimum Participants
+tst_OpenCPUAlpha_min_part_description#:#Minimum participants of the test to to calculate the internal consistency.
+tst_OpenCPUAlpha_min_part_alert#:#The test must have a minimum of %s participants to calculate the internal consistency.
+tst_OpenCPUAlpha_min_difference_title#:#Accepted impact on overall consistency when removing an item
+tst_OpenCPUAlpha_min_difference_description#:#The internal consistency can increase or decrease when a single item is removed. The acceptable range is given here. 
+tst_OpenCPUAlpha_min_medium_title#:#Minimum 'mediocre'
+tst_OpenCPUAlpha_min_medium_description#:#Minimum value rated as 'mediocre'. 0 to suppress the rating.
+tst_OpenCPUAlpha_min_good_title#:#Minimum 'good'
+tst_OpenCPUAlpha_min_good_description#:#Minimum value rated as 'good'. 0 to suppress the rating.
+//table
 tst_OpenCPUAlpha_title_long#:#Internal consistency (OpenCPU)
 tst_OpenCPUAlpha_title_short#:#Internal consistency per item
 tst_OpenCPUAlpha_description#:#Cronbach's Alpha, calculated via OpenCPU and the R-package "Latent Trait Models under IRT" (ltm)
+tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha if item is removed
+tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Difference
+tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#The more the internal consistency decreases without the item, the more important is it's contribution to the measurement. Low and negative values are desirable.
+tst_OpenCPUAlpha_table_title#:#Title
+tst_OpenCPUAlpha_table_id#:#ID
