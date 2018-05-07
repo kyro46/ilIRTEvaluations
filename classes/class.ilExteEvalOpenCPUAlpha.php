@@ -94,7 +94,11 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 		$csv = ilExteEvalOpenCPU::getBasicData($this);
 		
 		$path = "/ocpu/library/base/R/identity/json";
-		$query["x"] = "library(ltm); data <- read.csv(text='{$csv}', row.names = 1, header= TRUE); result <- cronbach.alpha(data); library(jsonlite); toJSON(result[1])";
+		$query["x"] = 	"library(ltm);" .
+						"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
+						"result <- cronbach.alpha(data);" .
+						"library(jsonlite);" . 
+						"toJSON(result[1])";
 		
 
 		$result = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);//Format: {\\"alpha\\":[x.xxx]}\n

@@ -13,7 +13,7 @@ tst_OpenCPU_description#:#IRT-Calculations via OpenCPU
 //ilExteEvalOpenCPUBaseData
 tst_OpenCPUBaseData_title_long#:#Datamatrix for OpenCPU
 tst_OpenCPUBaseData_title_short#:#Datamatrix for OpenCPU
-tst_OpenCPUBaseData_description#:#These are the information sent to OpenCPU
+tst_OpenCPUBaseData_description#:#Overview of the data which is sent to OpenCPU. Columns are questions, rows are participants.
 
 //ilExteEvalOpenCPUAlpha
 //config

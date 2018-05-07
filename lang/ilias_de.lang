@@ -13,7 +13,7 @@ tst_OpenCPU_description#:#Die IRT-Berechnungen
 //ilExteEvalOpenCPUBaseData
 tst_OpenCPUBaseData_title_long#:#Datenmatrix für OpenCPU
 tst_OpenCPUBaseData_title_short#:#Datenmatrix für OpenCPU
-tst_OpenCPUBaseData_description#:#Dies ist eine Übersicht der an OpenCPU gesendeten Informationen.
+tst_OpenCPUBaseData_description#:#Dies sind die an OpenCPU gesendeten Informationen (Spalten = Items, Zeilen = Probanden).
 
 //ilExteEvalOpenCPUAlpha
 //config
