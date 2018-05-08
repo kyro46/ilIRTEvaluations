@@ -10,7 +10,7 @@ tst_OpenCPU_title_long#:#Item Response Theory Calculations
 tst_OpenCPU_title_short#:#IRT
 tst_OpenCPU_description#:#IRT-Calculations via OpenCPU
 tst_OpenCPU_callR#:#Execute with R
-tst_OpenCPU_callR_desc#:#<strong>This is currently only a functional limited tech-demo.</strong><br/>The test data is saved in variable "data". As long as the result is a single number, self-initiated operations via R can be performend here.<br/>
+tst_OpenCPU_callR_desc#:#<strong>The test data is saved in variable <strong>"data"</strong>. Self-initiated operations via R can be performend here.<br/>
 //ilExteEvalOpenCPUBaseData
 tst_OpenCPUBaseData_title_long#:#Datamatrix for OpenCPU
 tst_OpenCPUBaseData_title_short#:#Datamatrix for OpenCPU
