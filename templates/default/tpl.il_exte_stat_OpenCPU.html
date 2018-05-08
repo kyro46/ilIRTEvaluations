@@ -12,7 +12,7 @@ ocpu.seturl("{SERVER}/ocpu/library/base/R")
 var part1 = 'library(jsonlite); data <- fromJSON(txt=';
 var part2 =	'{JSON}';
 var part3 =	');';
-var data = part1 + '\'' + part2 + '\'' +part3;
+var data = part1 + '\'' + part2.replace(/\"/g, "") + '\'' +part3;
 var convertDF = 'colnames(data) = data[1, ]; data = data[-1, ]; rownames(data) <- data[,1]; data <- data[,-1];'; 
 
 //actual handler

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Raw data for a test, used by OpenCPU
+ * Static functions, used by other OpenCPU-Evaluations. Offers limited interactive R-input.
  */
 class ilExteEvalOpenCPU extends ilExteEvalTest
 {
@@ -109,10 +109,8 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		}
 		
 		$csv = trim($csv, "\n ");
-
 		//error_log($csv, 3, "Customizing/csv.log");
 		//error_log(json_encode($array), 3, "Customizing/json.log");
-		
 		return $csv;
 	}
 
@@ -132,7 +130,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 
 		$data = array_map("str_getcsv", explode("\n", $csv));
 		$json = json_encode($data);
-		$template->setVariable('JSON', $json);		
+		$template->setVariable('JSON', substr_replace($json, 0, 3, 0));		
 		
 		$details = new ilExteStatDetails();
 		$details->customHTML = $template->get();
