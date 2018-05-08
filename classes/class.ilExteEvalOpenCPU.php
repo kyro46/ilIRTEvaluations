@@ -109,12 +109,9 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		}
 		
 		$csv = trim($csv, "\n ");
-		
-		//TODO decide format
-		//$array = array_map("str_getcsv", explode("\n", $csv));
-		//$json = json_encode($array);
+
 		//error_log($csv, 3, "Customizing/csv.log");
-		//error_log(json_encode($array), 3, "json.log");
+		//error_log(json_encode($array), 3, "Customizing/json.log");
 		
 		return $csv;
 	}
@@ -128,8 +125,15 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	{
 		$csv = ilExteEvalOpenCPU::getBasicData($this);
 
-		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU.html', false, false, "Customizing/global/plugins\Modules/Test/Evaluations/ilIRTEvaluations");
+		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
+		$template->setVariable('SERVER', $this->getParam('server'));
+		$template->setVariable('CALLR_DESC', $this->plugin->txt('tst_OpenCPU_callR_desc'));
+		$template->setVariable('CALLR', $this->plugin->txt('tst_OpenCPU_callR'));
 
+		$data = array_map("str_getcsv", explode("\n", $csv));
+		$json = json_encode($data);
+		$template->setVariable('JSON', $json);		
+		
 		$details = new ilExteStatDetails();
 		$details->customHTML = $template->get();
 		

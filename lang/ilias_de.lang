@@ -9,6 +9,8 @@ tst_OpenCPU_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete
 tst_OpenCPU_title_long#:#OpenCPU Berechnungen
 tst_OpenCPU_title_short#:#OpenCPU Berechnungen
 tst_OpenCPU_description#:#Die IRT-Berechnungen
+tst_OpenCPU_callR#:#Via R ausführen
+tst_OpenCPU_callR_desc#:#<strong>Dies ist momentan nur eine eingeschränkt nutzbare Technik-Demo.</strong><br/>Die Testdaten liegen in der Variable "data" vor. Sofern das Ergebnis der Auswertung eine einzelne Zahl ist, können hier selbstständig R-Operationen auf dem Datensatz durchgeführt werden.<br/>
 
 //ilExteEvalOpenCPUBaseData
 tst_OpenCPUBaseData_title_long#:#Datenmatrix für OpenCPU

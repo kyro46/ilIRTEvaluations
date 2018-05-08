@@ -1,0 +1,46 @@
+<script src="https://cdn.opencpu.org/opencpu-0.4.js"></script>
+{CALLR_DESC}
+<textarea id="input" rows="4" cols="50">
+data
+</textarea> 
+<br /> <button id="submitbutton" type="button">{CALLR}</button>
+<pre><code id="output"></code></pre>
+
+<script>
+ocpu.seturl("{SERVER}/ocpu/library/base/R")
+
+var part1 = 'library(jsonlite); data <- fromJSON(txt=';
+var part2 =	'{JSON}';
+var part3 =	');';
+var data = part1 + '\'' + part2 + '\'' +part3;
+var convertDF = 'colnames(data) = data[1, ]; data = data[-1, ]; rownames(data) <- data[,1]; data <- data[,-1];'; 
+
+//actual handler
+$("#submitbutton").on("click", function(){
+
+    //arguments
+    var snippet = new ocpu.Snippet(data + convertDF + $("#input").val());
+    
+    //disable button
+    $("#submitbutton").attr("disabled", "disabled");
+
+    //perform the request
+    var req = ocpu.call("identity", {
+        "x" : snippet
+    }, function(session){
+        session.getStdout(function(outtxt){
+            $("#output").text(outtxt); 
+        });
+    });
+        
+    //if R returns an error, alert the error message
+    req.fail(function(){
+        alert("Server error: " + req.responseText);
+    });      
+    
+    req.always(function(){
+        $("button").removeAttr("disabled");    
+    });
+});  
+</script>
+  
