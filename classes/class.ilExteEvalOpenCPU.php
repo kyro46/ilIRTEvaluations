@@ -71,39 +71,53 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	 * and should be avoided if possible.
 	 * Switching between variants is currently for development only
 	 * Possible variants:
-	 * 		50% of reachable points
-	 * 		mean of reached points
-	 * 		modal ...
-	 * 		median ...		<-- only this is implemented yet
-	 * 		specific value
+	 * 		1. 50% of reachable points
+	 * 		2. mean of reached points
+	 * 		3. modal ...
+	 * 		4. median ...
+	 * 		5. specific value (general case of 1. and 2.)
 	 * @param	array  	$answers 	The Points to be dichotomized
 	 * @param	string	$version	The method used for dichotomizing
 	 * @param	float	$value		An optional cut score
 	 * @return 	integer $result	The dichotomized value
 	 */
-	public function dichotomize($answers, $version = 'median', $value = 0) {
+	function dichotomize($answers, $version = 'median', $value = 0) {
 		switch ($version):
-			case '50%':
-			case 'mean':
-			case 'modal':
-			case 'median':
-				$sorted = $answers;
-				rsort($sorted);
-				$middle = round(count($sorted) / 2);
-				$median = $sorted[$middle-1];
-				
-				foreach ($answers as $key => $answer)
-				{
-					if (is_numeric ($answer) && $answer <= $median) {
-						$answers[$key] = 0;
-					} elseif (is_numeric ($answer)) {
-						$answers[$key] = 1;
-					}
+		case 'modal':
+			$counted = array_count_values($answers);
+			asort($counted);
+			$maxCount = max($counted);
+			foreach($counted as $number => $count)
+			{
+				if($count == $maxCount)
+					$modals[] = $number;
+			}
+			if (count($modals) != 1) {
+				$value = $modals[ceil(count($modals)/2)];
+			} else {
+				$value = $modals[0];
+			}
+			break;
+		case 'median':
+			$sorted = $answers;
+			rsort($sorted);
+			$middle = round(count($sorted) / 2);
+			$value = $sorted[$middle-1];
+			
+		case '50%':
+		case 'mean':
+		case 'value': //includes mean and 50% as $value = $question->average_points and $question->maximum_points/2
+			endswitch;
+			
+			foreach ($answers as $key => $answer)
+			{
+				if (is_numeric ($answer) && $answer <= $value) {
+					$answers[$key] = 0;
+				} elseif (is_numeric ($answer)) {
+					$answers[$key] = 1;
 				}
-			case 'value':
-		 endswitch;
-		 
-		 return $answers;
+			}
+			return $answers;
 	}
 
 	/**
@@ -123,6 +137,8 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		
 		foreach ($object->data->getAllQuestions() as $question)
 		{
+			error_log(print_r($question, true));
+			
 			$answers = $dichotomize ? $this->dichotomize($object->data->getAnswersForQuestion($question->question_id)) 
 				: $object->data->getAnswersForQuestion($question->question_id);
 					
