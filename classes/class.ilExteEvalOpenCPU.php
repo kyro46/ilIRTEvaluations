@@ -66,11 +66,53 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	}
 
 	/**
-	 * Transform the available data to a structure, readable for R
-	 * @param	object  $object the calling class
-	 * @return 	string			the basic data for R/OpenCPU as CSV
+	 * Transforms the points into dichotomous 0 and 1 outcomes
+	 * Dichotomizing is a bad transformation with great information loss
+	 * and should be avoided if possible.
+	 * Switching between variants is currently for development only
+	 * Possible variants:
+	 * 		50% of reachable points
+	 * 		mean of reached points
+	 * 		modal ...
+	 * 		median ...		<-- only this is implemented yet
+	 * 		specific value
+	 * @param	array  	$answers 	The Points to be dichotomized
+	 * @param	string	$version	The method used for dichotomizing
+	 * @param	float	$value		An optional cut score
+	 * @return 	integer $result	The dichotomized value
 	 */
-	public function getBasicData($object) {
+	public function dichotomize($answers, $version = 'median', $value = 0) {
+		switch ($version):
+			case '50%':
+			case 'mean':
+			case 'modal':
+			case 'median':
+				$sorted = $answers;
+				rsort($sorted);
+				$middle = round(count($sorted) / 2);
+				$median = $sorted[$middle-1];
+				
+				foreach ($answers as $key => $answer)
+				{
+					if (is_numeric ($answer) && $answer <= $median) {
+						$answers[$key] = 0;
+					} elseif (is_numeric ($answer)) {
+						$answers[$key] = 1;
+					}
+				}
+			case 'value':
+		 endswitch;
+		 
+		 return $answers;
+	}
+
+	/**
+	 * Transform the available data to a structure, readable for R
+	 * @param	object  $object 		the calling class
+	 * @param	bool	$dichotomize	trigger dichotomizing of the reached points
+	 * @return 	string					the basic data for R/OpenCPU as CSV
+	 */
+	public function getBasicData($object, $dichotomize = FALSE) {
 		$header_array = array();
 		
 		foreach ($object->data->getAllQuestions() as $question)
@@ -81,7 +123,10 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		
 		foreach ($object->data->getAllQuestions() as $question)
 		{
-			foreach ($object->data->getAnswersForQuestion($question->question_id) as $answer)
+			$answers = $dichotomize ? $this->dichotomize($object->data->getAnswersForQuestion($question->question_id)) 
+				: $object->data->getAnswersForQuestion($question->question_id);
+					
+			foreach ($answers as $answer)
 			{
 				$active_id_array[$answer->active_id][$question->question_id] = $answer->reached_points;
 			}
