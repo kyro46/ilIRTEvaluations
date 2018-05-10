@@ -95,7 +95,7 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 		$path = "/ocpu/library/base/R/identity/json";
 		$query["x"] = 	"library(ltm);" .
 						"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
-						"result <- cronbach.alpha(data);" .
+						"result <- cronbach.alpha(data, na.rm = TRUE);" .
 						"library(jsonlite);" . 
 						"toJSON(result[1])";
 		
@@ -155,7 +155,7 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 		$query["x"] = 	"library(ltm);" . 
 						"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" . 
 						"result <- descript(data); " .
-						"library(jsonlite); toJSON(result[11])";
+						"library(jsonlite); toJSON(result\$alpha)";
 		
 		$result = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		$serialized = json_decode(substr(stripslashes($result), 2, -3),TRUE);
@@ -174,14 +174,14 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 		foreach ($this->data->getAllQuestions() as $question)
 		{
 			$indicator = NULL;
-			$difference = $serialized[alpha][$i][0] - $serialized[alpha][0][0];
+			$difference = $serialized[$i][0] - $serialized[0][0];
 			$difference > 0 ? $indicator = ilExteStatValue::ALERT_BAD : $indicator = ilExteStatValue::ALERT_GOOD;
 			abs($difference) > $this->getParam('min_difference') ?: $indicator = ilExteStatValue::ALERT_MEDIUM;
 
 			$details->rows[] = array(
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-					'alpha_if_removed' => ilExteStatValue::_create($serialized[alpha][$i][0], ilExteStatValue::TYPE_NUMBER, 3),
+					'alpha_if_removed' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
 					'alpha_if_removed_difference' => ilExteStatValue::_create($difference, ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator)	
 			);
 			$i++;

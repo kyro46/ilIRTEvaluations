@@ -6,11 +6,12 @@
 tst_OpenCPU_server_title#:#OpenCPU URL
 tst_OpenCPU_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed.</br>Recommended free server: https://cloud.opencpu.org
 //table
-tst_OpenCPU_title_long#:#Item Response Theory Calculations
+tst_OpenCPU_title_long#:#Interactive R-console (OpenCPU)
 tst_OpenCPU_title_short#:#IRT
 tst_OpenCPU_description#:#IRT-Calculations via OpenCPU
 tst_OpenCPU_callR#:#Execute with R
 tst_OpenCPU_callR_desc#:#<strong>The test data is saved in variable <strong>"data"</strong>. Self-initiated operations via R can be performend here.<br/>
+
 //ilExteEvalOpenCPUBaseData
 tst_OpenCPUBaseData_title_long#:#Datamatrix for OpenCPU
 tst_OpenCPUBaseData_title_short#:#Datamatrix for OpenCPU
@@ -33,7 +34,7 @@ tst_OpenCPUAlpha_min_good_description#:#Minimum value rated as 'good'. 0 to supp
 //table
 tst_OpenCPUAlpha_title_long#:#Internal consistency (OpenCPU)
 tst_OpenCPUAlpha_title_short#:#Internal consistency per item
-tst_OpenCPUAlpha_description#:#Cronbach's Alpha, calculated via OpenCPU and the R-package "Latent Trait Models under IRT" (ltm)
+tst_OpenCPUAlpha_description#:#Cronbach's Alpha, calculated after removing NA's (missing answers) via OpenCPU and the R-package "Latent Trait Models under IRT" (ltm)
 tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha if item is removed
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Difference
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#The more the internal consistency decreases without the item, the more important is it's contribution to the measurement. Low and negative values are desirable.

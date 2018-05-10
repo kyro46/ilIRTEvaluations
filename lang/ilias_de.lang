@@ -34,7 +34,7 @@ tst_cic_min_good_description#:#Mindestwert, der als "gut" bewertet wird. 0, fall
 //table
 tst_OpenCPUAlpha_title_long#:#Interne Konsistenz (OpenCPU)
 tst_OpenCPUAlpha_title_short#:#Interne Konsistenz pro Item
-tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet via OpenCPU und das R-Paket "Latent Trait Models under IRT" (ltm).
+tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet nach Entfernung fehlender Antworten via OpenCPU und dem R-Paket "Latent Trait Models under IRT" (ltm).
 tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha if item is removed
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Differenz
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert
