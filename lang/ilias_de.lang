@@ -6,8 +6,8 @@
 tst_OpenCPU_server_title#:#URL von OpenCPU
 tst_OpenCPU_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete für IRT-Berechnungen müssen darauf installiert sein.</br>Empfohlener freier Server: https://cloud.opencpu.org
 //table
-tst_OpenCPU_title_long#:#OpenCPU Berechnungen
-tst_OpenCPU_title_short#:#OpenCPU Berechnungen
+tst_OpenCPU_title_long#:#Interaktive R-Konsole (OpenCPU)
+tst_OpenCPU_title_short#:#Interaktive R-Konsole
 tst_OpenCPU_description#:#Die IRT-Berechnungen
 tst_OpenCPU_callR#:#Via R ausführen
 tst_OpenCPU_callR_desc#:#Die Testdaten liegen in der Variable <strong>"data"</strong> vor. Es können hier selbstständig R-Operationen auf dem Datensatz durchgeführt werden.<br/>
@@ -40,3 +40,13 @@ tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Differenz
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert
 tst_OpenCPUAlpha_table_title#:#Titel
 tst_OpenCPUAlpha_table_id#:#ID
+
+//ilExteEvalOpenCPUdichotomous
+//table
+tst_OpenCPUdichotomous_title_long#:#IRT-Auswertung für Tests mit dichotomen Items
+tst_OpenCPUdichotomous_title_short#:#Auswertung nach dem Rasch-Modell und dem 1PL-Modell.
+tst_OpenCPUdichotomous_description#:#Rasch-Modell (Trennschärfe aller Items wird als "1" festgesetzt) und 1PL-Modell (gemeinsame Trennschärfe kann von "1" abweichen). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
+tst_OpenCPUdichotomous_table_RaschDiff#:#Schwierigkeit (Rasch)
+tst_OpenCPUdichotomous_table_RaschDisc#:#Trennschärfe (Rasch)
+tst_OpenCPUdichotomous_table_1PLDiff#:#Schwierigkeit (1PL)
+tst_OpenCPUdichotomous_table_1PLDisc#:#Trennschärfe (1PL)

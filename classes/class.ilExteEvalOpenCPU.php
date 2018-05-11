@@ -81,8 +81,8 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	 * @param	float	$value		An optional cut score
 	 * @return 	integer $result	The dichotomized value
 	 */
-	function dichotomize($answers, $version = 'median', $value = 0) {
-		switch ($version):
+	public function dichotomize($answers, $version = 'value', $value = 0) {
+		switch ($version){
 		case 'modal':
 			$counted = array_count_values($answers);
 			asort($counted);
@@ -103,18 +103,18 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 			rsort($sorted);
 			$middle = round(count($sorted) / 2);
 			$value = $sorted[$middle-1];
+			break;
+		}
 			
-		case '50%':
-		case 'mean':
-		case 'value': //includes mean and 50% as $value = $question->average_points and $question->maximum_points/2
-			endswitch;
-			
+			/*	50%  -> $value = $question->maximum_points/2
+			 *  mean -> $value = $question->average_points
+			 */
 			foreach ($answers as $key => $answer)
 			{
-				if (is_numeric ($answer) && $answer <= $value) {
-					$answers[$key] = 0;
-				} elseif (is_numeric ($answer)) {
-					$answers[$key] = 1;
+				if (is_numeric ($answer->reached_points) && $answer->reached_points <= $value) {
+					$answers[$key]->reached_points = 0;
+				} elseif (is_numeric ($answer->reached_points)) {
+					$answers[$key]->reached_points = 1;
 				}
 			}
 			return $answers;
@@ -137,10 +137,9 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		
 		foreach ($object->data->getAllQuestions() as $question)
 		{
-			error_log(print_r($question, true));
-			
-			$answers = $dichotomize ? $this->dichotomize($object->data->getAnswersForQuestion($question->question_id)) 
-				: $object->data->getAnswersForQuestion($question->question_id);
+			$answers = $dichotomize ?
+					self::dichotomize($object->data->getAnswersForQuestion($question->question_id), 'value', $question->maximum_points/2) 
+				: 	$object->data->getAnswersForQuestion($question->question_id);
 					
 			foreach ($answers as $answer)
 			{

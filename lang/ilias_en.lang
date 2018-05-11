@@ -7,7 +7,7 @@ tst_OpenCPU_server_title#:#OpenCPU URL
 tst_OpenCPU_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed.</br>Recommended free server: https://cloud.opencpu.org
 //table
 tst_OpenCPU_title_long#:#Interactive R-console (OpenCPU)
-tst_OpenCPU_title_short#:#IRT
+tst_OpenCPU_title_short#:#Interactive R-console
 tst_OpenCPU_description#:#IRT-Calculations via OpenCPU
 tst_OpenCPU_callR#:#Execute with R
 tst_OpenCPU_callR_desc#:#<strong>The test data is saved in variable <strong>"data"</strong>. Self-initiated operations via R can be performend here.<br/>
@@ -40,3 +40,14 @@ tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Difference
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#The more the internal consistency decreases without the item, the more important is it's contribution to the measurement. Low and negative values are desirable.
 tst_OpenCPUAlpha_table_title#:#Title
 tst_OpenCPUAlpha_table_id#:#ID
+
+
+//ilExteEvalOpenCPUdichotomous
+//table
+tst_OpenCPUdichotomous_title_long#:#IRT-Evaluations for tests with dichotomous Items
+tst_OpenCPUdichotomous_title_short#:#Evalutation with the Rasch-Model and 1PL-Model.
+tst_OpenCPUdichotomous_description#:#Rasch-Model (Discrimination for all Items fixed at 1) and  1PL-Modell (discrimination can differ from 1). Polytomous Items will be dichotomized, meaning answers are categorized in "correct" and "wrong" at 50% of the reachable points.
+tst_OpenCPUdichotomous_table_RaschDiff#:#Difficulty (Rasch)
+tst_OpenCPUdichotomous_table_RaschDisc#:#Discrimination (Rasch)
+tst_OpenCPUdichotomous_table_1PLDiff#:#Difficulty (1PL)
+tst_OpenCPUdichotomous_table_1PLDisc#:#Discrimination (1PL)
