@@ -45,9 +45,7 @@ class ilExteEvalOpenCPUdichotomous extends ilExteEvalTest
 		$server = $data['server'];
 		
 		$csv = ilExteEvalOpenCPU::getBasicData($this, TRUE); //TRUE -> dichotomize at 50% of reachable points
-		
-		error_log($csv, 3, "Customizing/csv.log");
-		
+
 		$path = "/ocpu/library/base/R/identity/json";
 		$query_constrained["x"] = 	"library(ltm);" .
 				"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
@@ -55,7 +53,6 @@ class ilExteEvalOpenCPUdichotomous extends ilExteEvalTest
 				"coef <- coef(rasch);" .
 				"library(jsonlite);" .
 				"toJSON(coef)";
-		
 		
 		$query_unconstrained["x"] = 	"library(ltm);" .
 				"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .

@@ -78,7 +78,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	 * 		5. specific value (general case of 1. and 2.)
 	 * @param	array  	$answers 	The Points to be dichotomized
 	 * @param	string	$version	The method used for dichotomizing
-	 * @param	float	$value		An optional cut score
+	 * @param	float	$value		The cut score
 	 * @return 	integer $result	The dichotomized value
 	 */
 	public function dichotomize($answers, $version = 'value', $value = 0) {
@@ -124,26 +124,77 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	 * Transform the available data to a structure, readable for R
 	 * @param	object  $object 		the calling class
 	 * @param	bool	$dichotomize	trigger dichotomizing of the reached points
+	 * @param	bool	$missingAsNA	leave missing answers as NA and don't code them as wrong (0 points)
+	 * @param	bool	$rebaseData		transform data required for ltm::grm and ltm::gpcm
 	 * @return 	string					the basic data for R/OpenCPU as CSV
 	 */
-	public function getBasicData($object, $dichotomize = FALSE) {
-		$header_array = array();
+	public function getBasicData($object, $dichotomize = FALSE, $missingAsNA = FALSE, $rebaseData = FALSE) {
 		
-		foreach ($object->data->getAllQuestions() as $question)
-		{
-			array_push($header_array, $question->question_id);
-		}
+		$header_array = array();
 		$active_id_array = array();
 		
 		foreach ($object->data->getAllQuestions() as $question)
 		{
+			//dichotomize?
 			$answers = $dichotomize ?
-					self::dichotomize($object->data->getAnswersForQuestion($question->question_id), 'value', $question->maximum_points/2) 
-				: 	$object->data->getAnswersForQuestion($question->question_id);
-					
+			self::dichotomize($object->data->getAnswersForQuestion($question->question_id), 'value', $question->maximum_points/2)
+			: 	$object->data->getAnswersForQuestion($question->question_id);
+			
+			// missingAsNA ? (keep missing data as NA or set as wrong)
+			if(!$missingAsNA){
+				foreach ($answers as $key => $answer)
+				{
+					if (!$answer->answered) {
+						$answers[$key]->reached_points = 0;
+					}
+				}	
+			}
+			
+			//count different points given to remove items with zero variance
+			$count = array();
+			$count[] = 0;	
 			foreach ($answers as $answer)
+			{			
+				if ($answer->answered && !in_array((float)$answer->reached_points, $count))
+				{
+					$count[] = (float)$answer->reached_points;
+
+				}
+			}
+			
+			/* rebaseData?
+			 * 1. Base for all points is 0
+			 * 2. Distance between points is 1
+			 * 3. Remove Questions without variance
+			 */
+			if($rebaseData)
 			{
-				$active_id_array[$answer->active_id][$question->question_id] = $answer->reached_points;
+				sort($count);				
+				$index = 0;
+				foreach ($answers as $key => $answer)
+				{
+					if (in_array($answer->reached_points, $count)) {
+						$answers[$key]->reached_points = array_search($answer->reached_points, $count);
+					}
+				}
+			}
+			
+			//only add items with variance			
+			if($rebaseData ){
+				$variants = count($count);
+				if($variants > 1){
+					array_push($header_array, $question->question_id);
+					foreach ($answers as $answer)
+					{
+					$active_id_array[$answer->active_id][$question->question_id] = $answer->reached_points;
+					}
+				}
+			} else {
+				array_push($header_array, $question->question_id);
+				foreach ($answers as $answer)
+				{
+					$active_id_array[$answer->active_id][$question->question_id] = $answer->reached_points;
+				}
 			}
 		}
 
