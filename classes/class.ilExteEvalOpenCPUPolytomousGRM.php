@@ -66,7 +66,7 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 		$result_unconstrained = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_unconstrained);
 
 		//$serialized_constrained = json_decode(substr(stripslashes($result_constrained), 2, -3),TRUE);
-		$serialized_unconstrained = json_decode(substr(stripslashes($result_unconstrained), 2, -3),TRUE);
+		$result_unconstrained == 0 ? $serialized_unconstrained = array() : $serialized_unconstrained = json_decode(substr(stripslashes($result_unconstrained), 2, -3),TRUE);
 
 		//header
 		$details->columns = array (

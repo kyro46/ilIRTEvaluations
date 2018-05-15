@@ -57,14 +57,14 @@ class ilExteEvalOpenCPUPolytomousGPCM extends ilExteEvalTest
 		
 		$result_gpcm = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_gpcm);
 		
-		$serialized_gpcm = json_decode(substr(stripslashes($result_gpcm), 2, -3),TRUE);
+		$result_unconstrained == 0 ? $serialized_gpcm = array() : $serialized_gpcm = json_decode(substr(stripslashes($result_gpcm), 2, -3),TRUE);
 		
 		//header
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPUAlpha_table_id'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPUAlpha_table_title'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('grm_difficulty_mean', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Diff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('grm_disc', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Disc'), ilExteStatColumn::SORT_NUMBER)
+				ilExteStatColumn::_create('gpcm_difficulty_mean', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Diff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('gpcm_disc', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Disc'), ilExteStatColumn::SORT_NUMBER)
 		);
 		
 		//pupulate rows
@@ -83,8 +83,8 @@ class ilExteEvalOpenCPUPolytomousGPCM extends ilExteEvalTest
 			$details->rows[] = array(
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-					'grm_difficulty_mean' => ilExteStatValue::_create($mean, ilExteStatValue::TYPE_NUMBER, 3),
-					'grm_disc' => ilExteStatValue::_create($disc[0], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator)
+					'gpcm_difficulty_mean' => ilExteStatValue::_create($mean, ilExteStatValue::TYPE_NUMBER, 3),
+					'gpcm_disc' => ilExteStatValue::_create($disc[0], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator)
 			);
 			$i++;
 		}

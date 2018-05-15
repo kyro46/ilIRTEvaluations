@@ -62,7 +62,11 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 				)
 		);
 		$context  = stream_context_create($options);
-		return file_get_contents($string = rtrim($server, '/') . $path, false, $context);
+		try {
+			return file_get_contents($string = rtrim($server, '/') . $path, false, $context);
+		} catch (Exception $e) {
+			return NULL;
+		}
 	}
 
 	/**
