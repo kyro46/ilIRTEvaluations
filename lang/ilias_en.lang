@@ -44,7 +44,7 @@ tst_OpenCPUAlpha_table_id#:#ID
 
 //ilExteEvalOpenCPUDichotomous
 //table
-tst_OpenCPUDichotomous_title_long#:#IRT-Evaluations for tests with dichotomous Items
+tst_OpenCPUDichotomous_title_long#:#IRT-Evaluations for tests with dichotomous Items (Rasch, 1PL
 tst_OpenCPUDichotomous_title_short#:#Evalutation with the constrained and unconstrained Rasch-Model
 tst_OpenCPUDichotomous_description#:#Constrained Rasch-Model (Discrimination for all Items fixed at 1) and  unconstrained Rasch-Model(discrimination can differ from 1). Polytomous Items will be dichotomized, meaning answers are categorized in "correct" and "wrong" at 50% of the reachable points.
 tst_OpenCPUDichotomous_table_RaschDiff#:#Difficulty (constrained)
@@ -59,3 +59,11 @@ tst_OpenCPUPolytomousGRM_title_short#:#Evalutation with the Graded-Response-Mode
 tst_OpenCPUPolytomousGRM_description#:#GRM offers evaluation for items with partially correct answers. Each reached amount of points becomes an answercategory. Average difficulty is used to consolidate the categories in a single value (see <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>).
 tst_OpenCPUPolytomousGRM_table_Diff#:#Mean difficulty
 tst_OpenCPUPolytomousGRM_table_Disc#:#Discrimination
+
+//ilExteEvalOpenCPUPolytomousGPCM
+//table
+tst_OpenCPUPolytomousGPCM_title_long#:#IRT-Evaluations for tests with polytomous Items (GPCM)
+tst_OpenCPUPolytomousGPCM_title_short#:#Evalutation with the unconstrained Generalized-Partial-Credit-Model (GPCM)
+tst_OpenCPUPolytomousGPCM_description#:#GRM offers evaluation for items with partially correct answers. Each reached amount of points becomes an answercategory. Average difficulty is used to consolidate the categories in a single value (see <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>).
+tst_OpenCPUPolytomousGPCM_table_Diff#:#Mean difficulty
+tst_OpenCPUPolytomousGPCM_table_Disc#:#Discrimination

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Calculates Rasch/1PL-parameter (contrained/not constrained) via OpenCPU
- * ToDo Gives an evaluation of the model-fit
+ * Calculates Rasch-parameter (contrained/not constrained) via OpenCPU
+ * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 {

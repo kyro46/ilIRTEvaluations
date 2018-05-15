@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Calculates GRM-parameters via OpenCPU
+ * Calculates GPCM-parameters via OpenCPU
  * TODO Gives an evaluation of the model-fit
  */
-class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
+class ilExteEvalOpenCPUPolytomousGPCM extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -29,8 +29,8 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 	/**
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
-	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM';
-
+	protected $lang_prefix = 'tst_OpenCPUPolytomousGPCM';
+	
 	/**
 	 * Calculate and classify alpha per removed item
 	 *
@@ -43,52 +43,43 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$data = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $data['server'];
-
+		
 		$csv = ilExteEvalOpenCPU::getBasicData($this, FALSE, FALSE, TRUE); //TRUE -> repack data for calculations in package ltm
-	
+		
 		$path = "/ocpu/library/base/R/identity/json";
-		/*
-		$query_constrained["x"] = 	"library(ltm);" .
+
+		$query_gpcm["x"] = 	"library(ltm);" .
 				"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
-				"grm <- grm(data, constrained = TRUE); " . //constrained
-				"coef <- coef(grm);" .
-				"library(jsonlite);" .
-				"toJSON(coef)";
-		*/
-		$query_unconstrained["x"] = 	"library(ltm);" .
-				"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
-				"grm <- grm(data); " . //unconstrained
-				"coef <- coef(grm);" .
+				"gpcm <- gpcm(data); " . //unconstrained, options: rasch, 1PL, gpcm (default)
+				"coef <- coef(gpcm);" .
 				"library(jsonlite);" .
 				"toJSON(coef)";
 		
-		//$result_constrained = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_constrained);
-		$result_unconstrained = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_unconstrained);
-
-		//$serialized_constrained = json_decode(substr(stripslashes($result_constrained), 2, -3),TRUE);
-		$serialized_unconstrained = json_decode(substr(stripslashes($result_unconstrained), 2, -3),TRUE);
-
+		$result_gpcm = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_gpcm);
+		
+		$serialized_gpcm = json_decode(substr(stripslashes($result_gpcm), 2, -3),TRUE);
+		
 		//header
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPUAlpha_table_id'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPUAlpha_table_title'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('grm_difficulty_mean', $this->plugin->txt('tst_OpenCPUPolytomousGRM_table_Diff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('grm_disc', $this->plugin->txt('tst_OpenCPUPolytomousGRM_table_Disc'), ilExteStatColumn::SORT_NUMBER)
+				ilExteStatColumn::_create('grm_difficulty_mean', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Diff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('grm_disc', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Disc'), ilExteStatColumn::SORT_NUMBER)
 		);
 		
 		//pupulate rows
 		foreach ($this->data->getAllQuestions() as $question)
 		{
 			//Questions in response can be != questions in test due to removing questions with 0 variance!
-			if(!array_key_exists('X'. $question->question_id,$serialized_unconstrained)){
-				$serialized_unconstrained[X.$question->question_id] = array(0, 0);
+			if(!array_key_exists('X'. $question->question_id,$serialized_gpcm)){
+				$serialized_gpcm[X.$question->question_id] = array(0, 0);
 			}
 			
 			//calculate mean difficulty according to proposal 1 from [Usama, Chang, Anderson, 2015, DOI:10.1002/ets2.12065]
-			$disc = array_slice($serialized_unconstrained['X'.$question->question_id], -1);
-			$sum = array_sum($serialized_unconstrained['X'.$question->question_id]) - $disc[0];
-			$mean = $sum / (count($serialized_unconstrained['X'.$question->question_id])-1);
-
+			$disc = array_slice($serialized_gpcm['X'.$question->question_id], -1);
+			$sum = array_sum($serialized_gpcm['X'.$question->question_id]) - $disc[0];
+			$mean = $sum / (count($serialized_gpcm['X'.$question->question_id])-1);
+			
 			$details->rows[] = array(
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),

@@ -43,7 +43,7 @@ tst_OpenCPUAlpha_table_id#:#ID
 
 //ilExteEvalOpenCPUDichotomous
 //table
-tst_OpenCPUDichotomous_title_long#:#IRT-Auswertung für Tests mit dichotomen Items
+tst_OpenCPUDichotomous_title_long#:#IRT-Auswertung für Tests mit dichotomen Items (Rasch, 1PL)
 tst_OpenCPUDichotomous_title_short#:#Auswertung nach dem eingeschränkten und uneingeschränkten Rasch-Modell
 tst_OpenCPUDichotomous_description#:#Eingeschränktes Rasch-Modell (Trennschärfe aller Items wird als "1" festgesetzt) und uneingeschränktes Rasch-Modell (gemeinsame Trennschärfe kann von "1" abweichen). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
 tst_OpenCPUDichotomous_table_RaschDiff#:#Schwierigkeit (eingeschränkt)
@@ -58,3 +58,11 @@ tst_OpenCPUPolytomousGRM_title_short#:#Auswertung nach dem uneingeschränkten Gr
 tst_OpenCPUPolytomousGRM_description#:#Das GRM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Tests wird eine Antwortkategorie des Items. Diese werden mit der unter <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a> vorgeschlagenen Methode (Mittelwert) zu einem einheitlichen Schwierigkeitswert des Items zusammengefasst. 
 tst_OpenCPUPolytomousGRM_table_Diff#:#Mittlere Schwierigkeit
 tst_OpenCPUPolytomousGRM_table_Disc#:#Trennschärfe
+
+//ilExteEvalOpenCPUPolytomousGPCM
+//table
+tst_OpenCPUPolytomousGPCM_title_long#:#IRT-Auswertung für Tests mit polytomen Items (GPCM)
+tst_OpenCPUPolytomousGPCM_title_short#:#Auswertung nach dem uneingeschränkten Generalized-Partial-Credit-Model (GPCM)
+tst_OpenCPUPolytomousGPCM_description#:#Das GPCM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Tests wird eine Antwortkategorie des Items. Diese werden mit der unter <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a> vorgeschlagenen Methode (Mittelwert) zu einem einheitlichen Schwierigkeitswert des Items zusammengefasst. 
+tst_OpenCPUPolytomousGPCM_table_Diff#:#Mittlere Schwierigkeit
+tst_OpenCPUPolytomousGPCM_table_Disc#:#Trennschärfe
