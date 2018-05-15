@@ -4,7 +4,7 @@
  * Calculates Rasch/1PL-parameter (contrained/not constrained) via OpenCPU
  * ToDo Gives an evaluation of the model-fit
  */
-class ilExteEvalOpenCPUdichotomous extends ilExteEvalTest
+class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -29,7 +29,7 @@ class ilExteEvalOpenCPUdichotomous extends ilExteEvalTest
 	/**
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
-	protected $lang_prefix = 'tst_OpenCPUdichotomous';
+	protected $lang_prefix = 'tst_OpenCPUDichotomous';
 	
 	/**
 	 * Calculate and classify alpha per removed item

@@ -149,19 +149,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 					}
 				}	
 			}
-			
-			//count different points given to remove items with zero variance
-			$count = array();
-			$count[] = 0;	
-			foreach ($answers as $answer)
-			{			
-				if ($answer->answered && !in_array((float)$answer->reached_points, $count))
-				{
-					$count[] = (float)$answer->reached_points;
 
-				}
-			}
-			
 			/* rebaseData?
 			 * 1. Base for all points is 0
 			 * 2. Distance between points is 1
@@ -169,6 +157,16 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 			 */
 			if($rebaseData)
 			{
+				//count different points given to remove items with zero variance
+				$count = array();
+				$count[] = 0;
+				foreach ($answers as $answer)
+				{
+					if ($answer->answered && !in_array((float)$answer->reached_points, $count))
+					{
+						$count[] = (float)$answer->reached_points;
+					}
+				}
 				sort($count);				
 				$index = 0;
 				foreach ($answers as $key => $answer)
@@ -177,16 +175,14 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 						$answers[$key]->reached_points = array_search($answer->reached_points, $count);
 					}
 				}
-			}
-			
-			//only add items with variance			
-			if($rebaseData ){
+				
+				//only add items with variance
 				$variants = count($count);
 				if($variants > 1){
 					array_push($header_array, $question->question_id);
 					foreach ($answers as $answer)
 					{
-					$active_id_array[$answer->active_id][$question->question_id] = $answer->reached_points;
+						$active_id_array[$answer->active_id][$question->question_id] = $answer->reached_points;
 					}
 				}
 			} else {

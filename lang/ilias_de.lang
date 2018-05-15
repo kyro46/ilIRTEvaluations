@@ -41,12 +41,20 @@ tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz 
 tst_OpenCPUAlpha_table_title#:#Titel
 tst_OpenCPUAlpha_table_id#:#ID
 
-//ilExteEvalOpenCPUdichotomous
+//ilExteEvalOpenCPUDichotomous
 //table
-tst_OpenCPUdichotomous_title_long#:#IRT-Auswertung für Tests mit dichotomen Items
-tst_OpenCPUdichotomous_title_short#:#Auswertung nach dem Rasch-Modell und dem 1PL-Modell.
-tst_OpenCPUdichotomous_description#:#Rasch-Modell (Trennschärfe aller Items wird als "1" festgesetzt) und 1PL-Modell (gemeinsame Trennschärfe kann von "1" abweichen). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
-tst_OpenCPUdichotomous_table_RaschDiff#:#Schwierigkeit (Rasch)
-tst_OpenCPUdichotomous_table_RaschDisc#:#Trennschärfe (Rasch)
-tst_OpenCPUdichotomous_table_1PLDiff#:#Schwierigkeit (1PL)
-tst_OpenCPUdichotomous_table_1PLDisc#:#Trennschärfe (1PL)
+tst_OpenCPUDichotomous_title_long#:#IRT-Auswertung für Tests mit dichotomen Items
+tst_OpenCPUDichotomous_title_short#:#Auswertung nach dem eingeschränkten und uneingeschränkten Rasch-Modell
+tst_OpenCPUDichotomous_description#:#Eingeschränktes Rasch-Modell (Trennschärfe aller Items wird als "1" festgesetzt) und uneingeschränktes Rasch-Modell (gemeinsame Trennschärfe kann von "1" abweichen). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
+tst_OpenCPUDichotomous_table_RaschDiff#:#Schwierigkeit (eingeschränkt)
+tst_OpenCPUDichotomous_table_RaschDisc#:#Trennschärfe (eingeschränkt)
+tst_OpenCPUDichotomous_table_1PLDiff#:#Schwierigkeit (uneingeschränkt)
+tst_OpenCPUDichotomous_table_1PLDisc#:#Trennschärfe (uneingeschränkt)
+
+//ilExteEvalOpenCPUPolytomousGRM
+//table
+tst_OpenCPUPolytomousGRM_title_long#:#IRT-Auswertung für Tests mit polytomen Items (GRM)
+tst_OpenCPUPolytomousGRM_title_short#:#Auswertung nach dem uneingeschränkten Graded-Response-Model (GRM)
+tst_OpenCPUPolytomousGRM_description#:#Das GRM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Tests wird eine Antwortkategorie des Items. Diese werden mit der unter <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a> vorgeschlagenen Methode (Mittelwert) zu einem einheitlichen Schwierigkeitswert des Items zusammengefasst. 
+tst_OpenCPUPolytomousGRM_table_Diff#:#Mittlere Schwierigkeit
+tst_OpenCPUPolytomousGRM_table_Disc#:#Trennschärfe
