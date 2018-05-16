@@ -125,17 +125,21 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	}
 
 	/**
-	 * Transform the available data to a structure, readable for R
+	 * Transform the available data to a csv-structure, save the removed items and if the data was dichotomous 
 	 * @param	object  $object 		the calling class
 	 * @param	bool	$dichotomize	trigger dichotomizing of the reached points
 	 * @param	bool	$missingAsNA	leave missing answers as NA and don't code them as wrong (0 points)
 	 * @param	bool	$rebaseData		transform data required for ltm::grm and ltm::gpcm
-	 * @return 	string					the basic data for R/OpenCPU as CSV
+	 * @return 	array					[csv]			the basic data for R/OpenCPU as CSV
+	 * 									[removed]		the removed items as question_id
+	 * 									[dichotomous]	if the test was dichotomous after reworking the data
 	 */
-	public function getBasicData($object, $dichotomize = FALSE, $missingAsNA = FALSE, $rebaseData = FALSE) {
+	public function getBasicData($object, $dichotomize = FALSE, $missingAsNA = FALSE, $rebaseData = TRUE) {
 		
 		$header_array = array();
 		$active_id_array = array();
+		$removed_id_array = array();
+		$all_variants_array = array();
 		
 		foreach ($object->data->getAllQuestions() as $question)
 		{
@@ -182,12 +186,16 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 				
 				//only add items with variance
 				$variants = count($count);
+				array_push($all_variants_array, count($count));
+				
 				if($variants > 1){
 					array_push($header_array, $question->question_id);
 					foreach ($answers as $answer)
 					{
 						$active_id_array[$answer->active_id][$question->question_id] = $answer->reached_points;
 					}
+				} else {
+					array_push($removed_id_array, $question->question_id);
 				}
 			} else {
 				array_push($header_array, $question->question_id);
@@ -222,7 +230,18 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		$csv = trim($csv, "\n ");
 		//error_log($csv, 3, "Customizing/csv.log");
 		//error_log(json_encode($array), 3, "Customizing/json.log");
-		return $csv;
+		
+		$dichotomous = FALSE;
+		if (count(array_unique($all_variants_array)) === 1) {
+			$dichotomous = TRUE;
+		}
+
+		/* adding information to the result: removed questions and if data is (now) dichotomous
+		 * important for polytomous evaluations because ltm then returns a dataset without question_id
+		 * and we have to handle the different datastructure
+		 */ 
+		$data = array('csv' => $csv, 'removed' => $removed_id_array, 'dichotomous' => $dichotomous);
+		return $data;
 	}
 
 	/**
