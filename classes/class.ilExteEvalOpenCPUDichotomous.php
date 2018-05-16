@@ -41,21 +41,21 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 		$details = new ilExteStatDetails();
 		
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$data = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
-		$server = $data['server'];
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$server = $config['server'];
 		
-		$csv = ilExteEvalOpenCPU::getBasicData($this, TRUE); //TRUE -> dichotomize at 50% of reachable points
+		$data = ilExteEvalOpenCPU::getBasicData($this, TRUE); //TRUE -> dichotomize at 50% of reachable points
 
 		$path = "/ocpu/library/base/R/identity/json";
 		$query_constrained["x"] = 	"library(ltm);" .
-				"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
+				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 				"rasch <- rasch(data, constraint = cbind(length(data)+1,1)); " . //constrained
 				"coef <- coef(rasch);" .
 				"library(jsonlite);" .
 				"toJSON(coef)";
 		
 		$query_unconstrained["x"] = 	"library(ltm);" .
-				"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
+				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 				"rasch <- rasch(data); " . //unconstrained
 				"coef <- coef(rasch);" .
 				"library(jsonlite);" .

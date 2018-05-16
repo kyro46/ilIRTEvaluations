@@ -87,14 +87,14 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 		}
 		
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$data = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
-		$server = $data['server'];
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$server = $config['server'];
 
-		$csv = ilExteEvalOpenCPU::getBasicData($this);
+		$data = ilExteEvalOpenCPU::getBasicData($this,FALSE, FALSE, FALSE);
 		
 		$path = "/ocpu/library/base/R/identity/json";
 		$query["x"] = 	"library(ltm);" .
-						"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
+						"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 						"result <- cronbach.alpha(data, na.rm = TRUE);" .
 						"library(jsonlite);" . 
 						"toJSON(result[1])";
@@ -146,14 +146,14 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 		$details = new ilExteStatDetails();
 		
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$data = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
-		$server = $data['server'];
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$server = $config['server'];
 		
-		$csv = ilExteEvalOpenCPU::getBasicData($this);
+		$data = ilExteEvalOpenCPU::getBasicData($this,FALSE, FALSE, FALSE);
 		
 		$path = "/ocpu/library/base/R/identity/json";
 		$query["x"] = 	"library(ltm);" . 
-						"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" . 
+						"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . 
 						"result <- descript(data); " .
 						"library(jsonlite); toJSON(result\$alpha)";
 		
