@@ -113,12 +113,11 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 		$plots = ilExteEvalOpenCPU::retrievePlots($server, $result_plot);
 		
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
-		//TODO use template blocks
-		$temp = '';
 		foreach ($plots as $plot) {
-			$temp .= "<img src='data:image/png;base64,{$plot}'>";
+			$template->setCurrentBlock("plot");
+			$template->setVariable('PLOT', $plot);
+			$template->parseCurrentBlock();
 		}
-		$template->setVariable('PLOT', $temp);
 		$details->customHTML = $template->get();
 		
 		return $details;
