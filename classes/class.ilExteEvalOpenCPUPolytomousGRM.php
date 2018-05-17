@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Calculates GRM-parameters via OpenCPU
+ * Calculates unconstrained GRM-parameters via OpenCPU
+ * TODO Prettier Plots (e.g. accordion)
+ * TODO restructure to insert a NA-row of type text instead of 0
  * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
@@ -15,7 +17,12 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 	 * @var bool	evaluation provides data for a details screen
 	 */
 	protected $provides_details = true;
-	
+
+	/**
+	 * @var bool    evaluation provides custom HTML
+	 */
+	protected $provides_HTML = true;
+
 	/**
 	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
@@ -47,14 +54,7 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 		$data = ilExteEvalOpenCPU::getBasicData($this);
 	
 		$path = "/ocpu/library/base/R/identity/json";
-		/*
-		$query_constrained["x"] = 	"library(ltm);" .
-				"data <- read.csv(text='{$csv}', row.names = 1, header= TRUE);" .
-				"grm <- grm(data, constrained = TRUE); " . //constrained
-				"coef <- coef(grm);" .
-				"library(jsonlite);" .
-				"toJSON(coef)";
-		*/
+
 		$query_unconstrained["x"] = 	"library(ltm);" .
 				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 				"grm <- grm(data); " . //unconstrained
@@ -62,10 +62,7 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 				"library(jsonlite);" .
 				"toJSON(coef)";
 		
-		//$result_constrained = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_constrained);
 		$result_unconstrained = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_unconstrained);
-
-		//$serialized_constrained = json_decode(substr(stripslashes($result_constrained), 2, -3),TRUE);
 		$result_unconstrained == NULL ? $serialized_unconstrained = array() : $serialized_unconstrained = json_decode(substr(stripslashes($result_unconstrained), 2, -3),TRUE);
 
 		//header
@@ -107,6 +104,30 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 					'grm_disc' => ilExteStatValue::_create($disc[0], ilExteStatValue::TYPE_NUMBER, 3)
 			);
 		}
+		
+		//create and display plots
+		//TODO integrate to single call with the data for the table
+		$path = "/ocpu/library/base/R/identity";
+		$query_plot["x"] = 'library(ltm);' .
+				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
+				'fit <- grm(data);' .
+				'op <- par(mfrow = c(2, 2));' .
+				'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
+				'plot(fit, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
+				'plot(fit, type = "IIC", items = 0, lwd = 2);';
+		
+		$result_plot = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_plot);
+		$plots = ilExteEvalOpenCPU::retrievePlots($server, $result_plot);
+		
+		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
+		//TODO use template blocks
+		$temp = '';
+		foreach ($plots as $plot) {
+			$temp .= "<img src='data:image/png;base64,{$plot}'>";
+		}
+		$template->setVariable('PLOT', $temp);
+		$details->customHTML = $template->get();
+		
 		return $details;
 	}
 }

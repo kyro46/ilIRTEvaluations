@@ -47,6 +47,30 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	}
 
 	/**
+	 * Collects the images, created in an OpenCPU-session
+	 * R-SVGs use deprecated glyphs for labels which lead to render errors in browsers.
+	 * Use returned array as $src = '<img src="data:image/png;base64,'. $plots[$i] . '">';
+	 * @param	string $server
+	 * @param	string $path
+	 * @param	string $data		A list of OpenCPU-session outputs
+	 * @return 	array				An array containing the plots as base64-encoded png's
+	 */
+	public static function retrievePlots($server, $data) {
+		$plots = array();
+		$response_path = explode("\n", $data);
+
+		$needle = 'graphics';
+		$matches = array();
+		foreach($response_path as $path) {
+			if(preg_match("/\b$needle\b/i", $path)) {
+				//$plots[] = file_get_contents($server . $path .'/svg');
+				$plots[] = base64_encode(file_get_contents($server . $path .'/png'));
+			}
+		}
+		return $plots;
+	}
+	
+	/**
 	 * Create a request for OpenCPU
 	 * @param	string $server
 	 * @param	string $path
@@ -251,15 +275,15 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	 */
 	public function calculateDetails()
 	{
-		$csv = ilExteEvalOpenCPU::getBasicData($this);
+		$data = ilExteEvalOpenCPU::getBasicData($this);
 
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		$template->setVariable('SERVER', $this->getParam('server'));
 		$template->setVariable('CALLR_DESC', $this->plugin->txt('tst_OpenCPU_callR_desc'));
 		$template->setVariable('CALLR', $this->plugin->txt('tst_OpenCPU_callR'));
 
-		$data = array_map("str_getcsv", explode("\n", $csv));
-		$json = json_encode($data);
+		$result_array = array_map("str_getcsv", explode("\n", $data['csv']));
+		$json = json_encode($result_array);
 		$template->setVariable('JSON', substr_replace($json, 0, 3, 0));		
 		
 		$details = new ilExteStatDetails();

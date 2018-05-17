@@ -2,6 +2,7 @@
 
 /**
  * Calculates Rasch-parameter (contrained/not constrained) via OpenCPU
+ * TODO Prettier Plots (e.g. accordion)
  * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
@@ -15,6 +16,11 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 	 * @var bool	evaluation provides data for a details screen
 	 */
 	protected $provides_details = true;
+	
+	/**
+	 * @var bool    evaluation provides custom HTML
+	 */
+	protected $provides_HTML = true;
 	
 	/**
 	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
@@ -91,6 +97,29 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 			);
 			$i++;
 		}
+		
+		//create and display plots
+		//TODO integrate to single call with the data for the table
+		$path = "/ocpu/library/base/R/identity";
+		$query_plot["x"] = 'library(ltm);' .
+				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
+				'fit <- rasch(data);' .
+				'op <- par(mfrow = c(2, 2));' .
+				'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
+				'plot(fit, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
+				'plot(fit, type = "IIC", items = 0, lwd = 2);';
+		
+		$result_plot = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_plot);
+		$plots = ilExteEvalOpenCPU::retrievePlots($server, $result_plot);
+		
+		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
+		//TODO use template blocks
+		$temp = '';
+		foreach ($plots as $plot) {
+			$temp .= "<img src='data:image/png;base64,{$plot}'>";
+		}
+		$template->setVariable('PLOT', $temp);
+		$details->customHTML = $template->get();
 		
 		return $details;
 	}
