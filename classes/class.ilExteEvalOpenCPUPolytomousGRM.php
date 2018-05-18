@@ -122,7 +122,7 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		foreach ($plots as $plot) {
 			$template->setCurrentBlock("plot");
-			$template->setVariable('PLOT', $plot);
+			$template->setVariable('PLOT', "<img src='data:image/png;base64," . $plot . "'>");
 			$template->parseCurrentBlock();
 		}
 		$details->customHTML = $template->get();
