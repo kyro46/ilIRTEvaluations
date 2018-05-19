@@ -1,6 +1,13 @@
 // German Language File
 <!-- language file start -->
 
+//general
+tst_OpenCPU_table_title#:#Titel
+tst_OpenCPU_table_id#:#ID
+tst_OpenCPUI_graph_IRCCC#:#Itemcharakteristikkurven (ICC)
+tst_OpenCPU_graph_IIC#:#Iteminformationskurve (IIC)
+tst_OpenCPU_graph_TIC#:#Testinformationskurve (TIC)
+
 //ilExteEvalOpenCPU
 //config
 tst_OpenCPU_server_title#:#URL von OpenCPU
@@ -37,9 +44,7 @@ tst_OpenCPUAlpha_title_short#:#Interne Konsistenz pro Item
 tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet nach Entfernung fehlender Antworten via OpenCPU und dem R-Paket "Latent Trait Models under IRT" (ltm).
 tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha ohne das Item
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Differenz
-tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert
-tst_OpenCPUAlpha_table_title#:#Titel
-tst_OpenCPUAlpha_table_id#:#ID
+tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert.
 
 //ilExteEvalOpenCPUDichotomous
 //table

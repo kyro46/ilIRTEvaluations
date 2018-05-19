@@ -162,8 +162,8 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 
 		//header
 		$details->columns = array (
-				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPUAlpha_table_id'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPUAlpha_table_title'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('alpha_if_removed', $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('alpha_if_removed_difference', $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference'),
 						ilExteStatColumn::SORT_NUMBER,  $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment'))	

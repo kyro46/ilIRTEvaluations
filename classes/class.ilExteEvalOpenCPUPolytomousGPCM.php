@@ -68,8 +68,8 @@ class ilExteEvalOpenCPUPolytomousGPCM extends ilExteEvalTest
 		
 		//header
 		$details->columns = array (
-				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPUAlpha_table_id'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPUAlpha_table_title'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('gpcm_difficulty_mean', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Diff'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('gpcm_disc', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Disc'), ilExteStatColumn::SORT_NUMBER)
 		);
@@ -120,12 +120,30 @@ class ilExteEvalOpenCPUPolytomousGPCM extends ilExteEvalTest
 		$result_plot = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_plot);
 		$plots = ilExteEvalOpenCPU::retrievePlots($server, $result_plot);
 		
-		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
-		foreach ($plots as $plot) {
-			$template->setCurrentBlock("plot");
-			$template->setVariable('PLOT', "<img src='data:image/png;base64," . $plot . "'>");
-			$template->parseCurrentBlock();
+		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
+		
+		//show TIC first, it's the last element of $plots
+		$template->setCurrentBlock("accordion_plot");
+		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_graph_TIC'));
+		$template->setVariable('PLOT', "<img src='data:image/png;base64," . end($plots) . "'>");
+		$template->parseCurrentBlock("accordion_plot");
+		
+		//show IIC, it's the second last element of $plots
+		$template->setCurrentBlock("accordion_plot");
+		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_graph_IIC'));
+		$template->setVariable('PLOT', "<img src='data:image/png;base64," . prev($plots) . "'>");
+		$template->parseCurrentBlock("accordion_plot");
+		
+		//show all IRCCC in a single accordion section
+		$template->setCurrentBlock("accordion_plot");
+		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUI_graph_IRCCC'));
+		$plot = '';
+		for ($i = 0; $i < count($plots)-2; $i++) {
+			$plot .= "<img src='data:image/png;base64," . $plots[$i] . "'>";
 		}
+		$template->setVariable('PLOT', $plot);
+		$template->parseCurrentBlock("plot");
+		
 		$details->customHTML = $template->get();
 		
 		return $details;

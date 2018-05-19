@@ -1,6 +1,53 @@
-<!-- BEGIN plot -->
-<div>
-	{PLOT}
-	<br/>
+<link rel="stylesheet" type="text/css"	href="./Services/Accordion/css/accordion.css" media="screen">
+<link rel="stylesheet" type="text/css"	href="./Services/Accordion/lib/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"	media="screen">
+<script type="text/javascript"	src="./Services/Accordion/js/accordion.js"></script>
+<script type="text/javascript"	src="./Services/Accordion/lib/owl.carousel.2.0.0-beta.2.4/owl.carousel.js"></script>
+<div id="accordion__1" class="il_VAccordionContainer">
+<!-- BEGIN accordion_plot -->
+	<div class="il_VAccordionInnerContainer">
+		<div class="il_VAccordionToggleDef">
+			<div class="il_VAccordionHead" style="">
+				<div style="padding: 3px;">
+					<div class="small">
+						<h3 class="ilBlockHeader" style="font-weight: normal;">
+							{TITLE}
+						</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="il_VAccordionContentDef ilAccHideContent" style="height: 0px;">
+			<div class="il_VAccordionContent" style="">
+				<form id="form_" role="form" class="form-horizontal preventDoubleSubmission" target="_top">
+					<div class="form-horizontal">
+						<div class="form-group" id="il_prop_cont_title">
+							<label for="title" class="col-sm-3 control-label">
+								{PLOT} 
+							</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<!-- END accordion_plot -->
 </div>
-<!-- END plot -->
+<script type="text/javascript">
+	$(function() {
+		il.Accordion.add({
+			"orientation" : "vertical",
+			"int_id" : null,
+			"behaviour" : "AllClosed",
+			"toggle_class" : "il_VAccordionToggleDef",
+			"toggle_act_class" : "il_VAccordionToggleActiveDef",
+			"content_class" : "il_VAccordionContentDef",
+			"width" : null,
+			"active_head_class" : "il_HAccordionHeadActive",
+			"height" : null,
+			"id" : "accordion__1",
+			"multi" : true,
+			"show_all_element" : null,
+			"hide_all_element" : null
+		});
+	});
+</script>
