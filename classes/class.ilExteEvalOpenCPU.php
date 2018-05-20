@@ -42,32 +42,74 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	public function getAvailableParams()
 	{
 		return array(
-				ilExteStatParam::_create('server', ilExteStatParam::TYPE_STRING, 'http://[OpenCPU-Server]'),
+				ilExteStatParam::_create('server', ilExteStatParam::TYPE_STRING, 'https://cloud.opencpu.org'),
 		);
 	}
 
 	/**
-	 * Collects the images, created in an OpenCPU-session
-	 * R-SVGs use deprecated glyphs for labels which lead to render errors in browsers.
-	 * Use returned array as $src = '<img src="data:image/png;base64,'. $plots[$i] . '">';
+	 * Collects data from an OpenCPU-session as array of json strings and plots as base64 string
 	 * @param	string $server
-	 * @param	string $path
 	 * @param	string $data		A list of OpenCPU-session outputs
-	 * @return 	array				An array containing the plots as base64-encoded png's
+	 * @param	array  $needles		An array of strings to be loaded from the session
+	 * @return 	array				An array containing the data
 	 */
-	public static function retrievePlots($server, $data) {
-		$plots = array();
+	public static function retrieveData($server, $data, $needles) {
+		$results = array();
 		$response_path = explode("\n", $data);
 
-		$needle = 'graphics';
-		$matches = array();
-		foreach($response_path as $path) {
-			if(preg_match("/\b$needle\b/i", $path)) {
-				//$plots[] = file_get_contents($server . $path .'/svg');
-				$plots[] = base64_encode(file_get_contents($server . $path .'/png'));
+		foreach($needles as $needle) {
+			if ($needle == 'graphics') {
+				foreach($response_path as $path) {
+					if(preg_match("/\b$needle\b/i", $path)) {
+						//$results[$needle][] = file_get_contents($server . $path .'/svg');
+						$results[$needle][] = base64_encode(file_get_contents($server . $path .'/png'));
+					}
+				}
+			} else {
+				foreach($response_path as $path) {
+					if(preg_match("/{$needle}$/", $path)) {
+						$results[$needle] = file_get_contents($server . $path .'/json');
+					}
+				}
 			}
+			
 		}
-		return $plots;
+		return $results;
+	}
+	
+	/**
+	 * Create customHTML with an accordion containing the plots from R for all IRT-Evaluations
+	 * @param	object $object	The calling object, to get the language variables in this static context
+	 * @param	array  $plots	An array containing the plots as base64 
+	 * @return 	string			The customHTML with the plots in an accordion
+	 * @see  	ilExteEvalOpenCPU::retrievePlots()
+	 */
+	public static function getIRTPlotAccordionHTML($object, $plots){
+		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
+		
+		//show TIC first, it's the last element of $plots
+		$template->setCurrentBlock("accordion_plot");
+		$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPU_graph_TIC'));
+		$template->setVariable('PLOT', "<img src='data:image/png;base64," . end($plots) . "'>");
+		$template->parseCurrentBlock("accordion_plot");
+		
+		//show IIC, it's the second last element of $plots
+		$template->setCurrentBlock("accordion_plot");
+		$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPU_graph_IIC'));
+		$template->setVariable('PLOT', "<img src='data:image/png;base64," . prev($plots) . "'>");
+		$template->parseCurrentBlock("accordion_plot");
+		
+		//show all IRCCC in a single accordion section
+		$template->setCurrentBlock("accordion_plot");
+		$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPUI_graph_IRCCC'));
+		$plot = '';
+		for ($i = 0; $i < count($plots)-2; $i++) {  //-2 because of TIC and IIC
+			$plot .= "<img src='data:image/png;base64," . $plots[$i] . "'>";
+		}
+		$template->setVariable('PLOT', $plot);
+		$template->parseCurrentBlock("plot");
+		
+		return $template->get();
 	}
 	
 	/**

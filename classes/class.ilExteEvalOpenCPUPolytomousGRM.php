@@ -2,7 +2,6 @@
 
 /**
  * Calculates unconstrained GRM-parameters via OpenCPU
- * TODO Prettier Plots (e.g. accordion)
  * TODO restructure to insert a NA-row of type text instead of 0
  * TODO Gives an evaluation of the model-fit
  */
@@ -52,19 +51,36 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 		$server = $config['server'];
 
 		$data = ilExteEvalOpenCPU::getBasicData($this);
-	
-		$path = "/ocpu/library/base/R/identity/json";
-
-		$query_unconstrained["x"] = 	"library(ltm);" .
-				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-				"grm <- grm(data); " . //unconstrained
-				"coef <- coef(grm);" .
-				"library(jsonlite);" .
-				"toJSON(coef)";
+		$path = "/ocpu/library/base/R/identity";
 		
-		$result_unconstrained = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_unconstrained);
-		$result_unconstrained == NULL ? $serialized_unconstrained = array() : $serialized_unconstrained = json_decode(substr(stripslashes($result_unconstrained), 2, -3),TRUE);
-
+		$query["x"] =
+			"library(ltm);" .
+			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
+			"fit <- grm(data); " . //unconstrained, options: rasch, 1PL, gpcm (default)
+			"coef <- coef(fit);" .
+			'op <- par(mfrow = c(2, 2));' .
+			'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
+			'plot(fit, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
+			'plot(fit, type = "IIC", items = 0, lwd = 2);';
+		
+		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
+		
+		if ($session == NULL) {
+			//TODO error report in case OpenCPU did not respond
+			$details->customHTML = $this->plugin->txt('tst_OpenCPU_unreachable');
+			return $details;
+		}
+		
+		//prepare results
+		$needles = array('coef','graphics');
+		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
+		$serialized = json_decode(stripslashes($results['coef']),TRUE);
+		$plots = $results['graphics'];
+		
+		//prepare and create output of plots
+		$customHTML = ilExteEvalOpenCPU::getIRTPlotAccordionHTML($this, $plots);
+		$details->customHTML = $customHTML;
+		
 		//header
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
@@ -73,27 +89,27 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 				ilExteStatColumn::_create('grm_disc', $this->plugin->txt('tst_OpenCPUPolytomousGRM_table_Disc'), ilExteStatColumn::SORT_NUMBER)
 		);
 
-		//pupulate rows
+		//rows
 		$i = 0;
 		foreach ($this->data->getAllQuestions() as $question)
 		{
 			if(!$data['dichotomous']) {
 				//Questions in response can be != questions in test due to removing questions with 0 variance!
-				if(!array_key_exists('X'. $question->question_id,$serialized_unconstrained)){
-					$serialized_unconstrained[X.$question->question_id] = array(0, 0);
+				if(!array_key_exists('X'. $question->question_id,$serialized)){
+					$serialized[X.$question->question_id] = array(0, 0);
 				}
 				
 				//calculate mean difficulty according to proposal 1 from [Usama, Chang, Anderson, 2015, DOI:10.1002/ets2.12065]
-				$disc = array_slice($serialized_unconstrained['X'.$question->question_id], -1);
-				$sum = array_sum($serialized_unconstrained['X'.$question->question_id]) - $disc[0];
-				$mean = $sum / (count($serialized_unconstrained['X'.$question->question_id])-1);
+				$disc = array_slice($serialized['X'.$question->question_id], -1);
+				$sum = array_sum($serialized['X'.$question->question_id]) - $disc[0];
+				$mean = $sum / (count($serialized['X'.$question->question_id])-1);
 			} else {
 				if(in_array($question->question_id,$data['removed'])){
 					$disc[0] = 0;
 					$mean = 0;
 				} else {
-					$disc[0] = $serialized_unconstrained[$i][1];
-					$mean = $serialized_unconstrained[$i][0];
+					$disc[0] = $serialized[$i][1];
+					$mean = $serialized[$i][0];
 				}
 				$i++;
 			}
@@ -104,47 +120,7 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 					'grm_disc' => ilExteStatValue::_create($disc[0], ilExteStatValue::TYPE_NUMBER, 3)
 			);
 		}
-		
-		//create and display plots
-		//TODO integrate to single call with the data for the table
-		$path = "/ocpu/library/base/R/identity";
-		$query_plot["x"] = 'library(ltm);' .
-				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-				'fit <- grm(data);' .
-				'op <- par(mfrow = c(2, 2));' .
-				'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
-				'plot(fit, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
-				'plot(fit, type = "IIC", items = 0, lwd = 2);';
-		
-		$result_plot = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_plot);
-		$plots = ilExteEvalOpenCPU::retrievePlots($server, $result_plot);
-		
-		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
-		
-		//show TIC first, it's the last element of $plots
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_graph_TIC'));
-		$template->setVariable('PLOT', "<img src='data:image/png;base64," . end($plots) . "'>");
-		$template->parseCurrentBlock("accordion_plot");
-		
-		//show IIC, it's the second last element of $plots
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_graph_IIC'));
-		$template->setVariable('PLOT', "<img src='data:image/png;base64," . prev($plots) . "'>");
-		$template->parseCurrentBlock("accordion_plot");
-		
-		//show all IRCCC in a single accordion section
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUI_graph_IRCCC'));
-		$plot = '';
-		for ($i = 0; $i < count($plots)-2; $i++) {
-			$plot .= "<img src='data:image/png;base64," . $plots[$i] . "'>";
-		}
-		$template->setVariable('PLOT', $plot);
-		$template->parseCurrentBlock("plot");
-		
-		$details->customHTML = $template->get();
-		
+
 		return $details;
 	}
 }

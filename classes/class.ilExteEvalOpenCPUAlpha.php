@@ -14,6 +14,11 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 	 * @var bool	evaluation provides data for a details screen
 	 */
 	protected $provides_details = true;
+
+	/**
+	 * @var bool    evaluation provides custom HTML
+	 */
+	protected $provides_HTML = true;
 	
 	/**
 	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
@@ -158,6 +163,14 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 						"library(jsonlite); toJSON(result\$alpha)";
 		
 		$result = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
+		
+		
+		if ($result == NULL) {
+			//TODO error report in case OpenCPU did not respond
+			$details->customHTML = $this->plugin->txt('tst_OpenCPU_unreachable');
+			return $details;
+		}
+		
 		$serialized = json_decode(substr(stripslashes($result), 2, -3),TRUE);
 
 		//header

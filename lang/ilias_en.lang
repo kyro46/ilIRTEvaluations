@@ -7,6 +7,7 @@ tst_OpenCPU_table_id#:#ID
 tst_OpenCPUI_graph_IRCCC#:#Item Response Category Characteristic Curves
 tst_OpenCPU_graph_IIC#:#Item Information Curves
 tst_OpenCPU_graph_TIC#:#Test Information Curve
+tst_OpenCPU_unreachable#:#The OpenCPU server is unreachable.
 
 //ilExteEvalOpenCPU
 //config
@@ -52,7 +53,7 @@ tst_OpenCPUAlpha_table_id#:#ID
 //table
 tst_OpenCPUDichotomous_title_long#:#IRT-Evaluations for tests with dichotomous Items (Rasch, 1PL)
 tst_OpenCPUDichotomous_title_short#:#Dichotomous IRT (Rasch, 1PL)
-tst_OpenCPUDichotomous_description#:#Constrained Rasch-Model (Discrimination for all Items fixed at 1) and  unconstrained Rasch-Model(discrimination can differ from 1). Polytomous Items will be dichotomized, meaning answers are categorized in "correct" and "wrong" at 50% of the reachable points.
+tst_OpenCPUDichotomous_description#:#Constrained Rasch-Model (Discrimination for all Items fixed at 1) and  unconstrained Rasch-Model(discrimination can differ from 1). Polytomous Items will be dichotomized, meaning answers are categorized in "correct" and "wrong" at 50% of the reachable points. The graphics refer to the unconstrained evaluation.
 tst_OpenCPUDichotomous_table_RaschDiff#:#Difficulty (constrained)
 tst_OpenCPUDichotomous_table_RaschDisc#:#Discrimination (constrained)
 tst_OpenCPUDichotomous_table_1PLDiff#:#Difficulty (unconstrained)

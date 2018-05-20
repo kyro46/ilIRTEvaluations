@@ -2,7 +2,8 @@
 
 /**
  * Calculates Rasch-parameter (contrained/not constrained) via OpenCPU
- * TODO Prettier Plots (e.g. accordion)
+ * TODO Handle questions removed due to zero variance
+ * TODO Restructure to insert a NA-row of type text instead of 0
  * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
@@ -51,27 +52,38 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 		$server = $config['server'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this, TRUE); //TRUE -> dichotomize at 50% of reachable points
-
-		$path = "/ocpu/library/base/R/identity/json";
-		$query_constrained["x"] = 	"library(ltm);" .
-				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-				"rasch <- rasch(data, constraint = cbind(length(data)+1,1)); " . //constrained
-				"coef <- coef(rasch);" .
-				"library(jsonlite);" .
-				"toJSON(coef)";
+		$path = "/ocpu/library/base/R/identity";
 		
-		$query_unconstrained["x"] = 	"library(ltm);" .
-				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-				"rasch <- rasch(data); " . //unconstrained
-				"coef <- coef(rasch);" .
-				"library(jsonlite);" .
-				"toJSON(coef)";
+		$query["x"] =
+			"library(ltm);" .
+			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
+			"fit_constrained <- rasch(data, constraint = cbind(length(data)+1,1)); " . 	//constrained
+			"fit_unconstrained <- rasch(data); " . 										//unconstrained
+			"coef_constrained <- coef(fit_constrained);" .
+			"coef_unconstrained <- coef(fit_unconstrained);" .
+			'op <- par(mfrow = c(2, 2));' .
+			'plot(fit_unconstrained, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
+			'plot(fit_unconstrained, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
+			'plot(fit_unconstrained, type = "IIC", items = 0, lwd = 2);';
 		
-		$result_constrained = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_constrained);
-		$result_unconstrained = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_unconstrained);
+		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
-		$serialized_constrained = json_decode(substr(stripslashes($result_constrained), 2, -3),TRUE);
-		$serialized_unconstrained = json_decode(substr(stripslashes($result_unconstrained), 2, -3),TRUE);
+		if ($session == NULL) {
+			//TODO error report in case OpenCPU did not respond
+			$details->customHTML = $this->plugin->txt('tst_OpenCPU_unreachable');
+			return $details;
+		}
+		
+		//prepare results
+		$needles = array('coef_constrained','coef_unconstrained','graphics');
+		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
+		$serialized_constrained = json_decode(stripslashes($results['coef_constrained']),TRUE);
+		$serialized_unconstrained = json_decode(stripslashes($results['coef_unconstrained']),TRUE);
+		$plots = $results['graphics'];
+		
+		//prepare and create output of plots
+		$customHTML = ilExteEvalOpenCPU::getIRTPlotAccordionHTML($this, $plots);
+		$details->customHTML = $customHTML;
 		
 		//header
 		$details->columns = array (
@@ -83,7 +95,7 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 				ilExteStatColumn::_create('1PL_disc', $this->plugin->txt('tst_OpenCPUdichotomous_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER)
 		);
 		
-		//pupulate rows
+		//rows
 		$i = 0;
 		foreach ($this->data->getAllQuestions() as $question)
 		{
@@ -97,46 +109,6 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 			);
 			$i++;
 		}
-		
-		//create and display plots
-		//TODO integrate to single call with the data for the table
-		$path = "/ocpu/library/base/R/identity";
-		$query_plot["x"] = 'library(ltm);' .
-				"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-				'fit <- rasch(data);' .
-				'op <- par(mfrow = c(2, 2));' .
-				'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
-				'plot(fit, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
-				'plot(fit, type = "IIC", items = 0, lwd = 2);';
-		
-		$result_plot = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query_plot);
-		$plots = ilExteEvalOpenCPU::retrievePlots($server, $result_plot);
-		
-		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
-		
-		//show TIC first, it's the last element of $plots
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_graph_TIC'));
-		$template->setVariable('PLOT', "<img src='data:image/png;base64," . end($plots) . "'>");
-		$template->parseCurrentBlock("accordion_plot");
-		
-		//show IIC, it's the second last element of $plots
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_graph_IIC'));
-		$template->setVariable('PLOT', "<img src='data:image/png;base64," . prev($plots) . "'>");
-		$template->parseCurrentBlock("accordion_plot");
-
-		//show all IRCCC in a single accordion section
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUI_graph_IRCCC'));
-		$plot = '';
-		for ($i = 0; $i < count($plots)-2; $i++) {
-			$plot .= "<img src='data:image/png;base64," . $plots[$i] . "'>";
-		}
-		$template->setVariable('PLOT', $plot);
-		$template->parseCurrentBlock("plot");
-		
-		$details->customHTML = $template->get();
 		
 		return $details;
 	}

@@ -7,6 +7,7 @@ tst_OpenCPU_table_id#:#ID
 tst_OpenCPUI_graph_IRCCC#:#Itemcharakteristikkurven (ICC)
 tst_OpenCPU_graph_IIC#:#Iteminformationskurve (IIC)
 tst_OpenCPU_graph_TIC#:#Testinformationskurve (TIC)
+tst_OpenCPU_unreachable#:#Der OpenCPU-Server ist nicht erreichbar
 
 //ilExteEvalOpenCPU
 //config
@@ -50,7 +51,7 @@ tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz 
 //table
 tst_OpenCPUDichotomous_title_long#:#IRT-Auswertung für Tests mit dichotomen Items (Rasch, 1PL)
 tst_OpenCPUDichotomous_title_short#:#Auswertung nach dem eingeschränkten und uneingeschränkten Rasch-Modell
-tst_OpenCPUDichotomous_description#:#Eingeschränktes Rasch-Modell (Trennschärfe aller Items wird als "1" festgesetzt) und uneingeschränktes Rasch-Modell (gemeinsame Trennschärfe kann von "1" abweichen). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
+tst_OpenCPUDichotomous_description#:#Eingeschränktes Rasch-Modell (Trennschärfe aller Items wird als "1" festgesetzt) und uneingeschränktes Rasch-Modell (gemeinsame Trennschärfe kann von "1" abweichen). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt. Die Grafiken beziehen sich auf das uneingeschränkte Modell.
 tst_OpenCPUDichotomous_table_RaschDiff#:#Schwierigkeit (eingeschränkt)
 tst_OpenCPUDichotomous_table_RaschDisc#:#Trennschärfe (eingeschränkt)
 tst_OpenCPUDichotomous_table_1PLDiff#:#Schwierigkeit (uneingeschränkt)
