@@ -60,7 +60,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		foreach($needles as $needle) {
 			if ($needle == 'graphics') {
 				foreach($response_path as $path) {
-					if(preg_match("/\b$needle\b/i", $path)) {
+					if(preg_match("/\b{$needle}\b/i", $path)) {
 						//$results[$needle][] = file_get_contents($server . $path .'/svg');
 						$results[$needle][] = base64_encode(file_get_contents($server . $path .'/png'));
 					}
@@ -84,7 +84,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	 * @return 	string			The customHTML with the plots in an accordion
 	 * @see  	ilExteEvalOpenCPU::retrievePlots()
 	 */
-	public static function getIRTPlotAccordionHTML($object, $plots){
+	public static function getPlotAccordionHTML($object, $plots){
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		
 		//show TIC first, it's the last element of $plots
@@ -131,7 +131,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		try {
 			return file_get_contents($string = rtrim($server, '/') . $path, false, $context);
 		} catch (Exception $e) {
-			return NULL;
+			return FALSE;
 		}
 	}
 

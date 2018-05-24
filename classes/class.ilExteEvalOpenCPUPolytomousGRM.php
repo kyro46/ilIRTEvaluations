@@ -65,8 +65,7 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
-		if ($session == NULL) {
-			//TODO error report in case OpenCPU did not respond
+		if ($session == FALSE) {
 			$details->customHTML = $this->plugin->txt('tst_OpenCPU_unreachable');
 			return $details;
 		}
@@ -78,7 +77,7 @@ class ilExteEvalOpenCPUPolytomousGRM extends ilExteEvalTest
 		$plots = $results['graphics'];
 		
 		//prepare and create output of plots
-		$customHTML = ilExteEvalOpenCPU::getIRTPlotAccordionHTML($this, $plots);
+		$customHTML = ilExteEvalOpenCPU::getPlotAccordionHTML($this, $plots);
 		$details->customHTML = $customHTML;
 		
 		//header

@@ -165,8 +165,7 @@ class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
 		$result = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
 		
-		if ($result == NULL) {
-			//TODO error report in case OpenCPU did not respond
+		if ($result == FALSE) {
 			$details->customHTML = $this->plugin->txt('tst_OpenCPU_unreachable');
 			return $details;
 		}
