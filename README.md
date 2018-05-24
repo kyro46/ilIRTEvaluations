@@ -26,6 +26,10 @@ OpenCPU is free software based on rApache and available as apt-repository packag
 * Internal consistency (Cronbach's Alpha/Guttman's "Lambda 3"/Kuder–Richardson Formula 20 (KR 20))
 * Internal consistency without a given item and the impact on the overall consistency
 
+Factor analysis
+* Scree plot
+* Graph for factor loadings
+
 ##### Item Response Theory #####
 
 Models
