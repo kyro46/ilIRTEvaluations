@@ -54,13 +54,13 @@ class ilExteEvalOpenCPUFactorAnalysis extends ilExteEvalTest
 		$query["x"] = 'library(psych);' .
 			'library(GPArotation);' .
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			'#cortestbartlett <- cortest.bartlett(data);' .
-			'#kmo <- KMO(data);' .
+			// 'cortestbartlett <- cortest.bartlett(data);' .
+			// 'kmo <- KMO(data);' .
 			'factors <- fa.parallel(data, fa = "fa");' .
 			'nrfactors <- factors$nfact;' .
 			'result.out <- fa(data, nfactors = nrfactors, fm="pa", max.iter = 100, rotate = "oblimin");' .
-			'fa.diagram(result.out);' .
-			'#e.values <- result.out$e.values;';
+			// 'e.values <- result.out$e.values;' .
+			'fa.diagram(result.out);';
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);		
 
