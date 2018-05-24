@@ -72,3 +72,11 @@ tst_OpenCPUPolytomousGPCM_title_short#:#Auswertung nach dem uneingeschränkten G
 tst_OpenCPUPolytomousGPCM_description#:#Das GPCM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Tests wird eine Antwortkategorie des Items. Diese werden mit der unter <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a> vorgeschlagenen Methode (Mittelwert) zu einem einheitlichen Schwierigkeitswert des Items zusammengefasst. 
 tst_OpenCPUPolytomousGPCM_table_Diff#:#Mittlere Schwierigkeit
 tst_OpenCPUPolytomousGPCM_table_Disc#:#Trennschärfe
+
+//ilExteEvalOpenCPUFactorAnalysis
+//table
+tst_OpenCPUFactorAnalysis_title_long#:#Grafische Faktorenanalyse
+tst_OpenCPUFactorAnalysis_title_short#:#Grafische Faktorenanalyse
+tst_OpenCPUFactorAnalysis_description#:#Die Analyse zeigt die identifizierbaren Faktoren und deren Ladungen auf die zugehörigen Items.
+tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree-Test für gefundene Faktoren
+tst_OpenCPUFactorAnalysis_graph_factorloading#:#Faktorladungen

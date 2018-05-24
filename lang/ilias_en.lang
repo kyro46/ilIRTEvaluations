@@ -46,8 +46,6 @@ tst_OpenCPUAlpha_description#:#Cronbach's Alpha, calculated after removing NA's 
 tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha if item is removed
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Difference
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#The more the internal consistency decreases without the item, the more important is it's contribution to the measurement. Low and negative values are desirable.
-tst_OpenCPUAlpha_table_title#:#Title
-tst_OpenCPUAlpha_table_id#:#ID
 
 //ilExteEvalOpenCPUDichotomous
 //table
@@ -74,3 +72,11 @@ tst_OpenCPUPolytomousGPCM_title_short#:#Polytomous IRT (GPCM)
 tst_OpenCPUPolytomousGPCM_description#:#GRM offers evaluation for items with partially correct answers. Each reached amount of points becomes an answercategory. Average difficulty is used to consolidate the categories in a single value (see <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>).
 tst_OpenCPUPolytomousGPCM_table_Diff#:#Mean difficulty
 tst_OpenCPUPolytomousGPCM_table_Disc#:#Discrimination
+
+//ilExteEvalOpenCPUFactorAnalysis
+//table
+tst_OpenCPUFactorAnalysis_title_long#:#Factor analysis
+tst_OpenCPUFactorAnalysis_title_short#:#Factor analysis
+tst_OpenCPUFactorAnalysis_description#:#This analysis shows the number of identified factors and the loadings per associated item.
+tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree plot for eigenvalues
+tst_OpenCPUFactorAnalysis_graph_factorloading#:#Graph for factor loadings
