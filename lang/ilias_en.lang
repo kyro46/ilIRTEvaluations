@@ -79,4 +79,5 @@ tst_OpenCPUFactorAnalysis_title_long#:#Factor analysis
 tst_OpenCPUFactorAnalysis_title_short#:#Factor analysis
 tst_OpenCPUFactorAnalysis_description#:#This analysis shows the number of identified factors and the loadings per associated item.
 tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree plot for eigenvalues
-tst_OpenCPUFactorAnalysis_graph_factorloading#:#Graph for factor loadings
+tst_OpenCPUFactorAnalysis_graph_eigenvalues_description#:#<br/>Up to %s factors are observable.
+tst_OpenCPUFactorAnalysis_graph_factorloading#:#Factor loadings (%s factor solution)

@@ -78,5 +78,6 @@ tst_OpenCPUPolytomousGPCM_table_Disc#:#Trennschärfe
 tst_OpenCPUFactorAnalysis_title_long#:#Grafische Faktorenanalyse
 tst_OpenCPUFactorAnalysis_title_short#:#Grafische Faktorenanalyse
 tst_OpenCPUFactorAnalysis_description#:#Die Analyse zeigt die identifizierbaren Faktoren und deren Ladungen auf die zugehörigen Items.
-tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree-Test für gefundene Faktoren
-tst_OpenCPUFactorAnalysis_graph_factorloading#:#Faktorladungen
+tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree-Test für Eigenwerte
+tst_OpenCPUFactorAnalysis_graph_eigenvalues_description#:#<br/>Es kommen bis zu %s Faktoren infrage.
+tst_OpenCPUFactorAnalysis_graph_factorloading#:#Faktorladungen (%s-Faktor-Lösung)

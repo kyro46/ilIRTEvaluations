@@ -58,13 +58,11 @@ class ilExteEvalOpenCPUFactorAnalysis extends ilExteEvalTest
 			// 'kmo <- KMO(data);' .
 			'factors <- fa.parallel(data, fa = "fa");' .
 			'nrfactors <- factors$nfact;' .
-			'result.out <- fa(data, nfactors = nrfactors, fm="pa", max.iter = 100, rotate = "oblimin");' .
-			// 'e.values <- result.out$e.values;' .
-			'fa.diagram(result.out);';
+			'for (i in 1:nrfactors){ result.out <- fa(data, nfactors = i, fm="pa", max.iter = 100, rotate = "oblimin"); fa.diagram(result.out)}';
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);		
 
-		$needles = array('e.values','graphics');
+		$needles = array('e.values', 'nrfactors', 'graphics');
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
 		//$serialized = json_decode(stripslashes($results['e.values']),TRUE);
 		$plots = $results['graphics'];
@@ -75,17 +73,22 @@ class ilExteEvalOpenCPUFactorAnalysis extends ilExteEvalTest
 		$template->setCurrentBlock("accordion_plot");
 		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUFactorAnalysis_graph_eigenvalues'));
 		$template->setVariable('PLOT', "<img src='data:image/png;base64," . $plots[0] . "'>");
+		$template->setVariable('DESCRIPTION', sprintf(
+				$this->plugin->txt('tst_OpenCPUFactorAnalysis_graph_eigenvalues_description'),
+				$results['nrfactors']));
 		$template->parseCurrentBlock("accordion_plot");
 		
 		//show Graph factor loading matrices
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUFactorAnalysis_graph_factorloading'));
-		$template->setVariable('PLOT', "<img src='data:image/png;base64," . $plots[1] . "'>");
-		$template->parseCurrentBlock("accordion_plot");
-		
-		$template->setVariable('PLOT', $plot);
-		$template->parseCurrentBlock("plot");
+		for ($i = 1; $i < count($plots); $i++) {
+			$template->setCurrentBlock("accordion_plot");
+			$template->setVariable('TITLE', sprintf(
+					$this->plugin->txt('tst_OpenCPUFactorAnalysis_graph_factorloading'),
+					$i));
+			$template->setVariable('PLOT', "<img src='data:image/png;base64," . $plots[$i] . "'>");
+			$template->parseCurrentBlock("accordion_plot");
+		}
 
+		
 		$details->customHTML = $template->get();
 		
 		if ($session == FALSE) {
