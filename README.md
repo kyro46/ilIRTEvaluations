@@ -35,6 +35,7 @@ Factor analysis
 Models
 * Rasch Model
 * One Parameter Logistic (1PL) Model 
+* Zwo Parameter Logistic (2PL) Model 
 * Graded Response Model
 * Generalized Partial Credit Model
 
@@ -62,5 +63,5 @@ Dichotomization (only if needed, not configurable yet)
 * Specific value
 
 ### Credits ###
-* Development by Christoph Jobst for etstat version 1.1.2 running in ILIAS 5.2 
+* Development by Christoph Jobst for etstat version 1.1.2+
 * OpenCPU by Ooms, Jeroen. (2014). The OpenCPU System: Towards a Universal Interface for Scientific Computing through Separation of Concerns. [LINK](https://arxiv.org/abs/1406.4806)
