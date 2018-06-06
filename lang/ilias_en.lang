@@ -47,15 +47,23 @@ tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha if item is removed
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Difference
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#The more the internal consistency decreases without the item, the more important is it's contribution to the measurement. Low and negative values are desirable.
 
-//ilExteEvalOpenCPUDichotomous
+//ilExteEvalOpenCPURasch1PL
 //table
-tst_OpenCPUDichotomous_title_long#:#IRT-Evaluations for tests with dichotomous Items (Rasch, 1PL)
-tst_OpenCPUDichotomous_title_short#:#Dichotomous IRT (Rasch, 1PL)
-tst_OpenCPUDichotomous_description#:#Constrained Rasch-Model (Discrimination for all Items fixed at 1) and  unconstrained Rasch-Model(discrimination can differ from 1). Polytomous Items will be dichotomized, meaning answers are categorized in "correct" and "wrong" at 50% of the reachable points. The graphics refer to the unconstrained evaluation.
-tst_OpenCPUDichotomous_table_RaschDiff#:#Difficulty (constrained)
-tst_OpenCPUDichotomous_table_RaschDisc#:#Discrimination (constrained)
-tst_OpenCPUDichotomous_table_1PLDiff#:#Difficulty (unconstrained)
-tst_OpenCPUDichotomous_table_1PLDisc#:#Discrimination (unconstrained)
+tst_OpenCPURasch1PL_title_long#:#IRT-Evaluations for tests with dichotomous Items (Rasch, 1PL)
+tst_OpenCPURasch1PL_title_short#:#Dichotomous IRT (Rasch, 1PL)
+tst_OpenCPURasch1PL_description#:#Constrained Rasch-Model (Discrimination for all Items fixed at 1) and  unconstrained Rasch-Model(discrimination can differ from 1). Polytomous Items will be dichotomized, meaning answers are categorized in "correct" and "wrong" at 50% of the reachable points. The graphics refer to the unconstrained evaluation.
+tst_OpenCPURasch1PL_table_RaschDiff#:#Difficulty (constrained)
+tst_OpenCPURasch1PL_table_RaschDisc#:#Discrimination (constrained)
+tst_OpenCPURasch1PL_table_1PLDiff#:#Difficulty (unconstrained)
+tst_OpenCPURasch1PL_table_1PLDisc#:#Discrimination (unconstrained)
+
+//ilExteEvalOpenCPU2PL
+//table
+tst_OpenCPU2PL_title_long#:#IRT-Evaluations for tests with dichotomous Items (2PL)
+tst_OpenCPU2PL_title_short#:#Dichotomous IRT (2PL)
+tst_OpenCPU2PL_description#:#Difficulty and discrimination are estimated per item. Polytomous Items will be dichotomized, meaning answers are categorized in "correct" and "wrong" at 50% of the reachable points.
+tst_OpenCPU2PL_table_2PLDiff#:#Difficulty
+tst_OpenCPU2PL_table_2PLDisc#:#Discrimination
 
 //ilExteEvalOpenCPUPolytomousGRM
 //table

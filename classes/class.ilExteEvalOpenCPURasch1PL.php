@@ -6,7 +6,7 @@
  * TODO Restructure to insert a NA-row of type text instead of 0
  * TODO Gives an evaluation of the model-fit
  */
-class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
+class ilExteEvalOpenCPURasch1PL extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -36,7 +36,7 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 	/**
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
-	protected $lang_prefix = 'tst_OpenCPUDichotomous';
+	protected $lang_prefix = 'tst_OpenCPURasch1PL';
 	
 	/**
 	 * Calculate and classify alpha per removed item
@@ -88,10 +88,10 @@ class ilExteEvalOpenCPUDichotomous extends ilExteEvalTest
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('rasch_difficulty', $this->plugin->txt('tst_OpenCPUdichotomous_table_RaschDiff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('rasch_disc', $this->plugin->txt('tst_OpenCPUdichotomous_table_RaschDisc'), ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('1PL_difficulty', $this->plugin->txt('tst_OpenCPUdichotomous_table_1PLDiff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('1PL_disc', $this->plugin->txt('tst_OpenCPUdichotomous_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER)
+				ilExteStatColumn::_create('rasch_difficulty', $this->plugin->txt('tst_OpenCPURasch1PL_table_RaschDiff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('rasch_disc', $this->plugin->txt('tst_OpenCPURasch1PL_table_RaschDisc'), ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('1PL_difficulty', $this->plugin->txt('tst_OpenCPURasch1PL_table_1PLDiff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('1PL_disc', $this->plugin->txt('tst_OpenCPURasch1PL_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER)
 		);
 		
 		//rows
