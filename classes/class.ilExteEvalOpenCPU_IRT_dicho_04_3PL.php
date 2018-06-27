@@ -97,9 +97,9 @@ class ilExteEvalOpenCPU_IRT_dicho_04_3PL extends ilExteEvalTest
 			$details->rows[] = array(
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-					'3PL_difficulty' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
-					'3PL_disc' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator),
-					'3PL_gues' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator),
+					'3PL_difficulty' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3),
+					'3PL_disc' => ilExteStatValue::_create($serialized[$i][2], ilExteStatValue::TYPE_NUMBER, 3),
+					'3PL_gues' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
 			);
 			$i++;
 		}
