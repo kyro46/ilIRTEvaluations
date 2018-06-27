@@ -47,15 +47,20 @@ tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha ohne das Item
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Differenz
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert.
 
-//ilExteEvalOpenCPURasch1PL
+//ilExteEvalOpenCPURasch
 //table
-tst_OpenCPURasch1PL_title_long#:#IRT-Auswertung für Tests mit dichotomen Items (Rasch, 1PL)
-tst_OpenCPURasch1PL_title_short#:#Auswertung nach dem eingeschränkten und uneingeschränkten Rasch-Modell
-tst_OpenCPURasch1PL_description#:#Eingeschränktes Rasch-Modell (Trennschärfe aller Items wird als "1" festgesetzt) und uneingeschränktes Rasch-Modell (gemeinsame Trennschärfe kann von "1" abweichen). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt. Die Grafiken beziehen sich auf das uneingeschränkte Modell.
-tst_OpenCPURasch1PL_table_RaschDiff#:#Schwierigkeit (eingeschränkt)
-tst_OpenCPURasch1PL_table_RaschDisc#:#Trennschärfe (eingeschränkt)
-tst_OpenCPURasch1PL_table_1PLDiff#:#Schwierigkeit (uneingeschränkt)
-tst_OpenCPURasch1PL_table_1PLDisc#:#Trennschärfe (uneingeschränkt)
+tst_OpenCPURasch_title_long#:#IRT-Auswertung für Tests mit dichotomen Items (Rasch)
+tst_OpenCPURasch_title_short#:#Auswertung nach dem Rasch-Modell
+tst_OpenCPURasch_description#:# Rasch-Modell (Trennschärfe aller Items wird als "1" festgesetzt). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
+tst_OpenCPURasch_table_RaschDiff#:#Schwierigkeit
+
+//ilExteEvalOpenCPU1PL
+//table
+tst_OpenCPU1PL_title_long#:#IRT-Auswertung für Tests mit dichotomen Items (1PL)
+tst_OpenCPU1PL_title_short#:#Auswertung nach dem 1-PL-Modell
+tst_OpenCPU1PL_description#:#1-PL-Modell (gemeinsame Trennschärfe für alle Items). Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
+tst_OpenCPU1PL_table_1PLDiff#:#Schwierigkeit 
+tst_OpenCPU1PL_table_1PLDisc#:#Trennschärfe
 
 //ilExteEvalOpenCPU2PL
 //table
@@ -64,6 +69,15 @@ tst_OpenCPU2PL_title_short#:#Auswertung nach dem zweiparametrischen logistischen
 tst_OpenCPU2PL_description#:#Schwierigkeit und Trennschärfe werden pro Item geschätzt. Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
 tst_OpenCPU2PL_table_2PLDiff#:#Schwierigkeit
 tst_OpenCPU2PL_table_2PLDisc#:#Trennschärfe
+
+//ilExteEvalOpenCPU3PL
+//table
+tst_OpenCPU3PL_title_long#:#IRT-Auswertung für Tests mit dichotomen Items (3PL)
+tst_OpenCPU3PL_title_short#:#Auswertung nach dem dreiparametrischen logistischen Modell
+tst_OpenCPU3PL_description#:#Schwierigkeit, Trennschärfe und Ratewahrscheinlichkeit werden pro Item geschätzt. Polytome Items werden dichotomisiert, d.h. die Antworten werden bei 50% der erreichbaren Punkte in "richtig" und "falsch" geteilt.
+tst_OpenCPU3PL_table_3PLDiff#:#Schwierigkeit
+tst_OpenCPU3PL_table_3PLDisc#:#Trennschärfe
+tst_OpenCPU3PL_table_3PLGues#:#Ratewahrscheinlichkeit
 
 //ilExteEvalOpenCPUPolytomousGRM
 //table
