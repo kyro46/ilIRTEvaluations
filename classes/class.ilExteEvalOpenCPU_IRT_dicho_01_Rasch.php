@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Calculates 2-PL-Model via OpenCPU
+ * Calculates Rasch-parameter via OpenCPU
  * TODO Handle questions removed due to zero variance
  * TODO Restructure to insert a NA-row of type text instead of 0
  * TODO Gives an evaluation of the model-fit
  */
-class ilExteEvalOpenCPU2PL extends ilExteEvalTest
+class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -36,7 +36,7 @@ class ilExteEvalOpenCPU2PL extends ilExteEvalTest
 	/**
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
-	protected $lang_prefix = 'tst_OpenCPU2PL';
+	protected $lang_prefix = 'tst_OpenCPURasch';
 	
 	/**
 	 * Calculate and classify alpha per removed item
@@ -55,14 +55,14 @@ class ilExteEvalOpenCPU2PL extends ilExteEvalTest
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
-		"library(ltm);" .
-		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-		"fit_ltm <- ltm(data ~ z1); " .
-		"coef_ltm <- coef(fit_ltm);" .
-		'op <- par(mfrow = c(2, 2));' .
-		'plot(fit_ltm, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
-		'plot(fit_ltm, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
-		'plot(fit_ltm, type = "IIC", items = 0, lwd = 2);';
+			"library(ltm);" .
+			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
+			"fit <- rasch(data, constraint = cbind(length(data)+1,1)); " . 	//constrained
+			"coef <- coef(fit);" .
+			'op <- par(mfrow = c(2, 2));' .
+			'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
+			'plot(fit, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
+			'plot(fit, type = "IIC", items = 0, lwd = 2);';
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
@@ -72,9 +72,9 @@ class ilExteEvalOpenCPU2PL extends ilExteEvalTest
 		}
 		
 		//prepare results
-		$needles = array('coef_ltm','graphics');
+		$needles = array('coef','graphics');
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
-		$serialized = json_decode(stripslashes($results['coef_ltm']),TRUE);
+		$serialized = json_decode(stripslashes($results['coef']),TRUE);
 		$plots = $results['graphics'];
 		
 		//prepare and create output of plots
@@ -85,8 +85,10 @@ class ilExteEvalOpenCPU2PL extends ilExteEvalTest
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('2PL_difficulty', $this->plugin->txt('tst_OpenCPU2PL_table_2PLDiff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('2PL_disc', $this->plugin->txt('tst_OpenCPU2PL_table_2PLDisc'), ilExteStatColumn::SORT_NUMBER)
+				ilExteStatColumn::_create('rasch_difficulty', $this->plugin->txt('tst_OpenCPU1PLRasch_table_RaschDiff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('rasch_disc', $this->plugin->txt('tst_OpenCPU1PLRasch_table_RaschDisc'), ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('1PL_difficulty', $this->plugin->txt('tst_OpenCPU1PLRasch_table_1PLDiff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('1PL_disc', $this->plugin->txt('tst_OpenCPU1PLRasch_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER)
 		);
 		
 		//rows
@@ -96,8 +98,9 @@ class ilExteEvalOpenCPU2PL extends ilExteEvalTest
 			$details->rows[] = array(
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-					'2PL_difficulty' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
-					'2PL_disc' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator)
+					'rasch_difficulty' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
+					'rasch_disc' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator),
+					
 			);
 			$i++;
 		}

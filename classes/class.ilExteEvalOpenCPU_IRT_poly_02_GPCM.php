@@ -1,12 +1,11 @@
 <?php
 
 /**
- * Calculates Rasch-parameter (contrained/not constrained) via OpenCPU
- * TODO Handle questions removed due to zero variance
- * TODO Restructure to insert a NA-row of type text instead of 0
+ * Calculates GPCM-parameters via OpenCPU
+ * TODO restructure to insert a NA-row of type text instead of 0
  * TODO Gives an evaluation of the model-fit
  */
-class ilExteEvalOpenCPURasch1PL extends ilExteEvalTest
+class ilExteEvalOpenCPU_IRT_poly_02_GPCM extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -36,7 +35,7 @@ class ilExteEvalOpenCPURasch1PL extends ilExteEvalTest
 	/**
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
-	protected $lang_prefix = 'tst_OpenCPURasch1PL';
+	protected $lang_prefix = 'tst_OpenCPUPolytomousGPCM';
 	
 	/**
 	 * Calculate and classify alpha per removed item
@@ -51,64 +50,77 @@ class ilExteEvalOpenCPURasch1PL extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 		
-		$data = ilExteEvalOpenCPU::getBasicData($this, TRUE); //TRUE -> dichotomize at 50% of reachable points
+		$data = ilExteEvalOpenCPU::getBasicData($this);
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
 			"library(ltm);" .
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			"fit_constrained <- rasch(data, constraint = cbind(length(data)+1,1)); " . 	//constrained
-			"fit_unconstrained <- rasch(data); " . 										//unconstrained
-			"coef_constrained <- coef(fit_constrained);" .
-			"coef_unconstrained <- coef(fit_unconstrained);" .
+			"fit <- gpcm(data); " . //unconstrained, options: rasch, 1PL, gpcm (default)
+			"coef <- coef(fit);" .
 			'op <- par(mfrow = c(2, 2));' .
-			'plot(fit_unconstrained, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
-			'plot(fit_unconstrained, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
-			'plot(fit_unconstrained, type = "IIC", items = 0, lwd = 2);';
+			'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
+			'plot(fit, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
+			'plot(fit, type = "IIC", items = 0, lwd = 2);';
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
 		if ($session == FALSE) {
 			$details->customHTML = $this->plugin->txt('tst_OpenCPU_unreachable');
-			return $details;
+			return $details;			
 		}
 		
 		//prepare results
-		$needles = array('coef_constrained','coef_unconstrained','graphics');
+		$needles = array('coef','graphics');
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
-		$serialized_constrained = json_decode(stripslashes($results['coef_constrained']),TRUE);
-		$serialized_unconstrained = json_decode(stripslashes($results['coef_unconstrained']),TRUE);
+		$serialized = json_decode(stripslashes($results['coef']),TRUE);
 		$plots = $results['graphics'];
 		
 		//prepare and create output of plots
 		$customHTML = ilExteEvalOpenCPU::getPlotAccordionHTML($this, $plots);
 		$details->customHTML = $customHTML;
 		
+		//create and populate table
 		//header
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('rasch_difficulty', $this->plugin->txt('tst_OpenCPURasch1PL_table_RaschDiff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('rasch_disc', $this->plugin->txt('tst_OpenCPURasch1PL_table_RaschDisc'), ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('1PL_difficulty', $this->plugin->txt('tst_OpenCPURasch1PL_table_1PLDiff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('1PL_disc', $this->plugin->txt('tst_OpenCPURasch1PL_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER)
+				ilExteStatColumn::_create('gpcm_difficulty_mean', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Diff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('gpcm_disc', $this->plugin->txt('tst_OpenCPUPolytomousGPCM_table_Disc'), ilExteStatColumn::SORT_NUMBER)
 		);
-		
+
 		//rows
 		$i = 0;
 		foreach ($this->data->getAllQuestions() as $question)
 		{
+			if(!$data['dichotomous']) {
+				//Questions in response can be != questions in test due to removing questions with 0 variance!
+				if(in_array($question->question_id,$data['removed'])){
+					$serialized[X.$question->question_id] = array(0, 0);
+				}
+				//calculate mean difficulty according to proposal 1 from [Usama, Chang, Anderson, 2015, DOI:10.1002/ets2.12065]
+				$disc = array_slice($serialized['X'.$question->question_id], -1);
+				$sum = array_sum($serialized['X'.$question->question_id]) - $disc[0];
+				$mean = $sum / (count($serialized['X'.$question->question_id])-1);
+			} else {
+				if(in_array($question->question_id,$data['removed'])){
+					$disc[0] = 0;
+					$mean = 0;
+				} else {
+					$disc[0] = $serialized[$i][1];
+					$mean = $serialized[$i][0];
+				}				
+				$i++;
+			}
+
 			$details->rows[] = array(
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-					'rasch_difficulty' => ilExteStatValue::_create($serialized_constrained[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
-					'rasch_disc' => ilExteStatValue::_create($serialized_constrained[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator),
-					'1PL_difficulty' => ilExteStatValue::_create($serialized_unconstrained[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
-					'1PL_disc' => ilExteStatValue::_create($serialized_unconstrained[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator)					
+					'gpcm_difficulty_mean' => ilExteStatValue::_create($mean, ilExteStatValue::TYPE_NUMBER, 3),
+					'gpcm_disc' => ilExteStatValue::_create($disc[0], ilExteStatValue::TYPE_NUMBER, 3)
 			);
-			$i++;
 		}
-		
+
 		return $details;
 	}
 }

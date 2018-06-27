@@ -3,7 +3,7 @@
 /**
  * Calculates Cronbach Alpha via OpenCPU
  */
-class ilExteEvalOpenCPUAlpha extends ilExteEvalTest
+class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level

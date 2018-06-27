@@ -3,7 +3,7 @@
 /**
  * Provides a factor analysis via OpenCPU
  */
-class ilExteEvalOpenCPUFactorAnalysis extends ilExteEvalTest
+class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -88,15 +88,12 @@ class ilExteEvalOpenCPUFactorAnalysis extends ilExteEvalTest
 			$template->parseCurrentBlock("accordion_plot");
 		}
 
-		
 		$details->customHTML = $template->get();
 		
 		if ($session == FALSE) {
 			$details->customHTML = $this->plugin->txt('tst_OpenCPU_unreachable');
 			return $details;
 		}
-		
-		//TODO ?
 		
 		return $details;
 	}
