@@ -35,7 +35,8 @@ Factor analysis
 Models
 * Rasch Model
 * One Parameter Logistic (1PL) Model 
-* Zwo Parameter Logistic (2PL) Model 
+* Two Parameter Logistic (2PL) Model 
+* Three Parameter Logistic (3PL) Model
 * Graded Response Model
 * Generalized Partial Credit Model
 
