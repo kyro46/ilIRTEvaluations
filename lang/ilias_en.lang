@@ -91,7 +91,7 @@ tst_OpenCPUPolytomousGRM_table_Disc#:#Discrimination
 //table
 tst_OpenCPUPolytomousGPCM_title_long#:#IRT-Evaluations for tests with polytomous Items (GPCM)
 tst_OpenCPUPolytomousGPCM_title_short#:#Polytomous IRT (GPCM)
-tst_OpenCPUPolytomousGPCM_description#:#GRM offers evaluation for items with partially correct answers. Each reached amount of points becomes an answercategory. Average difficulty is used to consolidate the categories in a single value (see <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>).
+tst_OpenCPUPolytomousGPCM_description#:#GPCM offers evaluation for items with partially correct answers. Each reached amount of points becomes an answercategory. Average difficulty is used to consolidate the categories in a single value (see <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>).
 tst_OpenCPUPolytomousGPCM_table_Diff#:#Mean difficulty
 tst_OpenCPUPolytomousGPCM_table_Disc#:#Discrimination
 
