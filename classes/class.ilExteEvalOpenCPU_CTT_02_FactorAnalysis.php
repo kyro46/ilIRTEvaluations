@@ -36,7 +36,7 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPUFactorAnalysis';
 
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate and plot factor analysis
 	 *
 	 * @return ilExteStatDetails
 	 */

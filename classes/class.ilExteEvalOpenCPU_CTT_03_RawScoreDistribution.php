@@ -61,7 +61,11 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 						'skewness <- skewness(data);' .
 						'kurtosis <- kurtosis(data);' .
 						'library(ggplot2);' .
-						'qplot(data, geom = "histogram");';
+						'datasim <- data.frame(data);' .
+						'ggplot(datasim, aes(x = data), binwidth = 2) + ' .
+						'geom_density(aes(y = ..count..), colour = "blue") + xlab(expression(bold("Raw Score"))) +  ' .
+						'geom_histogram(fill = "black", binwidth = 0.5, alpha = 0.5) + ' .
+						'ylab(expression(bold("Count"))) + theme_bw()';
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);		
 		
