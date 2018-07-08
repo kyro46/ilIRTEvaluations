@@ -30,6 +30,11 @@ Factor analysis
 * Scree plot
 * Graph for factor loadings
 
+Raw score analysis
+* Distribution
+* Skewness
+* Kurtosis
+
 ##### Item Response Theory #####
 
 Models

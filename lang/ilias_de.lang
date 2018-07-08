@@ -36,7 +36,7 @@ tst_OpenCPUAlpha_min_part_alert#:#Die interne Konsistenz ist erst ab %s Teilnehm
 tst_OpenCPUAlpha_min_difference_title#:#Akzeptable Auswirkung des Items auf die Gesamtkonsistenz
 tst_OpenCPUAlpha_min_difference_description#:#Die Konsistenz des Tests kann sinken oder steigen, wenn ein Item entfernt wird. Der Akzeptable Umfang dieses Unterschiedes, wird hier angegeben. 
 tst_cic_min_medium_title#:#Mindestwert "mäßig"
-tst_cic_min_medium_description#:#Mindestwert, der als als "mäßig" bewertet wird. 0, falls keine Bewertung erwünscht ist.
+tst_cic_min_medium_description#:#Mindestwert, der als "mäßig" bewertet wird. 0, falls keine Bewertung erwünscht ist.
 tst_cic_min_good_title#:#Mindestwert "gut"
 tst_cic_min_good_description#:#Mindestwert, der als "gut" bewertet wird. 0, falls keine Bewertung erwünscht ist.
 //table
@@ -46,6 +46,15 @@ tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet nach Entfernung fehle
 tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha ohne das Item
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Differenz
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert.
+
+//ilExteEvalOpenCPURawScoreDistribution
+//table
+tst_OpenCPURawScoreDistribution_title_long#:#Rohwertanalyse
+tst_OpenCPURawScoreDistribution_title_short#:#Rohwertanalyse
+tst_OpenCPURawScoreDistribution_description#:#Rohwertverteilung, Schiefe, Wölbung
+tst_OpenCPURawScoreDistribution_Plot#:#Rohwertdiagramm
+tst_OpenCPURawScoreDistribution_skewness#:#Schiefe
+tst_OpenCPURawScoreDistribution_kurtosis#:#Wölbung
 
 //ilExteEvalOpenCPURasch
 //table

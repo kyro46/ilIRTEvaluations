@@ -47,6 +47,15 @@ tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha if item is removed
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Difference
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#The more the internal consistency decreases without the item, the more important is it's contribution to the measurement. Low and negative values are desirable.
 
+//ilExteEvalOpenCPURawScoreDistribution
+//table
+tst_OpenCPURawScoreDistribution_title_long#:#Raw score distribution
+tst_OpenCPURawScoreDistribution_title_short#:#Raw score distribution
+tst_OpenCPURawScoreDistribution_description#:#Distribution, skewness and kurtosis
+tst_OpenCPURawScoreDistribution_Plot#:#Raw score chart
+tst_OpenCPURawScoreDistribution_skewness#:#Skewness
+tst_OpenCPURawScoreDistribution_kurtosis#:#Kurtosis
+
 //ilExteEvalOpenCPURasch
 //table
 tst_OpenCPURasch_title_long#:#IRT-Evaluations for tests with dichotomous Items (Rasch)
