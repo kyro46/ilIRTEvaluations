@@ -43,7 +43,15 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 	public function calculateDetails()
 	{
 		$details = new ilExteStatDetails();
-		
+
+		// check minimum number of participants
+		$number_of_users = count($this->data->getAllParticipants());
+		if ($number_of_users < 2)
+		{
+			$details->customHTML = $this->plugin->txt('tst_OpenCPU_calculation_error');
+			return $details;
+		}
+
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];

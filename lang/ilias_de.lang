@@ -8,6 +8,7 @@ tst_OpenCPUI_graph_IRCCC#:#Itemcharakteristikkurven (ICC)
 tst_OpenCPU_graph_IIC#:#Iteminformationskurve (IIC)
 tst_OpenCPU_graph_TIC#:#Testinformationskurve (TIC)
 tst_OpenCPU_unreachable#:#Der OpenCPU-Server ist nicht erreichbar
+tst_OpenCPU_calculation_error#:#Zu wenige Teilnehmer, Antworten oder Fragen für eine Auswertung.
 
 //ilExteEvalOpenCPU
 //config
@@ -35,10 +36,10 @@ tst_OpenCPUAlpha_min_part_description#:#Minimale Anzahl Teilnehmer im Test, ab d
 tst_OpenCPUAlpha_min_part_alert#:#Die interne Konsistenz ist erst ab %s Teilnehmern im Test ermittelbar.
 tst_OpenCPUAlpha_min_difference_title#:#Akzeptable Auswirkung des Items auf die Gesamtkonsistenz
 tst_OpenCPUAlpha_min_difference_description#:#Die Konsistenz des Tests kann sinken oder steigen, wenn ein Item entfernt wird. Der Akzeptable Umfang dieses Unterschiedes, wird hier angegeben. 
-tst_cic_min_medium_title#:#Mindestwert "mäßig"
-tst_cic_min_medium_description#:#Mindestwert, der als "mäßig" bewertet wird. 0, falls keine Bewertung erwünscht ist.
-tst_cic_min_good_title#:#Mindestwert "gut"
-tst_cic_min_good_description#:#Mindestwert, der als "gut" bewertet wird. 0, falls keine Bewertung erwünscht ist.
+tst_OpenCPUAlpha_min_medium_title#:#Mindestwert "mäßig"
+tst_OpenCPUAlpha_min_medium_description#:#Mindestwert, der als "mäßig" bewertet wird. 0, falls keine Bewertung erwünscht ist.
+tst_OpenCPUAlpha_min_good_title#:#Mindestwert "gut"
+tst_OpenCPUAlpha_min_good_description#:#Mindestwert, der als "gut" bewertet wird. 0, falls keine Bewertung erwünscht ist.
 //table
 tst_OpenCPUAlpha_title_long#:#Interne Konsistenz (OpenCPU)
 tst_OpenCPUAlpha_title_short#:#Interne Konsistenz pro Item

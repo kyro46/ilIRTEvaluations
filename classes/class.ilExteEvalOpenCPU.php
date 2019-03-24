@@ -87,29 +87,33 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	public static function getPlotAccordionHTML($object, $plots){
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		
-		//show TIC first, it's the last element of $plots
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPU_graph_TIC'));
-		$template->setVariable('PLOT', "<img src='data:image/png;base64," . end($plots) . "'>");
-		$template->parseCurrentBlock("accordion_plot");
-		
-		//show IIC, it's the second last element of $plots
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPU_graph_IIC'));
-		$template->setVariable('PLOT', "<img src='data:image/png;base64," . prev($plots) . "'>");
-		$template->parseCurrentBlock("accordion_plot");
-		
-		//show all IRCCC in a single accordion section
-		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPUI_graph_IRCCC'));
-		$plot = '';
-		for ($i = 0; $i < count($plots)-2; $i++) {  //-2 because of TIC and IIC
-			$plot .= "<img src='data:image/png;base64," . $plots[$i] . "'>";
+		try {
+			//show TIC first, it's the last element of $plots
+			$template->setCurrentBlock("accordion_plot");
+			$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPU_graph_TIC'));
+			$template->setVariable('PLOT', "<img src='data:image/png;base64," . end($plots) . "'>");
+			$template->parseCurrentBlock("accordion_plot");
+			
+			//show IIC, it's the second last element of $plots
+			$template->setCurrentBlock("accordion_plot");
+			$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPU_graph_IIC'));
+			$template->setVariable('PLOT', "<img src='data:image/png;base64," . prev($plots) . "'>");
+			$template->parseCurrentBlock("accordion_plot");
+			
+			//show all IRCCC in a single accordion section
+			$template->setCurrentBlock("accordion_plot");
+			$template->setVariable('TITLE', $object->plugin->txt('tst_OpenCPUI_graph_IRCCC'));
+			$plot = '';
+			for ($i = 0; $i < count($plots)-2; $i++) {  //-2 because of TIC and IIC
+				$plot .= "<img src='data:image/png;base64," . $plots[$i] . "'>";
+			}
+			$template->setVariable('PLOT', $plot);
+			$template->parseCurrentBlock("plot");
+			
+			return $template->get();
+		} catch (Exception $e) {
+			return $e;
 		}
-		$template->setVariable('PLOT', $plot);
-		$template->parseCurrentBlock("plot");
-		
-		return $template->get();
 	}
 	
 	/**
@@ -296,6 +300,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		$csv = trim($csv, "\n ");
 		//error_log($csv, 3, "Customizing/csv.log");
 		//error_log(json_encode($array), 3, "Customizing/json.log");
+		//error_log(json_encode($csv), 3, "Customizing/json.log");
 		
 		$dichotomous = FALSE;
 		if (count(array_unique($all_variants_array)) === 1) {
@@ -317,6 +322,16 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	 */
 	public function calculateDetails()
 	{
+		$details = new ilExteStatDetails();
+
+		// check minimum number of participants
+		$number_of_users = count($this->data->getAllParticipants());
+		if ($number_of_users < 2)
+		{
+			$details->customHTML = $this->plugin->txt('tst_OpenCPU_calculation_error');
+			return $details;
+		}
+
 		$data = ilExteEvalOpenCPU::getBasicData($this);
 
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
@@ -328,7 +343,6 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		$json = json_encode($result_array);
 		$template->setVariable('JSON', substr_replace($json, 0, 3, 0));		
 		
-		$details = new ilExteStatDetails();
 		$details->customHTML = $template->get();
 		
         return $details;

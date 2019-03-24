@@ -62,7 +62,7 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 						'kurtosis <- kurtosis(data);' .
 						'library(ggplot2);' .
 						'datasim <- data.frame(data);' .
-						'ggplot(datasim, aes(x = data), binwidth = 2) + ' .
+						'ggplot(datasim, aes(x = data)) + ' .
 						'geom_density(aes(y = ..count..), colour = "blue") + xlab(expression(bold("Raw Score"))) +  ' .
 						'geom_histogram(fill = "black", binwidth = 0.5, alpha = 0.5) + ' .
 						'ylab(expression(bold("Count"))) + theme_bw()';

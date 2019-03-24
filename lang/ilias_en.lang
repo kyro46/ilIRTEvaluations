@@ -8,6 +8,7 @@ tst_OpenCPUI_graph_IRCCC#:#Item Response Category Characteristic Curves
 tst_OpenCPU_graph_IIC#:#Item Information Curves
 tst_OpenCPU_graph_TIC#:#Test Information Curve
 tst_OpenCPU_unreachable#:#The OpenCPU server is unreachable.
+tst_OpenCPU_calculation_error#:#Not enough participants, answers or questions for an analysis.
 
 //ilExteEvalOpenCPU
 //config
