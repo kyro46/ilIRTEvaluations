@@ -93,8 +93,8 @@ class ilExteEvalOpenCPU_IRT_dicho_02_1PL extends ilExteEvalTest
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('1PL_difficulty', $this->plugin->txt('tst_OpenCPU1PLRasch_table_1PLDiff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('1PL_disc', $this->plugin->txt('tst_OpenCPU1PLRasch_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER)
+				ilExteStatColumn::_create('1PL_difficulty', $this->plugin->txt('tst_OpenCPU1PL_table_1PLDiff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('1PL_disc', $this->plugin->txt('tst_OpenCPU1PL_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER)
 		);
 		
 		//rows

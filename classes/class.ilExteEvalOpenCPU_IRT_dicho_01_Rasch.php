@@ -93,10 +93,8 @@ class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('rasch_difficulty', $this->plugin->txt('tst_OpenCPU1PLRasch_table_RaschDiff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('rasch_disc', $this->plugin->txt('tst_OpenCPU1PLRasch_table_RaschDisc'), ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('1PL_difficulty', $this->plugin->txt('tst_OpenCPU1PLRasch_table_1PLDiff'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('1PL_disc', $this->plugin->txt('tst_OpenCPU1PLRasch_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER)
+				ilExteStatColumn::_create('rasch_difficulty', $this->plugin->txt('tst_OpenCPU1PL_table_1PLDiff'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('rasch_disc', $this->plugin->txt('tst_OpenCPU1PL_table_1PLDisc'), ilExteStatColumn::SORT_NUMBER),
 		);
 		
 		//rows
@@ -107,7 +105,7 @@ class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
 					'rasch_difficulty' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
-					'rasch_disc' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator),
+					'rasch_disc' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL),
 					
 			);
 			$i++;

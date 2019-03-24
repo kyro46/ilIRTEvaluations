@@ -133,7 +133,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		);
 		$context  = stream_context_create($options);
 		try {
-			return file_get_contents($string = rtrim($server, '/') . $path, false, $context);
+			return file_get_contents(rtrim($server, '/') . $path, false, $context);
 		} catch (Exception $e) {
 			return FALSE;
 		}
@@ -164,7 +164,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 			foreach($counted as $number => $count)
 			{
 				if($count == $maxCount)
-					$modals[] = $number;
+					$modals = array ($number);
 			}
 			if (count($modals) != 1) {
 				$value = $modals[ceil(count($modals)/2)];
@@ -246,7 +246,6 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 					}
 				}
 				sort($count);				
-				$index = 0;
 				foreach ($answers as $key => $answer)
 				{
 					if (in_array($answer->reached_points, $count)) {
