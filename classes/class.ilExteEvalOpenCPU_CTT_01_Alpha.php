@@ -108,7 +108,7 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 		$result = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);//Format: {\\"alpha\\":[x.xxx]}\n
 		$serialized = json_decode(substr(stripslashes($result), 2, -3),TRUE);
 
-		$value->value = $serialized[alpha][0];
+		$value->value = $serialized['alpha'][0];
 		
 		// Alert good quality
 		if ( $this->getParam('min_good') > 0)

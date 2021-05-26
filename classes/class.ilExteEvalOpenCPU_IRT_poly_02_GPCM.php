@@ -104,7 +104,7 @@ class ilExteEvalOpenCPU_IRT_poly_02_GPCM extends ilExteEvalTest
 			if(!$data['dichotomous']) {
 				//Questions in response can be != questions in test due to removing questions with 0 variance!
 				if(in_array($question->question_id,$data['removed'])){
-					$serialized[X.$question->question_id] = array(0, 0);
+					$serialized['X'.$question->question_id] = array(0, 0);
 				}
 				//calculate mean difficulty according to proposal 1 from [Usama, Chang, Anderson, 2015, DOI:10.1002/ets2.12065]
 				$disc = array_slice($serialized['X'.$question->question_id], -1);

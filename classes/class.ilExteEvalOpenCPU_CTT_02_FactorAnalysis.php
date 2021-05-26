@@ -87,7 +87,8 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 		$template->parseCurrentBlock("accordion_plot");
 		
 		//show Graph factor loading matrices
-		for ($i = 1; $i < count($plots); $i++) {
+		$plots_length = count((array)$plots);
+		for ($i = 1; $i < $plots_length; $i++) {
 			$template->setCurrentBlock("accordion_plot");
 			$template->setVariable('TITLE', sprintf(
 					$this->plugin->txt('tst_OpenCPUFactorAnalysis_graph_factorloading'),

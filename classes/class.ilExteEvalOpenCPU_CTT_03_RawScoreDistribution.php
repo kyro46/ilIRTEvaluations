@@ -82,8 +82,6 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		
-		error_log(print_r($plots,TRUE));
-		
 		//show raw score distribution
 		$template->setCurrentBlock("accordion_plot");
 		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPURawScoreDistribution_Plot'));
