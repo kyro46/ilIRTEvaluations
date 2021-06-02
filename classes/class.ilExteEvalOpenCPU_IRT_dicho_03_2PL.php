@@ -60,17 +60,19 @@ class ilExteEvalOpenCPU_IRT_dicho_03_2PL extends ilExteEvalTest
 		$server = $config['server'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this, TRUE); //TRUE -> dichotomize at 50% of reachable points
+		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
 		"library(ltm);" .
 		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-		"fit_ltm <- ltm(data ~ z1); " .
-		"coef_ltm <- coef(fit_ltm);" .
-		'op <- par(mfrow = c(2, 2));' .
-		'plot(fit_ltm, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
-		'plot(fit_ltm, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
-		'plot(fit_ltm, type = "IIC", items = 0, lwd = 2);';
+		"fit <- ltm(data ~ z1); " .
+		"coef <- coef(fit);" .
+		"plot(fit, type = 'ICC', col = rainbow(40, start = 0, end = 1)," .
+		"legend = TRUE, cx = 'topright', lwd = 2, cex = 1, ncol = {$columnsLegend});" .
+		"plot(fit, type = 'IIC', col = rainbow(40, start = 0, end = 1)," .
+		"legend = TRUE, cx = 'topright', lwd = 2, cex = 1, ncol = {$columnsLegend});" .
+		"plot(fit, type = 'IIC', items = 0, lwd = 2);";
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
@@ -80,9 +82,9 @@ class ilExteEvalOpenCPU_IRT_dicho_03_2PL extends ilExteEvalTest
 		}
 		
 		//prepare results
-		$needles = array('coef_ltm','graphics');
+		$needles = array('coef','graphics');
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
-		$serialized = json_decode(stripslashes($results['coef_ltm']),TRUE);
+		$serialized = json_decode(stripslashes($results['coef']),TRUE);
 		$plots = $results['graphics'];
 		
 		//prepare and create output of plots

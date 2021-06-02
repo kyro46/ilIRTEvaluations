@@ -59,6 +59,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM extends ilExteEvalTest
 		$server = $config['server'];
 
 		$data = ilExteEvalOpenCPU::getBasicData($this);
+		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
@@ -68,7 +69,8 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM extends ilExteEvalTest
 			"coef <- coef(fit);" .
 			'op <- par(mfrow = c(2, 2));' .
 			'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .
-			'plot(fit, type = "IIC", legend = TRUE, cx = "topright", lwd = 2, cex = 1.4);' .
+			"plot(fit, type = 'IIC', col = rainbow(40, start = 0, end = 1)," .
+			"legend = TRUE, cx = 'topright', lwd = 2, cex = 1, ncol = {$columnsLegend});" .
 			'plot(fit, type = "IIC", items = 0, lwd = 2);';
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
