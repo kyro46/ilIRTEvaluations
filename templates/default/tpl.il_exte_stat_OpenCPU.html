@@ -1,4 +1,4 @@
-<script src="https://cdn.opencpu.org/opencpu-0.4.js"></script>
+<script src="https://cdn.opencpu.org/opencpu-0.5.js"></script>
 {CALLR_DESC}
 <textarea id="input" rows="4" cols="50">
 library(ltm)
@@ -7,25 +7,33 @@ descript(data)
 <div class="navbar-form">
 	<button class="btn btn-default" id="submitbutton" type="button">{CALLR}</button>
 </div>
-<pre>
-	<code id="output"></code>
-</pre>
-
+<style type="text/css" media="screen">
+iframe { 
+  width: 100%;
+  border: 0;
+  margin: 0;
+}
+</style>
 <script>
-ocpu.seturl("{SERVER}/ocpu/library/base/R")
-
-var part1 = 'library(jsonlite); data <- fromJSON(txt=';
-var part2 =	'{JSON}';
-var part3 =	');';
-var data = part1 + '\'' + part2.replace(/\"/g, "") + '\'' +part3;
-var convertDF = 'colnames(data) = data[1, ]; data = data[-1, ]; rownames(data) <- data[,1]; data <- data[,-1];'; 
+ocpu.seturl("{SERVER}/ocpu/library/base/R");
 
 //actual handler
 $("#submitbutton").on("click", function(){
+	
+	//arguments for R
+	var part1 = 'library(jsonlite); data <- fromJSON(txt=';
+	var part2 =	'{JSON}';
+	var part3 =	');';
+	var data = part1 + '\'' + part2.replace(/\"/g, "") + '\'' +part3;
+	var convertDF = 'colnames(data) = data[1, ]; data = data[-1, ]; rownames(data) <- data[,1]; data <- data[,-1];'; 
+	
+	var presetCode = data + convertDF;
+		presetCode += "library(knitr); writeLines('```{r block1}\n";
+	    presetCode += $("#input").val().replaceAll("'",'"');
+	    presetCode += "\n```', con='input.Rmd'); knit2html('input.Rmd', output='output.html');";
+	
+	var snippet = new ocpu.Snippet(presetCode);
 
-    //arguments
-    var snippet = new ocpu.Snippet(data + convertDF + $("#input").val());
-    
     //disable button
     $("#submitbutton").attr("disabled", "disabled");
 
@@ -33,9 +41,10 @@ $("#submitbutton").on("click", function(){
     var req = ocpu.call("identity", {
         "x" : snippet
     }, function(session){
-        session.getStdout(function(outtxt){
-            $("#output").text(outtxt); 
-        });
+        $("iframe").attr("src", session.getFileURL("output.html"));
+        $("iframe").height(800);
+	}).fail(function(text){
+      alert("Error: " + req.responseText);
     });
         
     //if R returns an error, alert the error message
@@ -48,4 +57,4 @@ $("#submitbutton").on("click", function(){
     });
 });  
 </script>
-  
+<iframe src="about:blank"></iframe>
