@@ -59,20 +59,30 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 
 		foreach($needles as $needle) {
 			if ($needle == 'graphics') {
+				// general path for plots is '/graphics/[plotnumber]'
 				foreach($response_path as $path) {
 					if(preg_match("/\b{$needle}\b/i", $path)) {
 						//$results[$needle][] = file_get_contents($server . $path .'/svg');
 						$results[$needle][] = base64_encode(file_get_contents($server . $path .'/png'));
 					}
 				}
+			} elseif (substr( $needle, 0, 4 ) === 'plot') { 
+				// explicitly named plots are not stored with path /graphics
+				// and have to be accessed by name
+				// convention for this plugin: named plots always start with plot
+				foreach($response_path as $path) {
+					if(preg_match("/\b{$needle}\b/i", $path)) {
+						$results[$needle] = base64_encode(file_get_contents($server . $path .'/png'));						
+					}
+				}
 			} else {
+				// everything else is assumed to be a data structure
 				foreach($response_path as $path) {
 					if(preg_match("/{$needle}$/", $path)) {
 						$results[$needle] = file_get_contents($server . $path .'/json');
 					}
 				}
 			}
-			
 		}
 		return $results;
 	}
