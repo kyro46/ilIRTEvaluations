@@ -1,11 +1,11 @@
 
 # ilIRTEvaluations
 
-### A Subplugin for IRT via OpenCPU for the ILIAS ExtendedTestStatistics Plugin ###
+### A Subplugin for IRT via OpenCPU for the ILIAS ExtendedTestStatistics Plugin
 
 Integrating R  with ILIAS to evaluate tests (and maybe much more in the future).
 
-### Usage ###
+### Usage
 
 Install the plugin
 
@@ -19,49 +19,74 @@ You don't need to activate the plugin because it will be recognized by ExtendedT
 
 OpenCPU is free software based on rApache and available as apt-repository package and CRAN. The public instance (https://cloud.opencpu.org) can be used in the configuration for now if you don't have an own instance. Transferred data is anonymized and encryption via SSL is supported.
 
-### Features ###
+### Features
 
-##### Classical Test Theory #####
+The available pages might be selected in the plugin administration.
 
-* Internal consistency (Cronbach's Alpha/Guttman's "Lambda 3"/Kuder–Richardson Formula 20 (KR 20))
-* Internal consistency without a given item and the impact on the overall consistency
+#### Classical Test Theory
+
+- [x] Internal consistency (Cronbach's Alpha/Guttman's "Lambda 3"/Kuder–Richardson Formula 20 (KR 20))
+- [x] Internal consistency without a given item and the impact on the overall consistency
+- [ ] Empirical Item Characteristic Curves
+- [x] Suggested test length to reach a desired reliability (Spearman-Brown-Formula)
 
 Factor analysis
-* Scree plot
-* Graph for factor loadings
+
+- [x] Scree plot
+- [x] Graph for factor loadings
 
 Raw score analysis
-* Distribution
-* Skewness
-* Kurtosis
 
-##### Item Response Theory #####
+- [x] Distribution
+- [x] Skewness
+- [x] Kurtosis
 
-Models
-* Rasch Model
-* One Parameter Logistic (1PL) Model 
-* Two Parameter Logistic (2PL) Model 
-* Three Parameter Logistic (3PL) Model
-* Graded Response Model
-* Generalized Partial Credit Model
+#### Item Response Theory
+
+##### Plots and difficulty/discrimation according to various models (R-Package LTM)
+
+- [x] Rasch Model
+- [x] One Parameter Logistic (1PL) Model (common discrimination <> 1)
+- [x] Two Parameter Logistic (2PL) Model 
+- [x] Three Parameter Logistic (3PL) Model
+- [x] Graded Response Model
+- [x] Generalized Partial Credit Model
 
 Plots for each model
-* Item Response Category Characteristic Curves
-* Item Information Curves
-* Test Information Curve
 
-Goodness of fit (TBD)
-* Model fit
-* Item fit
-* Person fit
+- [x] Item Response Category Characteristic Curves
+- [x] Item Information Curves
+- [x] Test Information Curve
+
+##### Focus on the Graded Response Model (R-Packages MIRT)
+
+- [x] Difficulty and discrimination per Item
+- [ ] Model fit
+- [ ] Item fit
+- [ ] Person fit
+- [ ] Person ability
+
+Plots
+
+- [x] Epected total score
+- [x] Test Information and Standard Errors
+- [x] Item Tracelines
+
+Additional comparison of evaluations following CTT and IRT
+
+- [ ] Difficulty
+- [ ] Discrimination
+- [ ] Sumscore vs. estimated ability
+- [ ] Empirical Item Characteristic Curves vs. IRT Item Tracelines
+- [ ] Observable factors vs. usage of multidimensional IRT
 
 ##### Various #####
 
 Interactive R console
 * Data from the test is prepared as R-dataframe "data"
-* R-commands can be executed on this data inside the browser
+* R-commands can be executed on this data and are shown via knitr inside the browser
 
-Dichotomization (only if needed, not configurable yet)
+Dichotomization (depends on chosen model, not configurable by users)
 * Mean
 * Median
 * Modus
