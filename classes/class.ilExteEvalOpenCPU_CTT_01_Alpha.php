@@ -156,21 +156,43 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this,FALSE, FALSE, FALSE);
 		
-		$path = "/ocpu/library/base/R/identity/json";
+		$path = "/ocpu/library/base/R/identity";
 		$query["x"] = 	"library(ltm);" . 
 						"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . 
 						"result <- descript(data); " .
-						"library(jsonlite); toJSON(result\$alpha)";
+						"library(jsonlite);" .
+						"cronlist <- toJSON(result\$alpha);" .
+						"cron <- cronbach.alpha(data, na.rm = TRUE);" .
+						"library(CTT);" .
+						"spearmanbrownformula <- spearman.brown(cron\$alpha, {$this->getParam('min_good')}, 'r')\$n.new;";
 		
-		$result = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
+		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
-		
-		if ($result == FALSE) {
+		if ($session == FALSE) {
 			$details->customHTML = $this->plugin->txt('tst_OpenCPU_unreachable');
 			return $details;
 		}
 		
-		$serialized = json_decode(substr(stripslashes($result), 2, -3),TRUE);
+		$needles = array('cronlist', 'spearmanbrownformula');
+		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
+		
+		$serialized = json_decode(substr(stripslashes($results['cronlist']), 2, -3),TRUE);
+		$spearmanbrownformula = $results['spearmanbrownformula'];
+		
+		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Text.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
+		$template->setCurrentBlock("paragraph");
+		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUAlpha_SpearmanBrownFormula'));
+		$template->setVariable('TEXT',  sprintf(
+											$this->plugin->txt('tst_OpenCPUAlpha_SpearmanBrownFormulaText'),
+											(string) $spearmanbrownformula,
+											(string) $this->getParam('min_good')
+											)
+								);
+		$template->parseCurrentBlock("paragraph");
+				
+		//prepare and create output of custom HTML
+		$customHTML = $template->get();
+		$details->customHTML = $customHTML;
 
 		//header
 		$details->columns = array (

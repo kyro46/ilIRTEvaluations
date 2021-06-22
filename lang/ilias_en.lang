@@ -47,6 +47,8 @@ tst_OpenCPUAlpha_description#:#Cronbach's Alpha, calculated after removing NA's 
 tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha if item is removed
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Difference
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#The more the internal consistency decreases without the item, the more important is it's contribution to the measurement. Low and negative values are desirable.
+tst_OpenCPUAlpha_SpearmanBrownFormula#:#Spearman–Brown prediction formula
+tst_OpenCPUAlpha_SpearmanBrownFormulaText#:#The test length might be changed by factor %1$s with comparable items to reach a reliability of at least %2$s (currently set threshold for "good quality").
 
 //ilExteEvalOpenCPURawScoreDistribution
 //table

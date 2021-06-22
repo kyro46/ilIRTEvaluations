@@ -47,6 +47,8 @@ tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet nach Entfernung fehle
 tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha ohne das Item
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Differenz
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert.
+tst_OpenCPUAlpha_SpearmanBrownFormula#:#Spearman-Brown-Formel
+tst_OpenCPUAlpha_SpearmanBrownFormulaText#:#Die Anzahl der Items müsste um den Faktor %1$s verändert werden, um bei gleicher Itemqualität eine Reliabilität von %2$s zu erreichen (aktuell hinterlegter Schwellwenwert für "gute Qualität").
 
 //ilExteEvalOpenCPURawScoreDistribution
 //table
