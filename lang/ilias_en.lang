@@ -132,7 +132,14 @@ tst_OpenCPUPolytomousGRM_parameter_acc_expTotalScore#:#Expected Total Score
 //table
 tst_OpenCPUPolytomousGRM_modelfit_title_long#:#Model-fit: applicability of the Graded Response Model 
 tst_OpenCPUPolytomousGRM_modelfit_title_short#:#Model-fit: applicability of the Graded Response Model 
-tst_OpenCPUPolytomousGRM_modelfit_description#:#Fit statistics to check the applicabilit of the Graded Response Model for the whole test
+tst_OpenCPUPolytomousGRM_modelfit_description#:#Convergence is necessary to reach stable solutions. If convergence is not reached, the test does not contain enough or unsuiting data. The other indicators are smaller, the better a model fits the data.
+tst_OpenCPUPolytomousGRM_modelfit_acc_indicators#:#Indicators (lower values might hint better model-fit)
+tst_OpenCPUPolytomousGRM_modelfit_table_model#:#Model
+tst_OpenCPUPolytomousGRM_modelfit_table_convergence#:#Convergence
+tst_OpenCPUPolytomousGRM_modelfit_table_AIC#:#AIC
+tst_OpenCPUPolytomousGRM_modelfit_table_AICc#:#AICc
+tst_OpenCPUPolytomousGRM_modelfit_table_SABIC#:#SABIC
+tst_OpenCPUPolytomousGRM_modelfit_table_BIC#:#BIC
 
 //tst_OpenCPUPolytomousGRM_itemfit
 //table

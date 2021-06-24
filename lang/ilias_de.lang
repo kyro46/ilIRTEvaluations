@@ -132,7 +132,14 @@ tst_OpenCPUPolytomousGRM_parameter_acc_expTotalScore#:#Erwartete Gesamtpunktzahl
 //table
 tst_OpenCPUPolytomousGRM_modelfit_title_long#:#Model-fit: Anwendbarkeit des Graded Response Models auf Testebene
 tst_OpenCPUPolytomousGRM_modelfit_title_short#:#Model-fit: Anwendbarkeit des Graded Response Models auf Testebene
-tst_OpenCPUPolytomousGRM_modelfit_description#:#Das Analysemodell stellt Anforderungen an die Daten, deren Erfüllung für alle Testdaten hier statistisch betrachtet wird.
+tst_OpenCPUPolytomousGRM_modelfit_description#:#Konvergenz ist für stabile Parameterschätzungen nötig. Wird sie nicht erreicht, liegen zu wenige oder unpassende Testdaten vor. Die weiteren Indikatoren sind umso kleiner, je besser ein Modell auf die Daten passt.
+tst_OpenCPUPolytomousGRM_modelfit_acc_indicators#:#Indikatorengrafik (niedrigere Werte -> eventuell bessere Modellpassung)
+tst_OpenCPUPolytomousGRM_modelfit_table_model#:#Modell
+tst_OpenCPUPolytomousGRM_modelfit_table_convergence#:#Konvergenz
+tst_OpenCPUPolytomousGRM_modelfit_table_AIC#:#AIC
+tst_OpenCPUPolytomousGRM_modelfit_table_AICc#:#AICc
+tst_OpenCPUPolytomousGRM_modelfit_table_SABIC#:#SABIC
+tst_OpenCPUPolytomousGRM_modelfit_table_BIC#:#BIC
 
 //tst_OpenCPUPolytomousGRM_itemfit
 //table
