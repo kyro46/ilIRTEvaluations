@@ -64,7 +64,7 @@ Plots for each model
 - [ ] Model fit
 - [x] Item fit
 - [ ] Person fit
-- [ ] Person ability
+- [x] Person ability
 
 Plots
 

@@ -131,7 +131,7 @@ tst_OpenCPUPolytomousGRM_parameter_acc_expTotalScore#:#Expected Total Score
 //ilExteEvalOpenCPUPolytomousGRM_modelfit
 //table
 tst_OpenCPUPolytomousGRM_modelfit_title_long#:#Model-fit: applicability of the Graded Response Model 
-tst_OpenCPUPolytomousGRM_modelfit_title_short#:Model-fit: applicability of the Graded Response Model 
+tst_OpenCPUPolytomousGRM_modelfit_title_short#:#Model-fit: applicability of the Graded Response Model 
 tst_OpenCPUPolytomousGRM_modelfit_description#:#Fit statistics to check the applicabilit of the Graded Response Model for the whole test
 
 //tst_OpenCPUPolytomousGRM_itemfit
@@ -157,3 +157,13 @@ tst_OpenCPUPolytomousGRM_itemfit_table_df.S_X2#:#df.S_X2
 tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.S_X2#:#RMSEA.S_X2
 tst_OpenCPUPolytomousGRM_itemfit_table_p.S_X2#:#p.S_X2
 tst_OpenCPUPolytomousGRM_itemfit_acc_empiricalPlot#:#Item Tracelines and grouped ability estimates in a 95% confidence interval
+
+//ilExteEvalOpenCPUPolytomousGRM_personability
+//table
+tst_OpenCPUPolytomousGRM_personability_title_long#:#Ability estimation with the Graded Response Model
+tst_OpenCPUPolytomousGRM_personability_title_short#:#Ability estimation with the Graded Response Model
+tst_OpenCPUPolytomousGRM_personability_description#:#Estimates of the ability and the standard error.
+tst_OpenCPUPolytomousGRM_personability_table_personid#:#Person ID
+tst_OpenCPUPolytomousGRM_personability_table_ability#:#Ability
+tst_OpenCPUPolytomousGRM_personability_table_standarderror#:#Standarderror
+tst_OpenCPUPolytomousGRM_personability_acc_ability#:#Ability and Standarderror
