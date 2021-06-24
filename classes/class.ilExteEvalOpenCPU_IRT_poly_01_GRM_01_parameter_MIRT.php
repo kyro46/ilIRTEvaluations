@@ -6,7 +6,7 @@
  * TODO Restructure to insert a NA-row of type text instead of 0
  * TODO Gives an evaluation of the model-fit
  */
-class ilExteEvalOpenCPU_IRT_poly_01_GRM_MIRT extends ilExteEvalTest
+class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -36,7 +36,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_MIRT extends ilExteEvalTest
 	/**
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
-	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM';
+	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM_parameter';
 	
 	/**
 	 * Calculate and classify alpha per removed item
@@ -59,21 +59,21 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_MIRT extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 		
-		$data = ilExteEvalOpenCPU::getBasicData($this); //TRUE -> dichotomize at 50% of reachable points
+		$data = ilExteEvalOpenCPU::getBasicData($this);
 		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
 			"library(mirt);" .
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			"fit <- mirt(data, 1, itemtype='graded');" . 	//constrained?
+			"fit <- mirt(data, 1, itemtype='graded');" .
 			"coef <- coef(fit);" .
 			"plot_trace <- plot(fit, type = 'trace');" . 
 			"plot_infoSE <- plot(fit, type = 'infoSE');" .
 			"plot_info <- plot(fit, type = 'info');" .
 			"plot_SE <- plot(fit, type = 'SE');" .
 			"plot_expected_score <- plot(fit);";
-				
+			
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
 		if ($session == FALSE) {

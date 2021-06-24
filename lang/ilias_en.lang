@@ -115,3 +115,37 @@ tst_OpenCPUFactorAnalysis_description#:#This analysis shows the number of identi
 tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree plot for eigenvalues
 tst_OpenCPUFactorAnalysis_graph_eigenvalues_description#:#<br/>Up to %s factors are observable.
 tst_OpenCPUFactorAnalysis_graph_factorloading#:#Factor loadings (%s factor solution)
+
+//MIRT-Evaluations
+//ilExteEvalOpenCPUPolytomousGRM_parameter
+//table
+tst_OpenCPUPolytomousGRM_parameter_title_long#:#Parameter and curve estimations for the Graded Response Model (GRM)
+tst_OpenCPUPolytomousGRM_parameter_title_short#:#Parameter and curve estimations for the Graded Response Model (GRM)
+tst_OpenCPUPolytomousGRM_parameter_description#:#The Graded Response Model (GRM) offers evaluation for items with partially correct answers. Each reached amount of points becomes an answercategory. Average difficulty is used to consolidate the categories in a single value (see <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>).
+tst_OpenCPUPolytomousGRM_parameter_table_Diff#:#Mean difficulty
+tst_OpenCPUPolytomousGRM_parameter_table_Disc#:#Discrimination
+tst_OpenCPUPolytomousGRM_parameter_acc_TestinformationError#:#Test Information and Standard Error
+tst_OpenCPUPolytomousGRM_parameter_acc_ICC#:#Item Tracelines
+tst_OpenCPUPolytomousGRM_parameter_acc_expScore#:#Expected Score
+
+//tst_OpenCPUPolytomousGRM_itemfit
+//table
+tst_OpenCPUPolytomousGRM_itemfit_title_long#:#Item-fit: applicability of the Graded Response Model per item
+tst_OpenCPUPolytomousGRM_itemfit_title_short#:#Item-fit: applicability of the Graded Response Model per item
+tst_OpenCPUPolytomousGRM_itemfit_description#:#Fit statistics to check the applicabilit of the Graded Response Model for specific items in this test
+tst_OpenCPUPolytomousGRM_itemfit_table_outfit#:#outfit
+tst_OpenCPUPolytomousGRM_parameter_table_z.outfit#:#z.outfit
+tst_OpenCPUPolytomousGRM_parameter_table_infit#:#infit
+tst_OpenCPUPolytomousGRM_parameter_table_z.infit#:#z.infit
+tst_OpenCPUPolytomousGRM_itemfit_table_X2#:#X2
+tst_OpenCPUPolytomousGRM_itemfit_table_df.X2#:#df.X2
+tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.X2#:#RMSEA.X2
+tst_OpenCPUPolytomousGRM_itemfit_table_p.X2#:#p.X2
+tst_OpenCPUPolytomousGRM_itemfit_table_G2#:#G2
+tst_OpenCPUPolytomousGRM_itemfit_table_df.G2#:#df.G2
+tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.G2#:#RMSEA.G2
+tst_OpenCPUPolytomousGRM_itemfit_table_p.G2#:#p.G2
+tst_OpenCPUPolytomousGRM_itemfit_table_S_X2#:#S_X2
+tst_OpenCPUPolytomousGRM_itemfit_table_df.S_X2#:#df.S_X2
+tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.S_X2#:#RMSEA.S_X2
+tst_OpenCPUPolytomousGRM_itemfit_table_p.S_X2#:#p.S_X2
