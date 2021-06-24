@@ -126,7 +126,13 @@ tst_OpenCPUPolytomousGRM_parameter_table_Diff#:#Mean difficulty
 tst_OpenCPUPolytomousGRM_parameter_table_Disc#:#Discrimination
 tst_OpenCPUPolytomousGRM_parameter_acc_TestinformationError#:#Test Information and Standard Error
 tst_OpenCPUPolytomousGRM_parameter_acc_ICC#:#Item Tracelines
-tst_OpenCPUPolytomousGRM_parameter_acc_expScore#:#Expected Score
+tst_OpenCPUPolytomousGRM_parameter_acc_expTotalScore#:#Expected Total Score
+
+//ilExteEvalOpenCPUPolytomousGRM_modelfit
+//table
+tst_OpenCPUPolytomousGRM_modelfit_title_long#:#Model-fit: applicability of the Graded Response Model 
+tst_OpenCPUPolytomousGRM_modelfit_title_short#:Model-fit: applicability of the Graded Response Model 
+tst_OpenCPUPolytomousGRM_modelfit_description#:#Fit statistics to check the applicabilit of the Graded Response Model for the whole test
 
 //tst_OpenCPUPolytomousGRM_itemfit
 //table
@@ -134,9 +140,9 @@ tst_OpenCPUPolytomousGRM_itemfit_title_long#:#Item-fit: applicability of the Gra
 tst_OpenCPUPolytomousGRM_itemfit_title_short#:#Item-fit: applicability of the Graded Response Model per item
 tst_OpenCPUPolytomousGRM_itemfit_description#:#Fit statistics to check the applicabilit of the Graded Response Model for specific items in this test
 tst_OpenCPUPolytomousGRM_itemfit_table_outfit#:#outfit
-tst_OpenCPUPolytomousGRM_parameter_table_z.outfit#:#z.outfit
-tst_OpenCPUPolytomousGRM_parameter_table_infit#:#infit
-tst_OpenCPUPolytomousGRM_parameter_table_z.infit#:#z.infit
+tst_OpenCPUPolytomousGRM_itemfit_table_z.outfit#:#z.outfit
+tst_OpenCPUPolytomousGRM_itemfit_table_infit#:#infit
+tst_OpenCPUPolytomousGRM_itemfit_table_z.infit#:#z.infit
 tst_OpenCPUPolytomousGRM_itemfit_table_X2#:#X2
 tst_OpenCPUPolytomousGRM_itemfit_table_df.X2#:#df.X2
 tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.X2#:#RMSEA.X2

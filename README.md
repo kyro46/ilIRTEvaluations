@@ -3,14 +3,14 @@
 
 ### A Subplugin for IRT via OpenCPU for the ILIAS ExtendedTestStatistics Plugin
 
-Integrating R  with ILIAS to evaluate tests (and maybe much more in the future).
+Integrating R with ILIAS to evaluate tests (and maybe much more in the future).
 
 ### Usage
 
 Install the plugin
 
 ```bash
-mkdir -p Customizing/global/plugins/Modules/Test/Evaluations  
+mkdir -p Customizing/global/plugins/Modules/Test/Evaluations
 cd Customizing/global/plugins/Modules/Test/Evaluations
 git clone https://github.com/kyro46/ilIRTEvaluations.git
 ```
@@ -43,7 +43,7 @@ Raw score analysis
 
 #### Item Response Theory
 
-##### Plots and difficulty/discrimation according to various models (R-Package LTM)
+##### Plots and difficulty/discrimination according to various models (R-Package LTM)
 
 - [x] Rasch Model
 - [x] One Parameter Logistic (1PL) Model (common discrimination <> 1)
@@ -62,13 +62,13 @@ Plots for each model
 
 - [x] Difficulty and discrimination per Item
 - [ ] Model fit
-- [ ] Item fit
+- [x] Item fit
 - [ ] Person fit
 - [ ] Person ability
 
 Plots
 
-- [x] Epected total score
+- [x] Expected total score
 - [x] Test Information and Standard Errors
 - [x] Item Tracelines
 

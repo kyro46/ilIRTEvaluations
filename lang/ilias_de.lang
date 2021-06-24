@@ -126,7 +126,13 @@ tst_OpenCPUPolytomousGRM_parameter_table_Diff#:#Mittlere Schwierigkeit
 tst_OpenCPUPolytomousGRM_parameter_table_Disc#:#Trennschärfe
 tst_OpenCPUPolytomousGRM_parameter_acc_TestinformationError#:#Testinformationskurve und Standardfehler
 tst_OpenCPUPolytomousGRM_parameter_acc_ICC#:#Itemcharakteristikkurven
-tst_OpenCPUPolytomousGRM_parameter_acc_expScore#:#Erwartete Punktzahl in Abhängigkeit von der Fähigkeitsausprägung
+tst_OpenCPUPolytomousGRM_parameter_acc_expTotalScore#:#Erwartete Gesamtpunktzahl in Abhängigkeit von der Fähigkeitsausprägung
+
+//ilExteEvalOpenCPUPolytomousGRM_modelfit
+//table
+tst_OpenCPUPolytomousGRM_modelfit_title_long#:#Model-fit: Anwendbarkeit des Graded Response Models auf Testebene
+tst_OpenCPUPolytomousGRM_modelfit_title_short#:Model-fit: Anwendbarkeit des Graded Response Models auf Testebene
+tst_OpenCPUPolytomousGRM_modelfit_description#:#Das Analysemodell stellt Anforderungen an die Daten, deren Erfüllung für alle Testdaten hier statistisch betrachtet wird.
 
 //tst_OpenCPUPolytomousGRM_itemfit
 //table
@@ -134,9 +140,9 @@ tst_OpenCPUPolytomousGRM_itemfit_title_long#:#Item-fit: Anwendbarkeit des Graded
 tst_OpenCPUPolytomousGRM_itemfit_title_short#:#Item-fit: Anwendbarkeit des Graded Response Models auf Itemebene
 tst_OpenCPUPolytomousGRM_itemfit_description#:#Das Analysemodell stellt Anforderungen an die Daten, deren Erfüllung pro Item hier statistisch betrachtet wird.
 tst_OpenCPUPolytomousGRM_itemfit_table_outfit#:#outfit
-tst_OpenCPUPolytomousGRM_parameter_table_z.outfit#:#z.outfit
-tst_OpenCPUPolytomousGRM_parameter_table_infit#:#infit
-tst_OpenCPUPolytomousGRM_parameter_table_z.infit#:#z.infit
+tst_OpenCPUPolytomousGRM_itemfit_table_z.outfit#:#z.outfit
+tst_OpenCPUPolytomousGRM_itemfit_table_infit#:#infit
+tst_OpenCPUPolytomousGRM_itemfit_table_z.infit#:#z.infit
 tst_OpenCPUPolytomousGRM_itemfit_table_X2#:#X2
 tst_OpenCPUPolytomousGRM_itemfit_table_df.X2#:#df.X2
 tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.X2#:#RMSEA.X2

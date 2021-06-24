@@ -94,7 +94,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		// Expected Score
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', 'Erwartete Punktzahl in Abhängigkeit von der Fähigkeitsausprägung');
+		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUPolytomousGRM_parameter_acc_expTotalScore'));
 		$plot = '';
 		$plot = "<img src='data:image/png;base64," . $results['plot_expected_score'] . "'>";
 		$template->setVariable('PLOT', $plot);
@@ -102,7 +102,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 
 		// Testinformation + standard error
 		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', 'Testinformationskurve und Standardfehler');
+		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUPolytomousGRM_parameter_acc_TestinformationError'));
 		$plot = '';
 		$plot = "<img src='data:image/png;base64," . $results['plot_infoSE'] . "'>";
 		$template->setVariable('PLOT', $plot);
@@ -110,7 +110,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		
 		// Tracelines
 		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', 'Itemcharakteristikkurven');
+		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUPolytomousGRM_parameter_acc_ICC'));
 		$plot = '';
 		$plot = "<img src='data:image/png;base64," . $results['plot_trace'] . "'>";
 		$template->setVariable('PLOT', $plot);
@@ -123,7 +123,6 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		$customHTML = $template->get();
 
 		$details->customHTML = $customHTML;
-		//$details->customHTML .= $customHTML; //this is how you add more templates to evaluation
 		
 		//header
 		$details->columns = array (

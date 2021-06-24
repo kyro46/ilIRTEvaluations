@@ -64,8 +64,10 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		"library(mirt);" .
 		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 		"model <- mirt(data, 1, itemtype='graded');" .
-		//"itemfit <- itemfit(model, c('S_X2','X2','G2','infit'))";
-		"itemfit <- itemfit(model, c('S_X2','infit'))";
+		"for (i in model@Data\$rowID) {print(itemfit(model, empirical.plot = i))};" .
+		//"itemfit <- itemfit(model, c('S_X2','X2','G2','infit'));";
+		//"itemfit <- itemfit(model, c('S_X2','infit'));";
+		"itemfit <- itemfit(model, c('S_X2'));";
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
@@ -75,31 +77,52 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		}
 		
 		//prepare results
-		$needles = array('itemfit' );
+		$needles = array('itemfit', 'graphics' );
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
 		
 		$serialized = json_decode(stripslashes($results['itemfit']),TRUE);	
+		$plots = $results['graphics'];
+		
+		
+		
+		// create accordions for plots and textual summaries
+		// Expected Score
+		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
+		$template->setCurrentBlock("accordion_plot");
+		$template->setVariable('TITLE', 'Erwartete Punktzahl in Abhängigkeit von der Fähigkeitsausprägung');
+		$plot = '';
+		for ($i = 0; $i < sizeof($plots); $i++) {
+			$plot .= "<img src='data:image/png;base64," . $plots[$i] . "'>";
+		}
+		$template->setVariable('PLOT', $plot);
+		$template->parseCurrentBlock("accordion_plot");
+		
+		//prepare and create output of plots
+		$customHTML = $template->get();
+		
+		$details->customHTML = $customHTML;
 
 		//header
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('question_nr', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_itemnr'),ilExteStatColumn::SORT_NONE),
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('outfit', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_outfit'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('z.outfit', $this->plugin->txt('tst_OpenCPUPolytomousGRM_parameter_table_z.outfit'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('infit', $this->plugin->txt('tst_OpenCPUPolytomousGRM_parameter_table_infit'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('z.infit', $this->plugin->txt('tst_OpenCPUPolytomousGRM_parameter_table_z.infit'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_X2'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('df.X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_df.X2'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('RMSEA.X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_RMSEA.X2'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('p.X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_p.X2'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('G2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_G2'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('df.G2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_df.G2'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('RMSEA.G2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_RMSEA.G2'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('p.G2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_p.G2'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_S_X2'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('df.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_df.S_X2'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('RMSEA.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_RMSEA.S_X2'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('p.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelitemfit_table_p.S_X2'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('outfit', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_outfit'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('z.outfit', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_z.outfit'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('infit', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_infit'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('z.infit', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_z.infit'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_X2'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('df.X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_df.X2'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('RMSEA.X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.X2'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('p.X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_p.X2'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('G2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_G2'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('df.G2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_df.G2'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('RMSEA.G2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.G2'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('p.G2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_p.G2'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_S_X2'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('df.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_df.S_X2'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('RMSEA.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.S_X2'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('p.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_p.S_X2'),ilExteStatColumn::SORT_NUMBER),
 		);
 		
 		//rows
@@ -109,11 +132,12 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 			if ($question->question_id == substr($serialized[$i]['item'], 1)) {
 				$details->rows[] = array(
 						'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
+						'question_nr' => ilExteStatValue::_create('#'.($i+1), ilExteStatValue::TYPE_TEXT, 0),
 						'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-						'outfit' => ilExteStatValue::_create($serialized[$i]['outfit'], ilExteStatValue::TYPE_NUMBER, 3),
-						'z.outfit' => ilExteStatValue::_create($serialized[$i]['z.outfit'], ilExteStatValue::TYPE_NUMBER, 3, NULL),
-						'infit' => ilExteStatValue::_create($serialized[$i]['infit'], ilExteStatValue::TYPE_NUMBER, 3),
-						'z.infit' => ilExteStatValue::_create($serialized[$i]['z.infit'], ilExteStatValue::TYPE_NUMBER, 3),
+						//'outfit' => ilExteStatValue::_create($serialized[$i]['outfit'], ilExteStatValue::TYPE_NUMBER, 3),
+						//'z.outfit' => ilExteStatValue::_create($serialized[$i]['z.outfit'], ilExteStatValue::TYPE_NUMBER, 3, NULL),
+						//'infit' => ilExteStatValue::_create($serialized[$i]['infit'], ilExteStatValue::TYPE_NUMBER, 3),
+						//'z.infit' => ilExteStatValue::_create($serialized[$i]['z.infit'], ilExteStatValue::TYPE_NUMBER, 3),
 						//'X2' => ilExteStatValue::_create($serialized[$i]['X2'], ilExteStatValue::TYPE_NUMBER, 3),
 						//'df.X2' => ilExteStatValue::_create($serialized[$i]['df.X2'], ilExteStatValue::TYPE_NUMBER, 3),
 						//'RMSEA.X2' => ilExteStatValue::_create($serialized[$i]['RMSEA.X2'], ilExteStatValue::TYPE_NUMBER, 3),
