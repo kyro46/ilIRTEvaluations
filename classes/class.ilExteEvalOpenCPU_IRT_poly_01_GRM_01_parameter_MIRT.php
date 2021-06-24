@@ -86,9 +86,6 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
 		
 		$serialized = json_decode(stripslashes($results['coef']),TRUE);
-		$results['plot_infoSE'];
-		$results['plot_trace'];
-		$results['plot_expected_score'];
 		
 		// create accordions for plots and textual summaries
 		// Expected Score

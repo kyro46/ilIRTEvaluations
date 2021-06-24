@@ -64,10 +64,10 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		"library(mirt);" .
 		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 		"model <- mirt(data, 1, itemtype='graded');" .
-		"for (i in model@Data\$rowID) {print(itemfit(model, empirical.plot = i))};" .
+		"for (i in 1:model@Data\$nitems) {print(itemfit(model, empirical.plot = i, na.rm=TRUE))};" .
 		//"itemfit <- itemfit(model, c('S_X2','X2','G2','infit'));";
 		//"itemfit <- itemfit(model, c('S_X2','infit'));";
-		"itemfit <- itemfit(model, c('S_X2'));";
+		"itemfit <- itemfit(model, c('S_X2'), na.rm=TRUE);";
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
