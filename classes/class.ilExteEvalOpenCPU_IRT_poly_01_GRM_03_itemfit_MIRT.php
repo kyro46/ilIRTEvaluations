@@ -43,7 +43,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 	public function calculateDetails()
 	{
 		$details = new ilExteStatDetails();
-
+		
 		// check minimum number of participants
 		$number_of_users = count($this->data->getAllParticipants());
 		if ($number_of_users < 2)
@@ -51,7 +51,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 			$details->customHTML = $this->plugin->txt('tst_OpenCPU_calculation_error');
 			return $details;
 		}
-
+		
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
@@ -80,16 +80,14 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		$needles = array('itemfit', 'graphics' );
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
 		
-		$serialized = json_decode(stripslashes($results['itemfit']),TRUE);	
+		$serialized = json_decode(stripslashes($results['itemfit']),TRUE);
 		$plots = $results['graphics'];
-		
-		
 		
 		// create accordions for plots and textual summaries
 		// Expected Score
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		$template->setCurrentBlock("accordion_plot");
-		$template->setVariable('TITLE', 'Erwartete Punktzahl in Abhängigkeit von der Fähigkeitsausprägung');
+		$template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_acc_empiricalPlot'));
 		$plot = '';
 		for ($i = 0; $i < sizeof($plots); $i++) {
 			$plot .= "<img src='data:image/png;base64," . $plots[$i] . "'>";
@@ -101,7 +99,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		$customHTML = $template->get();
 		
 		$details->customHTML = $customHTML;
-
+		
 		//header
 		$details->columns = array (
 				ilExteStatColumn::_create('question_id', $this->plugin->txt('tst_OpenCPU_table_id'),ilExteStatColumn::SORT_NUMBER),
@@ -128,7 +126,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		//rows
 		$i = 0;
 		foreach ($this->data->getAllQuestions() as $question)
-		{	
+		{
 			if ($question->question_id == substr($serialized[$i]['item'], 1)) {
 				$details->rows[] = array(
 						'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
@@ -149,15 +147,15 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 						'S_X2' => ilExteStatValue::_create($serialized[$i]['S_X2'], ilExteStatValue::TYPE_NUMBER, 3),
 						'df.S_X2' => ilExteStatValue::_create($serialized[$i]['df.S_X2'], ilExteStatValue::TYPE_NUMBER, 3),
 						'RMSEA.S_X2' => ilExteStatValue::_create($serialized[$i]['RMSEA.S_X2'], ilExteStatValue::TYPE_NUMBER, 3),
-						'p.S_X2' => ilExteStatValue::_create($serialized[$i]['p.S_X2'], ilExteStatValue::TYPE_NUMBER, 3),	
+						'p.S_X2' => ilExteStatValue::_create($serialized[$i]['p.S_X2'], ilExteStatValue::TYPE_NUMBER, 3),
 				);
 			} else { // if the question was removed due to no variance, insert empty row
 				$details->rows[] = array(
 						'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
-						'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),	
+						'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
 				);
 			}
-		$i++;
+			$i++;
 		}
 		
 		return $details;
