@@ -61,9 +61,9 @@ Plots for each model
 ##### Focus on the Graded Response Model (R-Packages MIRT)
 
 - [x] Difficulty and discrimination per Item
-- [ ] Model fit
+- [x] Model fit
 - [x] Item fit
-- [ ] Person fit
+- [x] Person fit
 - [x] Person ability
 
 Plots

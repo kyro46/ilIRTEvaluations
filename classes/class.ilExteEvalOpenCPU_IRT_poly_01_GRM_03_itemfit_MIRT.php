@@ -67,7 +67,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		"for (i in 1:model@Data\$nitems) {print(itemfit(model, empirical.plot = i, na.rm=TRUE))};" .
 		//"itemfit <- itemfit(model, c('S_X2','X2','G2','infit'));";
 		//"itemfit <- itemfit(model, c('S_X2','infit'));";
-		"itemfit <- itemfit(model, c('S_X2'), na.rm=TRUE);";
+		"itemfit <- itemfit(model, c('S_X2', 'Zh'), na.rm=TRUE);";
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
@@ -121,6 +121,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 				ilExteStatColumn::_create('df.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_df.S_X2'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('RMSEA.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_RMSEA.S_X2'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('p.S_X2', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_p.S_X2'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('Zh', $this->plugin->txt('tst_OpenCPUPolytomousGRM_itemfit_table_Zh'),ilExteStatColumn::SORT_NUMBER),
 		);
 		
 		//rows
@@ -148,6 +149,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 						'df.S_X2' => ilExteStatValue::_create($serialized[$i]['df.S_X2'], ilExteStatValue::TYPE_NUMBER, 3),
 						'RMSEA.S_X2' => ilExteStatValue::_create($serialized[$i]['RMSEA.S_X2'], ilExteStatValue::TYPE_NUMBER, 3),
 						'p.S_X2' => ilExteStatValue::_create($serialized[$i]['p.S_X2'], ilExteStatValue::TYPE_NUMBER, 3),
+						'Zh' => ilExteStatValue::_create($serialized[$i]['Zh'], ilExteStatValue::TYPE_NUMBER, 3),
 				);
 			} else { // if the question was removed due to no variance, insert empty row
 				$details->rows[] = array(

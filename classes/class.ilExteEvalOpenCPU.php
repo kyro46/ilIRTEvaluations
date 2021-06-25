@@ -88,7 +88,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	}
 	
 	/**
-	 * Create customHTML with an accordion containing the plots from R for all IRT-Evaluations
+	 * Create customHTML with an accordion containing the plots from R for all LTM-IRT-Evaluations
 	 * @param	object $object	The calling object, to get the language variables in this static context
 	 * @param	array  $plots	An array containing the plots as base64 
 	 * @return 	string			The customHTML with the plots in an accordion

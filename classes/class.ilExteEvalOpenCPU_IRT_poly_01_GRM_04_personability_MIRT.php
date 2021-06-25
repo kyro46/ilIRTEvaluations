@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Calculates fit statistics for all partipicants for the GRM via OpenCPU and MIRT
+ * Calculates ability and fit statistics for all partipicants for the GRM via OpenCPU and MIRT
  * TODO Handle questions removed due to zero variance
  * TODO Restructure to insert a NA-row of type text instead of 0
  * TODO Gives an evaluation of the model-fit
@@ -67,6 +67,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEval
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 			"model <- mirt(data, 1, itemtype='graded');" .
 			"ability_map <- fscores(model, method='MAP', full.scores=TRUE, full.scores.SE=TRUE);" .  // map works also works for 100% correct or false answer patterns
+			"personfitZh <- personfit(model);" .
 			"plot(ability_map, xlab='Estimated Ability', ylab='Standard Error');";
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
@@ -77,10 +78,14 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEval
 		}
 		
 		//prepare results
-		$needles = array('ability_map','graphics' );
+		$needles = array('ability_map', 'personfitZh', 'graphics' );
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
 		
-		$serialized = json_decode(stripslashes($results['ability_map']),TRUE);
+		$ability_map = json_decode(stripslashes($results['ability_map']),TRUE);
+		$personfitZh = json_decode(stripslashes($results['personfitZh']),TRUE);
+		
+		error_log(print_r($personfitZh,TRUE));
+		
 		
 		// create accordions for plots and textual summaries
 		// Expected Score
@@ -102,6 +107,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEval
 				ilExteStatColumn::_create('person_id', $this->plugin->txt('tst_OpenCPUPolytomousGRM_personability_table_personid'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('grm_ability', $this->plugin->txt('tst_OpenCPUPolytomousGRM_personability_table_ability'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('grm_standarderror', $this->plugin->txt('tst_OpenCPUPolytomousGRM_personability_table_standarderror'), ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('grm_personfitZh', $this->plugin->txt('tst_OpenCPUPolytomousGRM_personability_table_personfitZh'), ilExteStatColumn::SORT_NUMBER),
 		);
 
 		//rows
@@ -115,9 +121,9 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEval
 		{
 			$details->rows[] = array(
 					'person_id' => ilExteStatValue::_create($participant[0], ilExteStatValue::TYPE_NUMBER, 0),
-					'grm_ability' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
-					'grm_standarderror' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL),
-					
+					'grm_ability' => ilExteStatValue::_create($ability_map[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
+					'grm_standarderror' => ilExteStatValue::_create($ability_map[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL),
+					'grm_personfitZh' => ilExteStatValue::_create($personfitZh[$i]['Zh'], ilExteStatValue::TYPE_NUMBER, 3, NULL),
 			);
 			$i++;
 		}

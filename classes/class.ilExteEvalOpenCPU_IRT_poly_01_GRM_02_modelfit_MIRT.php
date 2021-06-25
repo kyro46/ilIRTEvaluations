@@ -78,10 +78,11 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		"AICc <- c(Rasch=rasch@Fit\$AICc,'2PL'=m2pl@Fit\$AICc,'3PL'=m3pl@Fit\$AICc,'4PL'=m4pl@Fit\$AICc,RSM=rsm@Fit\$AICc,GRM=grm@Fit\$AICc,GPCM=gpcm@Fit\$AICc,nominal=nominal@Fit\$AICc);" .
 		"SABIC <- c(Rasch=rasch@Fit\$SABIC,'2PL'=m2pl@Fit\$SABIC,'3PL'=m3pl@Fit\$SABIC,'4PL'=m4pl@Fit\$SABIC,RSM=rsm@Fit\$SABIC,GRM=grm@Fit\$SABIC,GPCM=gpcm@Fit\$SABIC,nominal=nominal@Fit\$SABIC);" .
 		"BIC <- c(Rasch=rasch@Fit\$BIC,'2PL'=m2pl@Fit\$BIC,'3PL'=m3pl@Fit\$BIC,'4PL'=m4pl@Fit\$BIC,RSM=rsm@Fit\$BIC,GRM=grm@Fit\$BIC,GPCM=gpcm@Fit\$BIC,nominal=nominal@Fit\$BIC);" .
+		"HQ <- c(Rasch=rasch@Fit\$HQ,'2PL'=m2pl@Fit\$HQ,'3PL'=m3pl@Fit\$HQ,'4PL'=m4pl@Fit\$HQ,RSM=rsm@Fit\$HQ,GRM=grm@Fit\$HQ,GPCM=gpcm@Fit\$HQ,nominal=nominal@Fit\$HQ);" .
 		"logLik <- c(Rasch=rasch@Fit\$logLik,'2PL'=m2pl@Fit\$logLik,'3PL'=m3pl@Fit\$logLik,'4PL'=m4pl@Fit\$logLik,RSM=rsm@Fit\$logLik,GRM=grm@Fit\$logLik,GPCM=gpcm@Fit\$logLik,nominal=nominal@Fit\$logLik);" .
 		"converge <- c(Rasch=rasch@OptimInfo\$converged,'2PL'=m2pl@OptimInfo\$converged,'3PL'=m3pl@OptimInfo\$converged,'4PL'=m4pl@OptimInfo\$converged,RSM=rsm@OptimInfo\$converged,GRM=grm@OptimInfo\$converged,GPCM=gpcm@OptimInfo\$converged,nominal=nominal@OptimInfo\$converged);" .
-		"plotData <- data.frame(AIC,AICc,SABIC,BIC);" .
-		"table <- data.frame(AIC,AICc,SABIC,BIC,logLik,converge);" .
+		"plotData <- data.frame(AIC,AICc,SABIC,BIC,HQ);" .
+		"table <- data.frame(AIC,AICc,SABIC,BIC,HQ,logLik,converge);" .
 		"barplot(t(as.matrix(plotData)), beside=TRUE, legend.text = TRUE, args.legend = list(x = 'center'));";
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
@@ -95,7 +96,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		$needles = array('table','graphics' );
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
 		
-		$serialized = json_decode(stripslashes($results['table']),TRUE);	
+		$serialized = json_decode(stripslashes($results['table']),TRUE);
 		$plots = $results['graphics'];
 		
 		// create accordions for plots and textual summaries
@@ -120,6 +121,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 				ilExteStatColumn::_create('aicc', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelfit_table_AICc'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('sabic', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelfit_table_SABIC'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('bic', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelfit_table_BIC'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('hq', $this->plugin->txt('tst_OpenCPUPolytomousGRM_modelfit_table_HQ'),ilExteStatColumn::SORT_NUMBER),
 		);
 		
 		//rows
@@ -133,6 +135,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 					'aicc' => ilExteStatValue::_create($row['AICc'], ilExteStatValue::TYPE_NUMBER, 3),
 					'sabic' => ilExteStatValue::_create($row['SABIC'], ilExteStatValue::TYPE_NUMBER, 3, NULL),
 					'bic' => ilExteStatValue::_create($row['BIC'], ilExteStatValue::TYPE_NUMBER, 3),
+					'hq' => ilExteStatValue::_create($row['HQ'], ilExteStatValue::TYPE_NUMBER, 3),
 			);
 		$i++;
 		}
