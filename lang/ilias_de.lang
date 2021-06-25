@@ -177,3 +177,16 @@ tst_OpenCPUPolytomousGRM_personability_table_ability#:#Fähigkeit
 tst_OpenCPUPolytomousGRM_personability_table_standarderror#:#Standardfehler
 tst_OpenCPUPolytomousGRM_personability_table_personfitZh#:#Zh (Person-fit)
 tst_OpenCPUPolytomousGRM_personability_acc_ability#:#Fähigkeit und Standardfehler
+
+//ilExteEvalOpenCPU_IRTxCTT_comparison
+//table
+tst_OpenCPU_IRTxCTT_comparison_title_long#:#Korrelationen zwischen klassischer Testtheorie und Item Response Theorie
+tst_OpenCPU_IRTxCTT_comparison_title_short#:#Korrelationen zwischen klassischer Testtheorie und Item Response Theorie
+tst_OpenCPU_IRTxCTT_comparison_description#:#Die Übereinstimmungen zwischen KTT und IRT werden untersucht. Ausreißer bei Items und Probanden sind Kandidaten für eine genauere Untersuchung.
+tst_OpenCPU_IRTxCTT_comparison_table_cttdif#:#KTT Schwierigkeit
+tst_OpenCPU_IRTxCTT_comparison_table_irtdif#:#IRT Schwierigkeit
+tst_OpenCPU_IRTxCTT_comparison_table_cttpbis#:#KTT Diskriminierung
+tst_OpenCPU_IRTxCTT_comparison_table_irtdis#:#IRT Diskriminierung
+tst_OpenCPU_IRTxCTT_comparison_acc_difficulty#:#Schwierigkeitsindizes der Items <> Schwierigkeitsparameter
+tst_OpenCPU_IRTxCTT_comparison_acc_discrimination#:#Trennschärfe der Items (Punktbiseriale Korrelation ohne das Item) <> Diskriminationsparameter
+tst_OpenCPU_IRTxCTT_comparison_acc_ability#:#Gesamtpunktzahl im Test <> Fähigkeitsschätzung

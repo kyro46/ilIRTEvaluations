@@ -177,3 +177,16 @@ tst_OpenCPUPolytomousGRM_personability_table_ability#:#Ability
 tst_OpenCPUPolytomousGRM_personability_table_standarderror#:#Standarderror
 tst_OpenCPUPolytomousGRM_personability_table_personfitZh#:#Zh (Person-fit)
 tst_OpenCPUPolytomousGRM_personability_acc_ability#:#Ability and Standarderror
+
+//ilExteEvalOpenCPU_IRTxCTT_comparison
+//table
+tst_OpenCPU_IRTxCTT_comparison_title_long#:#Correlations between classical test theory and item response theory (GRM)
+tst_OpenCPU_IRTxCTT_comparison_title_short#:#Correlations between classical test theory and item response theory (GRM)
+tst_OpenCPU_IRTxCTT_comparison_description#:#The similarities and differences between the approaches are investigated. Abberant persons or items are candidates for further review.
+tst_OpenCPU_IRTxCTT_comparison_table_cttdif#:#CTT Difficulty
+tst_OpenCPU_IRTxCTT_comparison_table_irtdif#:#IRT Difficulty
+tst_OpenCPU_IRTxCTT_comparison_table_cttpbis#:#CTT Discrimination
+tst_OpenCPU_IRTxCTT_comparison_table_irtdis#:#IRT Discrimination
+tst_OpenCPU_IRTxCTT_comparison_acc_difficulty#:#Difficulty (proportion of correct answers) <> Difficulty parameter
+tst_OpenCPU_IRTxCTT_comparison_acc_discrimination#:#Discrimination (pointbiserial correlation without the item) <> Discrimination parameter
+tst_OpenCPU_IRTxCTT_comparison_acc_ability#:#Sumscore <> Ability estimation
