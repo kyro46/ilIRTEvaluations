@@ -60,41 +60,67 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		$server = $config['server'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this);
+		
+		// get an array of all questions with their max points
+		// needed to calculate the CTT-diffiulty in R
+		$maxPoints = array();
+		
+		foreach ($this->data->getAllQuestions() as $question)
+		{
+			if (!in_array($question->question_id, $data['removed']))
+			$maxPoints[$question->question_id] = $question->maximum_points;
+		}
+
+		$maxPointsJSON = json_encode($maxPoints);
+		
 		$path = "/ocpu/library/base/R/identity";
 		
-		//TODO - difficulty calculation for ctt has to be adjusted for polytomous tests. Not usable yet!
+		//TODO - difficulty calculation for ctt and GRM mean difficulty has to be adjusted for polytomous tests. Not usable yet!
 		$query["x"] =
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
+			"library(jsonlite);" .
+			"maxPoints <- fromJSON('{$maxPointsJSON}');" .
+			
+			"difficultyManual <- rbind(colSums(data,na.rm=TRUE),t(maxPoints));" .
+			"difficultyManual <- t(difficultyManual);" .
+			"difficultyManual <- data.frame(difficultyManual);" .
+			
+			"difficultyManual\$X1 <- as.numeric(difficultyManual\$X1);" .
+			"difficultyManual\$X2 <- as.numeric(difficultyManual\$X2);" .
+			
+			"difficultyManual\$maxObtainable <- difficultyManual\$X2 * nrow(data);" .
+			"difficultyManual\$difficulty <- difficultyManual\$X1 / difficultyManual\$maxObtainable ;" .
+
 			"library(CTT);" .
 			"ctt_itemanalysis <- itemAnalysis(data);" .
 			"library(mirt);" .
 			"grm <- mirt(data,1,itemtype='graded');" .
-			"coef <- coef(grm);" .
-			"irtdifdisc <- data.frame(matrix(unlist(coef), nrow=length(coef), byrow=TRUE));" .
-			"irtdifdisc <- irtdifdisc[-nrow(irtdifdisc),];" .
-			//"# ctt difficulty and irt d" .
-			"cttdifIRT <- data.frame(ctt_itemanalysis\$itemReport\$itemMean, irtdifdisc\$X2);" .
-			"plot(cttdifIRT);" .
-			//"# ltm calculations maybe later -> ExBisCorr " .
-			"library(ltm);" .
-			"ltm_descript <- descript(data);" .
-			//"# ltm bisCorr with item itr-diff" .
-			//"ltmBisCorrIRT <- data.frame(ltm_descript\$bisCorr,irtdifdisc\$X1);" .
-			//"plot_ltmBisCorrIRT <- plot(ltmBisCorrIRT);" .
-			//"# ltm bisCorr without item itr-diff" .
-			"ltmExBisCorrIRT <- data.frame(ltm_descript\$ExBisCorr,irtdifdisc\$X1);" .
-			"plot(ltmExBisCorrIRT);" .
-			//"# ctt bis and irt a" .
-			//"cttbisIRT <- data.frame(ctt_itemanalysis\$itemReport\$bis, irtdifdisc\$X1);" .
-			//"plot_cttbisIRT <- plot(cttbisIRT);" .
-			//"# ctt pbis and irt a" .
-			//"cttpbisIRT <- data.frame(ctt_itemanalysis\$itemReport\$pBis, irtdifdisc\$X1);" .
-			//"plot_cttpbisIRT <- plot(cttpbisIRT);" .
-			//"# ctt sumscore and irt person ability" .
+			"coef <- coef(grm, simplify=TRUE);" .
+			"questionlist <- coef(grm);" .
+			"discrimination <- coef\$items[,1];" . //select discrimination in first row
+			"meandifficulty <- tryCatch({rowMeans(coef\$items[,-1], na.rm=TRUE)},error = function(e){coef\$items[,-1]});" . // rowsum only for polytomous items
+			"irtdifdisc <- data.frame(t(rbind(discrimination,meandifficulty)));" .
+			
+			//ctt difficulty and irt d
+			"cttdifIRT <- data.frame(difficultyManual\$difficulty, irtdifdisc\$meandifficulty);" .
+			"plot(cttdifIRT, xlab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_cttdif')}', ylab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_irtdif')}');" .
+			
+			//ltm calculations -> ExBisCorr
+			// ExBisCorr only possible for dichotomous items, so we use the dichotomized data
+			//"library(ltm);" .
+			//"ltm_descript <- descript(data);" .			
+			//"ltmExBisCorrIRT <- data.frame(ltm_descript\$ExBisCorr,irtdifdisc\$discrimination);" .
+			//"plot(ltmExBisCorrIRT);" .
+			
+			//ctt pbis and irt a
+			"cttpbisIRT <- data.frame(ctt_itemanalysis\$itemReport\$pBis, irtdifdisc\$discrimination);" .
+			"plot(cttpbisIRT, xlab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_cttpbis')}', ylab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_irtdis')}');" .
+			
+			//ctt sumscore and irt person ability
 			"sumscore <- rowSums(data);" .
 			"person_ability <- fscores(grm, method='MAP', full.scores=TRUE);" .
-			"plot(sumscore,person_ability);";
-		
+			"plot(sumscore,person_ability, xlab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_plot_cttsumscore')}', ylab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_plot_irt_ability')}');";
+
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
 		if ($session == FALSE) {
@@ -103,13 +129,14 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		}
 		
 		//prepare results
-		$needles = array('cttdifIRT', 'ltmExBisCorrIRT', 'coef', 'graphics');
+		$needles = array('cttdifIRT', 'cttpbisIRT', 'coef', 'questionlist', 'graphics');
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
 
 		$cttdifIRT = json_decode(stripslashes($results['cttdifIRT']),TRUE);
-		$ltmExBisCorrIRT = json_decode(stripslashes($results['ltmExBisCorrIRT']),TRUE);
+		$cttpbisIRT = json_decode(stripslashes($results['cttpbisIRT']),TRUE);
 		$coef = json_decode(stripslashes($results['coef']),TRUE);
-				
+		$questionlist = json_decode(stripslashes($results['questionlist']),TRUE);
+		
 		// create accordions for plots and textual summaries
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		$template->setCurrentBlock("accordion_plot");
@@ -152,20 +179,19 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		$i = 0;
 		foreach ($this->data->getAllQuestions() as $question)
 		{
-			if (array_key_exists('X' . $question->question_id, $coef)) {
+			if (array_key_exists('X' . $question->question_id, $questionlist)) {
 				$details->rows[] = array(
 						'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 						'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-						'CTT_Dif' => ilExteStatValue::_create($cttdifIRT[$i]['ctt_itemanalysis.itemReport.itemMean'], ilExteStatValue::TYPE_NUMBER, 3),
-						'IRT_Dif' => ilExteStatValue::_create($cttdifIRT[$i]['irtdifdisc.X2'], ilExteStatValue::TYPE_NUMBER, 3),
-						'CTT_PBIS' => ilExteStatValue::_create($ltmExBisCorrIRT[$i]['ltm_descript.ExBisCorr'], ilExteStatValue::TYPE_NUMBER, 3),
-						'IRT_Dis' => ilExteStatValue::_create($ltmExBisCorrIRT[$i]['irtdifdisc.X1'], ilExteStatValue::TYPE_NUMBER, 3),
+						'CTT_Dif' => ilExteStatValue::_create($cttdifIRT[$i]['difficultyManual.difficulty'], ilExteStatValue::TYPE_NUMBER, 3),
+						'IRT_Dif' => ilExteStatValue::_create($cttdifIRT[$i]['irtdifdisc.meandifficulty'], ilExteStatValue::TYPE_NUMBER, 3),
+						'CTT_PBIS' => ilExteStatValue::_create($cttpbisIRT[$i]['ctt_itemanalysis.itemReport.pBis'], ilExteStatValue::TYPE_NUMBER, 3),
+						'IRT_Dis' => ilExteStatValue::_create($cttpbisIRT[$i]['irtdifdisc.discrimination'], ilExteStatValue::TYPE_NUMBER, 3),
 				);
 			} else { // if the question was removed due to no variance, insert empty row
 				$details->rows[] = array(
 						'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 						'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-						'CTT_Dif' => ilExteStatValue::_create(1, ilExteStatValue::TYPE_NUMBER, 0),
 				);
 			}
 			$i++;

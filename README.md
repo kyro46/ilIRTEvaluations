@@ -74,9 +74,9 @@ Plots
 
 Additional comparison of evaluations following CTT and IRT
 
-- [ ] Difficulty
-- [ ] Discrimination
-- [ ] Sumscore vs. estimated ability
+- [x] Difficulty
+- [x] Discrimination
+- [x] Sumscore vs. estimated ability
 - [ ] Empirical Item Characteristic Curves vs. IRT Item Tracelines
 - [ ] Observable factors vs. usage of multidimensional IRT
 

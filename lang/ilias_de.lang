@@ -190,3 +190,5 @@ tst_OpenCPU_IRTxCTT_comparison_table_irtdis#:#IRT Diskriminierung
 tst_OpenCPU_IRTxCTT_comparison_acc_difficulty#:#Schwierigkeitsindizes der Items <> Schwierigkeitsparameter
 tst_OpenCPU_IRTxCTT_comparison_acc_discrimination#:#Trennschärfe der Items (Punktbiseriale Korrelation ohne das Item) <> Diskriminationsparameter
 tst_OpenCPU_IRTxCTT_comparison_acc_ability#:#Gesamtpunktzahl im Test <> Fähigkeitsschätzung
+tst_OpenCPU_IRTxCTT_comparison_plot_cttsumscore#:#KTT erreichte Punktzahl
+tst_OpenCPU_IRTxCTT_comparison_plot_irt_ability#:#IRT Fähigkeitsschätzung

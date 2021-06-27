@@ -190,3 +190,5 @@ tst_OpenCPU_IRTxCTT_comparison_table_irtdis#:#IRT Discrimination
 tst_OpenCPU_IRTxCTT_comparison_acc_difficulty#:#Difficulty (proportion of correct answers) <> Difficulty parameter
 tst_OpenCPU_IRTxCTT_comparison_acc_discrimination#:#Discrimination (pointbiserial correlation without the item) <> Discrimination parameter
 tst_OpenCPU_IRTxCTT_comparison_acc_ability#:#Sumscore <> Ability estimation
+tst_OpenCPU_IRTxCTT_comparison_plot_cttsumscore#:#CTT Sumscore
+tst_OpenCPU_IRTxCTT_comparison_plot_irt_ability#:#IRT estimated ability
