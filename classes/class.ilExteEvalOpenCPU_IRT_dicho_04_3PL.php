@@ -3,8 +3,6 @@
 /**
  * Calculates 3-PL-Model via OpenCPU
  * TODO Handle questions removed due to zero variance
- * TODO Restructure to insert a NA-row of type text instead of 0
- * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPU_IRT_dicho_04_3PL extends ilExteEvalTest
 {
@@ -39,7 +37,7 @@ class ilExteEvalOpenCPU_IRT_dicho_04_3PL extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPU3PL';
 	
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate parameters for the 3-PL-Model
 	 *
 	 * @return ilExteStatDetails
 	 */

@@ -21,7 +21,7 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 	protected $provides_HTML = true;
 	
 	/**
-	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
+	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
 	protected $allowed_test_types = array();
 	
@@ -36,7 +36,7 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPURawScoreDistribution';
 
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate the raw score distribution
 	 *
 	 * @return ilExteStatDetails
 	 */

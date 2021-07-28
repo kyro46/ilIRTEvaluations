@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Calculates Cronbach Alpha via OpenCPU
+ * Calculates the internal consistency and Spearman Brown Formula via OpenCPU
  */
 class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 {
@@ -21,7 +21,7 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 	protected $provides_HTML = true;
 	
 	/**
-	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
+	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
 	protected $allowed_test_types = array();
 	
@@ -35,6 +35,10 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 	 */
 	protected $lang_prefix = 'tst_OpenCPUAlpha';
 
+	/**
+	 * Get a list of available parameters
+	 *	@return ilExteStatParam[]
+	 */
 	public function getAvailableParams()
 	{
 		return array(
@@ -200,7 +204,7 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 				ilExteStatColumn::_create('question_title', $this->plugin->txt('tst_OpenCPU_table_title'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('alpha_if_removed', $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('alpha_if_removed_difference', $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference'),
-						ilExteStatColumn::SORT_NUMBER,  $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment'))	
+				ilExteStatColumn::SORT_NUMBER,  $this->plugin->txt('tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment'))	
 		);
 		
 		//pupulate rows

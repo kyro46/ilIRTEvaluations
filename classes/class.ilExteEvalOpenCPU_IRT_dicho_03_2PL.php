@@ -3,8 +3,6 @@
 /**
  * Calculates 2-PL-Model via OpenCPU
  * TODO Handle questions removed due to zero variance
- * TODO Restructure to insert a NA-row of type text instead of 0
- * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPU_IRT_dicho_03_2PL extends ilExteEvalTest
 {
@@ -24,7 +22,7 @@ class ilExteEvalOpenCPU_IRT_dicho_03_2PL extends ilExteEvalTest
 	protected $provides_HTML = true;
 	
 	/**
-	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
+	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
 	protected $allowed_test_types = array();
 	
@@ -39,7 +37,7 @@ class ilExteEvalOpenCPU_IRT_dicho_03_2PL extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPU2PL';
 	
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate parameters for the 2-PL-Model
 	 *
 	 * @return ilExteStatDetails
 	 */

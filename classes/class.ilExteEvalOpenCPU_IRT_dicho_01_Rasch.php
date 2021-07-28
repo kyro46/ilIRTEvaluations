@@ -1,10 +1,8 @@
 <?php
 
 /**
- * Calculates Rasch-parameter via OpenCPU
+ * Calculates Rasch-parameters via OpenCPU
  * TODO Handle questions removed due to zero variance
- * TODO Restructure to insert a NA-row of type text instead of 0
- * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 {
@@ -39,7 +37,7 @@ class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPURasch';
 	
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate parameters for the Rasch-Model
 	 *
 	 * @return ilExteStatDetails
 	 */
