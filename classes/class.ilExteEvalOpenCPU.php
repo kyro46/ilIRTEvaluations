@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Static functions, used by other OpenCPU-Evaluations. Offers limited interactive R-input.
+ * Helper class containing functions, used by other OpenCPU-Evaluations. 
+ * Displays the basic matrix for IRT calculations which is transmitted to OpenCPU
  */
 class ilExteEvalOpenCPU extends ilExteEvalTest
 {
@@ -18,10 +19,10 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	/**
 	 * @var bool    evaluation provides custom HTML
 	 */
-	protected $provides_HTML = true;
-	
+	protected $provides_HTML = false;
+
 	/**
-	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
+	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
 	protected $allowed_test_types = array();
 
@@ -45,18 +46,18 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 				ilExteStatParam::_create('server', ilExteStatParam::TYPE_STRING, 'https://cloud.opencpu.org'),
 		);
 	}
-
+	
 	/**
 	 * Collects data from an OpenCPU-session as array of json strings and plots as base64 string
 	 * @param	string $server
 	 * @param	string $data		A list of OpenCPU-session outputs
 	 * @param	array  $needles		An array of strings to be loaded from the session
-	 * @return 	array				An array containing the data
+	 * @return 	array				An array containing the data as strings
 	 */
 	public static function retrieveData($server, $data, $needles) {
 		$results = array();
 		$response_path = explode("\n", $data);
-
+		
 		foreach($needles as $needle) {
 			if ($needle == 'graphics') {
 				// general path for plots is '/graphics/[plotnumber]'
@@ -66,13 +67,13 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 						$results[$needle][] = base64_encode(file_get_contents($server . $path .'/png'));
 					}
 				}
-			} elseif (substr( $needle, 0, 4 ) === 'plot') { 
+			} elseif (substr( $needle, 0, 4 ) === 'plot') {
 				// explicitly named plots are not stored with path /graphics
 				// and have to be accessed by name
 				// convention for this plugin: named plots always start with plot
 				foreach($response_path as $path) {
 					if(preg_match("/\b{$needle}\b/i", $path)) {
-						$results[$needle] = base64_encode(file_get_contents($server . $path .'/png'));						
+						$results[$needle] = base64_encode(file_get_contents($server . $path .'/png'));
 					}
 				}
 			} else {
@@ -90,9 +91,8 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	/**
 	 * Create customHTML with an accordion containing the plots from R for all LTM-IRT-Evaluations
 	 * @param	object $object	The calling object, to get the language variables in this static context
-	 * @param	array  $plots	An array containing the plots as base64 
+	 * @param	array  $plots	An array containing the plots as base64
 	 * @return 	string			The customHTML with the plots in an accordion
-	 * @see  	ilExteEvalOpenCPU::retrievePlots()
 	 */
 	public static function getPlotAccordionHTML($object, $plots){
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
@@ -148,7 +148,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 			return FALSE;
 		}
 	}
-
+	
 	/**
 	 * Transforms the points into dichotomous 0 and 1 outcomes
 	 * Dichotomizing is a bad transformation with great information loss
@@ -163,49 +163,49 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 	 * @param	array  	$answers 	The Points to be dichotomized
 	 * @param	string	$version	The method used for dichotomizing
 	 * @param	float	$value		The cut score
-	 * @return 	integer $result	The dichotomized value
+	 * @return 	array	$answers	The dichotomized values
 	 */
 	public function dichotomize($answers, $version = 'value', $value = 0) {
 		switch ($version){
-		case 'modal':
-			$counted = array_count_values($answers);
-			asort($counted);
-			$maxCount = max($counted);
-			foreach($counted as $number => $count)
-			{
-				if($count == $maxCount)
-					$modals = array ($number);
-			}
-			if (count($modals) != 1) {
-				$value = $modals[ceil(count($modals)/2)];
-			} else {
-				$value = $modals[0];
-			}
-			break;
-		case 'median':
-			$sorted = $answers;
-			rsort($sorted);
-			$middle = round(count($sorted) / 2);
-			$value = $sorted[$middle-1];
-			break;
-		}
-			
-			/*	50%  -> $value = $question->maximum_points/2
-			 *  mean -> $value = $question->average_points
-			 */
-			foreach ($answers as $key => $answer)
-			{
-				if (is_numeric ($answer->reached_points) && $answer->reached_points <= $value) {
-					$answers[$key]->reached_points = 0;
-				} elseif (is_numeric ($answer->reached_points)) {
-					$answers[$key]->reached_points = 1;
+			case 'modal':
+				$counted = array_count_values($answers);
+				asort($counted);
+				$maxCount = max($counted);
+				foreach($counted as $number => $count)
+				{
+					if($count == $maxCount)
+						$modals = array ($number);
 				}
+				if (count($modals) != 1) {
+					$value = $modals[ceil(count($modals)/2)];
+				} else {
+					$value = $modals[0];
+				}
+				break;
+			case 'median':
+				$sorted = $answers;
+				rsort($sorted);
+				$middle = round(count($sorted) / 2);
+				$value = $sorted[$middle-1];
+				break;
+		}
+		
+		/*	50%  -> $value = $question->maximum_points/2
+		 *  mean -> $value = $question->average_points
+		 */
+		foreach ($answers as $key => $answer)
+		{
+			if (is_numeric ($answer->reached_points) && $answer->reached_points <= $value) {
+				$answers[$key]->reached_points = 0;
+			} elseif (is_numeric ($answer->reached_points)) {
+				$answers[$key]->reached_points = 1;
 			}
-			return $answers;
+		}
+		return $answers;
 	}
-
+	
 	/**
-	 * Transform the available data to a csv-structure, save the removed items and if the data was dichotomous 
+	 * Transform the available data to a csv-structure, save the removed items and if the data was dichotomous
 	 * @param	object  $object 		the calling class
 	 * @param	bool	$dichotomize	trigger dichotomizing of the reached points
 	 * @param	bool	$missingAsNA	leave missing answers as NA and don't code them as wrong (0 points)
@@ -235,9 +235,9 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 					if (!$answer->answered) {
 						$answers[$key]->reached_points = 0;
 					}
-				}	
+				}
 			}
-
+			
 			/* rebaseData?
 			 * 1. Base for all points is 0
 			 * 2. Distance between points is 1
@@ -255,7 +255,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 						$count[] = (float)$answer->reached_points;
 					}
 				}
-				sort($count);				
+				sort($count);
 				foreach ($answers as $key => $answer)
 				{
 					if (in_array($answer->reached_points, $count)) {
@@ -284,7 +284,7 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 				}
 			}
 		}
-
+		
 		// form data to a csv-string
 		$csv = "";
 		foreach ($header_array as $header){
@@ -315,45 +315,49 @@ class ilExteEvalOpenCPU extends ilExteEvalTest
 		if (count(array_unique($all_variants_array)) === 1) {
 			$dichotomous = TRUE;
 		}
-
+		
 		/* adding information to the result: removed questions and if data is (now) dichotomous
 		 * important for polytomous evaluations because ltm then returns a dataset without question_id
 		 * and we have to handle the different datastructure
-		 */ 
+		 */
 		$data = array('csv' => $csv, 'removed' => $removed_id_array, 'dichotomous' => $dichotomous);
 		return $data;
 	}
 
 	/**
-	 * Calculate the details for a test
+	 * Show the raw answer matrix
 	 *
 	 * @return ilExteStatDetails
 	 */
 	public function calculateDetails()
 	{
-		$details = new ilExteStatDetails();
+        $details = new ilExteStatDetails();
+        $details->columns = array (
+        	ilExteStatColumn::_create('active_id',' ',ilExteStatColumn::SORT_NUMBER),
+        );
 
-		// check minimum number of participants
-		$number_of_users = count($this->data->getAllParticipants());
-		if ($number_of_users < 2)
-		{
-			$details->customHTML = $this->plugin->txt('tst_OpenCPU_calculation_error');
-			return $details;
-		}
+        foreach ($this->data->getAllQuestions() as $question)
+        {
+        	array_push($details->columns, ilExteStatColumn::_create($question->question_id,$question->question_id,ilExteStatColumn::SORT_NUMBER));
+        }
+        $active_id_array = array();
+        
+        foreach ($this->data->getAllQuestions() as $question)
+        {
+        	foreach ($this->data->getAnswersForQuestion($question->question_id) as $answer) 
+        	{
+        		$active_id_array[$answer->active_id][$question->question_id] = $answer->reached_points;
+        	}
+        }
 
-		$data = ilExteEvalOpenCPU::getBasicData($this);
-
-		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
-		$template->setVariable('SERVER', $this->getParam('server'));
-		$template->setVariable('CALLR_DESC', $this->plugin->txt('tst_OpenCPU_callR_desc'));
-		$template->setVariable('CALLR', $this->plugin->txt('tst_OpenCPU_callR'));
-
-		$result_array = array_map("str_getcsv", explode("\n", $data['csv']));
-		$json = json_encode($result_array);
-		$template->setVariable('JSON', substr_replace($json, 0, 3, 0));		
-		
-		$details->customHTML = $template->get();
-		
+        foreach($active_id_array as $active_id => $reached_points_array) {
+        	$details->rows[] = array(
+        			'active_id' => ilExteStatValue::_create($active_id, ilExteStatValue::TYPE_NUMBER, 0),
+        	);
+        	foreach($reached_points_array as $question_id => $reached_points){
+        		$details->rows[count($details->rows)-1][$question_id] = ilExteStatValue::_create($reached_points, ilExteStatValue::TYPE_NUMBER, 2);
+        	}
+        }
         return $details;
 	}
 }
