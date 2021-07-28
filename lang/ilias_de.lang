@@ -15,16 +15,16 @@ tst_OpenCPU_calculation_error#:#Zu wenige Teilnehmer, Antworten oder Fragen für
 tst_OpenCPU_server_title#:#URL von OpenCPU
 tst_OpenCPU_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete für IRT-Berechnungen müssen darauf installiert sein.</br>Empfohlener freier Server: https://cloud.opencpu.org
 //table
-tst_OpenCPU_title_long#:#Interaktive R-Konsole (OpenCPU)
-tst_OpenCPU_title_short#:#Interaktive R-Konsole
-tst_OpenCPU_description#:#Die IRT-Berechnungen
-tst_OpenCPU_callR#:#Via R ausführen
-tst_OpenCPU_callR_desc#:#Die Testdaten liegen in der Variable <strong>"data"</strong> vor. Es können hier selbstständig R-Operationen auf dem Datensatz durchgeführt werden.<br/>
+tst_OpenCPU_title_long#:#Datenmatrix für OpenCPU
+tst_OpenCPU_title_short#:#Datenmatrix für OpenCPU
+tst_OpenCPU_description#:#Dies sind die an OpenCPU gesendeten Informationen (Spalten = Items, Zeilen = Probanden).
 
-//ilExteEvalOpenCPUBaseData
-tst_OpenCPUBaseData_title_long#:#Datenmatrix für OpenCPU
-tst_OpenCPUBaseData_title_short#:#Datenmatrix für OpenCPU
-tst_OpenCPUBaseData_description#:#Dies sind die an OpenCPU gesendeten Informationen (Spalten = Items, Zeilen = Probanden).
+//ilExteEvalOpenCPUConsole
+tst_OpenCPUConsole_title_long#:#Interaktive R-Konsole (OpenCPU)
+tst_OpenCPUConsole_title_short#:#Interaktive R-Konsole
+tst_OpenCPUConsole_description#:#Die IRT-Berechnungen
+tst_OpenCPUConsole_callR#:#Via R ausführen
+tst_OpenCPUConsole_callR_desc#:#Die Testdaten liegen in der Variable <strong>"data"</strong> vor. Es können hier selbstständig R-Operationen auf dem Datensatz durchgeführt werden.<br/>
 
 //ilExteEvalOpenCPUAlpha
 //config

@@ -15,16 +15,17 @@ tst_OpenCPU_calculation_error#:#Not enough participants, answers or questions fo
 tst_OpenCPU_server_title#:#OpenCPU URL
 tst_OpenCPU_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed.</br>Recommended free server: https://cloud.opencpu.org
 //table
+tst_OpenCPUBaseData_title_long#:#Datamatrix for OpenCPU
+tst_OpenCPUBaseData_title_short#:#Datamatrix for OpenCPU
+tst_OpenCPUBaseData_description#:#Overview of the data which is sent to OpenCPU. Columns are questions, rows are participants.
+
+//ilExteEvalOpenCPUConsole
+//table
 tst_OpenCPU_title_long#:#Interactive R-console (OpenCPU)
 tst_OpenCPU_title_short#:#Interactive R-console
 tst_OpenCPU_description#:#IRT-Calculations via OpenCPU
 tst_OpenCPU_callR#:#Execute with R
 tst_OpenCPU_callR_desc#:#The test data is saved in variable <strong>"data"</strong>. Self-initiated operations via R can be performend here.<br/>
-
-//ilExteEvalOpenCPUBaseData
-tst_OpenCPUBaseData_title_long#:#Datamatrix for OpenCPU
-tst_OpenCPUBaseData_title_short#:#Datamatrix for OpenCPU
-tst_OpenCPUBaseData_description#:#Overview of the data which is sent to OpenCPU. Columns are questions, rows are participants.
 
 //ilExteEvalOpenCPUAlpha
 //config
