@@ -2,11 +2,8 @@
 
 /**
  * Calculates ability and fit statistics for all partipicants for the GRM via OpenCPU and MIRT
- * TODO Handle questions removed due to zero variance
- * TODO Restructure to insert a NA-row of type text instead of 0
- * TODO Gives an evaluation of the model-fit
  */
-class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEvalTest
+class ilExteEvalOpenCPU_IRT_poly_01_GRM_04_personability_MIRT extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -24,7 +21,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEval
 	protected $provides_HTML = true;
 	
 	/**
-	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
+	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
 	protected $allowed_test_types = array();
 	
@@ -39,7 +36,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEval
 	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM_personability';
 	
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate the person-fit and the ability
 	 *
 	 * @return ilExteStatDetails
 	 */
@@ -83,10 +80,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEval
 		
 		$ability_map = json_decode(stripslashes($results['ability_map']),TRUE);
 		$personfitZh = json_decode(stripslashes($results['personfitZh']),TRUE);
-		
-		error_log(print_r($personfitZh,TRUE));
-		
-		
+
 		// create accordions for plots and textual summaries
 		// Expected Score
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
@@ -99,7 +93,6 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_05_personability_MIRT extends ilExteEval
 		
 		//prepare and create output of plots
 		$customHTML = $template->get();
-
 		$details->customHTML = $customHTML;
 		
 		//header

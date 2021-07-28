@@ -23,7 +23,7 @@ OpenCPU is free software based on rApache and available as apt-repository packag
 
 The available pages might be selected in the plugin administration.
 
-#### Classical Test Theory
+#### Classical Test Theory (CTT)
 
 - [x] Internal consistency (Cronbach's Alpha/Guttman's "Lambda 3"/Kuder–Richardson Formula 20 (KR 20))
 - [x] Internal consistency without a given item and the impact on the overall consistency
@@ -41,7 +41,7 @@ Raw score analysis
 - [x] Skewness
 - [x] Kurtosis
 
-#### Item Response Theory
+#### Item Response Theory (IRT)
 
 ##### Plots and difficulty/discrimination according to various models (R-Package LTM)
 
@@ -58,12 +58,12 @@ Plots for each model
 - [x] Item Information Curves
 - [x] Test Information Curve
 
-##### Focus on the Graded Response Model (R-Packages MIRT)
+##### Focus on the Graded Response Model (R-Package MIRT)
 
 - [x] Difficulty and discrimination per Item
-- [x] Model fit
-- [x] Item fit
-- [x] Person fit
+- [x] Model fit (AIC, AICc, BIC, SABIC, HQ, Convergence)
+- [x] Item fit (Zh, signed Chi-Square)
+- [x] Person fit (Zh)
 - [x] Person ability
 
 Plots
@@ -71,14 +71,15 @@ Plots
 - [x] Expected total score
 - [x] Test Information and Standard Errors
 - [x] Item Tracelines
+- [x] Model-fit comparison
 
 Additional comparison of evaluations following CTT and IRT
 
-- [x] Difficulty
-- [x] Discrimination
-- [x] Sumscore vs. estimated ability
+- [x] Difficulty correlation
+- [x] Discrimination correlation
+- [x] Sumscore vs. estimated ability correlation
 - [ ] Empirical Item Characteristic Curves vs. IRT Item Tracelines
-- [ ] Observable factors vs. usage of multidimensional IRT
+- [ ] Observable factors vs. fit of multidimensional IRT
 
 ##### Various #####
 
