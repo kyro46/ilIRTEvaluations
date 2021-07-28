@@ -21,7 +21,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 	protected $provides_HTML = true;
 	
 	/**
-	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
+	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
 	protected $allowed_test_types = array();
 	
@@ -36,7 +36,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM_itemfit';
 	
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate item-fit within GRM
 	 *
 	 * @return ilExteStatDetails
 	 */

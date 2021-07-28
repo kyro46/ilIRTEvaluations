@@ -1,10 +1,8 @@
 <?php
 
 /**
- * Calculates GRM-parameter via OpenCPU and MIRT
- * TODO Handle questions removed due to zero variance
- * TODO Restructure to insert a NA-row of type text instead of 0
- * TODO Gives an evaluation of the model-fit
+ * Calculates GRM-parameters via OpenCPU and MIRT
+ * Calculate difficulty mean for polytomous items to provide a single comparable value
  */
 class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 {
@@ -39,7 +37,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM_parameter';
 	
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate parameters for the GRM via MIRT
 	 *
 	 * @return ilExteStatDetails
 	 */
@@ -68,7 +66,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 			"fit <- mirt(data, 1, itemtype='graded');" .
 			"coef <- coef(fit);" .
-			"plot_trace <- plot(fit, type = 'trace');" . 
+			"plot_trace <- plot(fit, type = 'trace');" .
 			"plot_infoSE <- plot(fit, type = 'infoSE');" .
 			"plot_info <- plot(fit, type = 'info');" .
 			"plot_SE <- plot(fit, type = 'SE');" .
@@ -113,12 +111,8 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		$template->setVariable('PLOT', $plot);
 		$template->parseCurrentBlock("accordion_plot");
 		
-		
-		$template->get();
-		
 		//prepare and create output of plots
 		$customHTML = $template->get();
-
 		$details->customHTML = $customHTML;
 		
 		//header
@@ -141,7 +135,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 				
 				//calculate mean difficulty according to proposal 1 from [Usama, Chang, Anderson, 2015, DOI:10.1002/ets2.12065]
 				$disc[0] = $serialized['X' . $question->question_id][0][0];
-				$sum = array_sum($serialized['X'.$question->question_id][0]) - $disc[0];				
+				$sum = array_sum($serialized['X'.$question->question_id][0]) - $disc[0];
 				$mean = $sum / (count($serialized['X'.$question->question_id][0])-1);
 			} else {
 				if(in_array($question->question_id,$data['removed'])){

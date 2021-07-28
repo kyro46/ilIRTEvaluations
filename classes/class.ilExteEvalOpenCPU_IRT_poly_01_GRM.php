@@ -2,8 +2,6 @@
 
 /**
  * Calculates unconstrained GRM-parameters via OpenCPU
- * TODO restructure to insert a NA-row of type text instead of 0
- * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPU_IRT_poly_01_GRM extends ilExteEvalTest
 {
@@ -38,7 +36,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM';
 
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate parameters for the GRM via LTM
 	 *
 	 * @return ilExteStatDetails
 	 */
@@ -65,7 +63,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM extends ilExteEvalTest
 		$query["x"] =
 			"library(ltm);" .
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			"fit <- grm(data); " . //unconstrained, options: rasch, 1PL, gpcm (default)
+			"fit <- grm(data); " .
 			"coef <- coef(fit);" .
 			'op <- par(mfrow = c(2, 2));' .
 			'plot(fit, lwd = 2, legend = TRUE, ncol = 2); par(op);' .

@@ -2,9 +2,6 @@
 
 /**
  * Calculates comparisons between CTT and IRT (the GRM) via OpenCPU and MIRT
- * TODO Handle questions removed due to zero variance
- * TODO Restructure to insert a NA-row of type text instead of 0
- * TODO Gives an evaluation of the model-fit
  */
 class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 {
@@ -24,7 +21,7 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 	protected $provides_HTML = true;
 	
 	/**
-	 * @var array list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
+	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
 	protected $allowed_test_types = array();
 	
@@ -39,7 +36,7 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPU_IRTxCTT_comparison';
 	
 	/**
-	 * Calculate and classify alpha per removed item
+	 * Calculate the comparisons between CTT and IRT
 	 *
 	 * @return ilExteStatDetails
 	 */
@@ -62,7 +59,7 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		$data = ilExteEvalOpenCPU::getBasicData($this);
 		
 		// get an array of all questions with their max points
-		// needed to calculate the CTT-diffiulty in R
+		// needed to calculate the CTT-difficulty in R
 		$maxPoints = array();
 		
 		foreach ($this->data->getAllQuestions() as $question)
@@ -75,7 +72,6 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		
 		$path = "/ocpu/library/base/R/identity";
 		
-		//TODO - difficulty calculation for ctt and GRM mean difficulty has to be adjusted for polytomous tests. Not usable yet!
 		$query["x"] =
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 			"library(jsonlite);" .
