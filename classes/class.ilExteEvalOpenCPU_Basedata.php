@@ -35,7 +35,7 @@ class ilExteEvalOpenCPU_Basedata extends ilExteEvalTest
 	/**
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
-	protected $lang_prefix = 'tst_OpenCPUBaseData';
+	protected $lang_prefix = 'tst_OpenCPU_BaseData';
 
 	/**
 	 * Get the source data
