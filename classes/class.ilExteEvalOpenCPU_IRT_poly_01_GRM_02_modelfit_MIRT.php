@@ -36,12 +36,24 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM_modelfit';
 	
 	/**
+	 * Get the source data
+	 * Needed to pass the protected member to the utility class
+	 *
+	 * @return ilExteStatSourceData
+	 */
+	protected function getData() {
+		return $this->data;
+	}
+	
+	/**
 	 * Calculate model-fit
 	 *
 	 * @return ilExteStatDetails
 	 */
 	public function calculateDetails()
 	{
+		require_once('utility/class.ilExteEvalOpenCPU.php');
+		
 		$details = new ilExteStatDetails();
 
 		// check minimum number of participants
@@ -56,8 +68,8 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 		
-		$dataDichotomized = ilExteEvalOpenCPU::getBasicData($this,TRUE); //TRUE -> dichotomize at 50% of reachable points
-		$data = ilExteEvalOpenCPU::getBasicData($this); //TRUE -> dichotomize at 50% of reachable points
+		$dataDichotomized = ilExteEvalOpenCPU::getBasicData($this->getData(),TRUE); //TRUE -> dichotomize at 50% of reachable points
+		$data = ilExteEvalOpenCPU::getBasicData($this->getData()); //TRUE -> dichotomize at 50% of reachable points
 		
 		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";

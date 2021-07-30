@@ -36,12 +36,24 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPU_IRTxCTT_comparison';
 	
 	/**
+	 * Get the source data
+	 * Needed to pass the protected member to the utility class
+	 *
+	 * @return ilExteStatSourceData
+	 */
+	protected function getData() {
+		return $this->data;
+	}
+	
+	/**
 	 * Calculate the comparisons between CTT and IRT
 	 *
 	 * @return ilExteStatDetails
 	 */
 	public function calculateDetails()
 	{
+		require_once('utility/class.ilExteEvalOpenCPU.php');
+		
 		$details = new ilExteStatDetails();
 
 		// check minimum number of participants
@@ -56,7 +68,7 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 		
-		$data = ilExteEvalOpenCPU::getBasicData($this);
+		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
 		
 		// get an array of all questions with their max points
 		// needed to calculate the CTT-difficulty in R

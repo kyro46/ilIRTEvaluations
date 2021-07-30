@@ -42,6 +42,8 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 	 */
 	public function calculateDetails()
 	{
+		require_once('utility/class.ilExteEvalOpenCPU.php');
+				
 		$details = new ilExteStatDetails();
 		
 		$plugin = new ilExtendedTestStatisticsPlugin;

@@ -37,12 +37,24 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPUPolytomousGRM_parameter';
 	
 	/**
+	 * Get the source data
+	 * Needed to pass the protected member to the utility class
+	 *
+	 * @return ilExteStatSourceData
+	 */
+	protected function getData() {
+		return $this->data;
+	}
+	
+	/**
 	 * Calculate parameters for the GRM via MIRT
 	 *
 	 * @return ilExteStatDetails
 	 */
 	public function calculateDetails()
 	{
+		require_once('utility/class.ilExteEvalOpenCPU.php');
+		
 		$details = new ilExteStatDetails();
 
 		// check minimum number of participants
@@ -57,7 +69,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 		
-		$data = ilExteEvalOpenCPU::getBasicData($this);
+		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
 		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";
 		

@@ -12,12 +12,13 @@ tst_OpenCPU_calculation_error#:#Zu wenige Teilnehmer, Antworten oder Fragen für
 
 //ilExteEvalOpenCPU
 //config
-tst_OpenCPU_server_title#:#URL von OpenCPU
-tst_OpenCPU_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete für IRT-Berechnungen müssen darauf installiert sein.</br>Empfohlener freier Server: https://cloud.opencpu.org
+tst_OpenCPU_Basedata_server_title#:#URL von OpenCPU
+tst_OpenCPU_Basedata_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete für IRT-Berechnungen müssen darauf installiert sein.</br>Empfohlener freier Server: https://cloud.opencpu.org
 //table
-tst_OpenCPU_title_long#:#Datenmatrix für OpenCPU
-tst_OpenCPU_title_short#:#Datenmatrix für OpenCPU
-tst_OpenCPU_description#:#Dies sind die an OpenCPU gesendeten Informationen (Spalten = Items, Zeilen = Probanden).
+tst_OpenCPU_Basedata_title_long#:#Datenmatrix für OpenCPU
+tst_OpenCPU_Basedata_title_short#:#Datenmatrix für OpenCPU
+tst_OpenCPU_Basedata_description#:#Dies sind die an OpenCPU gesendeten Informationen (Spalten = Items, Zeilen = Probanden).
+tst_OpenCPU_Basedata_removedItems#:#Mangels Varianz nicht berücksichtigte Items
 
 //ilExteEvalOpenCPUConsole
 tst_OpenCPUConsole_title_long#:#Interaktive R-Konsole (OpenCPU)

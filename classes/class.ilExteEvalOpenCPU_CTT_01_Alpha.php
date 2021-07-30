@@ -36,6 +36,16 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPUAlpha';
 
 	/**
+	 * Get the source data
+	 * Needed to pass the protected member to the utility class
+	 *
+	 * @return ilExteStatSourceData
+	 */
+	protected function getData() {
+		return $this->data;
+	}
+	
+	/**
 	 * Get a list of available parameters
 	 *	@return ilExteStatParam[]
 	 */
@@ -57,6 +67,8 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 	 */
 	public function calculateValue()
 	{
+		require_once('utility/class.ilExteEvalOpenCPU.php');
+				
 		$value = new ilExteStatValue;
 		$value->type = ilExteStatValue::TYPE_NUMBER;
 		$value->precision = 2;
@@ -99,7 +111,7 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 
-		$data = ilExteEvalOpenCPU::getBasicData($this,FALSE, FALSE, FALSE);
+		$data = ilExteEvalOpenCPU::getBasicData($this->getData(),FALSE, FALSE, FALSE);
 		
 		$path = "/ocpu/library/base/R/identity/json";
 		$query["x"] = 	"library(ltm);" .
@@ -152,13 +164,15 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 	 */
 	public function calculateDetails()
 	{
+		require_once('utility/class.ilExteEvalOpenCPU.php');
+		
 		$details = new ilExteStatDetails();
 		
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 		
-		$data = ilExteEvalOpenCPU::getBasicData($this,FALSE, FALSE, FALSE);
+		$data = ilExteEvalOpenCPU::getBasicData($this->getData(),FALSE, FALSE, FALSE);
 		
 		$path = "/ocpu/library/base/R/identity";
 		$query["x"] = 	"library(ltm);" . 

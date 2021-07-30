@@ -35,6 +35,16 @@ class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
 	protected $lang_prefix = 'tst_OpenCPURasch';
+
+	/**
+	 * Get the source data
+	 * Needed to pass the protected member to the utility class
+	 *
+	 * @return ilExteStatSourceData
+	 */
+	protected function getData() {
+		return $this->data;
+	}
 	
 	/**
 	 * Calculate parameters for the Rasch-Model
@@ -42,7 +52,9 @@ class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 	 * @return ilExteStatDetails
 	 */
 	public function calculateDetails()
-	{
+	{	
+		require_once('utility/class.ilExteEvalOpenCPU.php');
+		
 		$details = new ilExteStatDetails();
 
 		// check minimum number of participants
@@ -57,7 +69,7 @@ class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 		
-		$data = ilExteEvalOpenCPU::getBasicData($this, TRUE); //TRUE -> dichotomize at 50% of reachable points
+		$data = ilExteEvalOpenCPU::getBasicData($this->getData(), TRUE); //TRUE -> dichotomize at 50% of reachable points
 		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";
 		
@@ -86,7 +98,7 @@ class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 		$plots = $results['graphics'];
 		
 		//prepare and create output of plots
-		$customHTML = ilExteEvalOpenCPU::getPlotAccordionHTML($this, $plots);
+		$customHTML = ilExteEvalOpenCPU::getPlotAccordionHTML($this->plugin, $plots);
 		$details->customHTML = $customHTML;
 		
 		//header

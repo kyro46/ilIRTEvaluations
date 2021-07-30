@@ -36,12 +36,24 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 	protected $lang_prefix = 'tst_OpenCPUFactorAnalysis';
 
 	/**
+	 * Get the source data
+	 * Needed to pass the protected member to the utility class
+	 *
+	 * @return ilExteStatSourceData
+	 */
+	protected function getData() {
+		return $this->data;
+	}
+	
+	/**
 	 * Calculate and plot factor analysis
 	 *
 	 * @return ilExteStatDetails
 	 */
 	public function calculateDetails()
 	{
+		require_once('utility/class.ilExteEvalOpenCPU.php');
+
 		$details = new ilExteStatDetails();
 
 		// check minimum number of participants
@@ -56,7 +68,7 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
 		$server = $config['server'];
 		
-		$data = ilExteEvalOpenCPU::getBasicData($this);
+		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
 		
 		$path = "/ocpu/library/base/R/identity";
 		$query["x"] = 'library(psych);' .
