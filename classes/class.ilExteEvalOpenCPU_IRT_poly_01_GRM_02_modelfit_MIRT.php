@@ -65,7 +65,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		}
 
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
 		
 		$dataDichotomized = ilExteEvalOpenCPU::getBasicData($this->getData(),TRUE); //TRUE -> dichotomize at 50% of reachable points

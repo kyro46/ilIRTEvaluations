@@ -65,7 +65,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_04_personability_MIRT extends ilExteEval
 		}
 
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData());

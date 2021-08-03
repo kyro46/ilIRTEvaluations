@@ -66,7 +66,7 @@ class ilExteEvalOpenCPU_IRT_dicho_01_Rasch extends ilExteEvalTest
 		}
 
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData(), TRUE); //TRUE -> dichotomize at 50% of reachable points

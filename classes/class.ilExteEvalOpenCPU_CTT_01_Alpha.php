@@ -108,7 +108,7 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 		}
 		
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
 
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData(),FALSE, FALSE, FALSE);
@@ -169,7 +169,7 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 		$details = new ilExteStatDetails();
 		
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData(),FALSE, FALSE, FALSE);

@@ -65,7 +65,7 @@ class ilExteEvalOpenCPUConsole extends ilExteEvalTest
 		}
 
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData());

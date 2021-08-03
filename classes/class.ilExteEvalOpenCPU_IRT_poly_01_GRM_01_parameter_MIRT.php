@@ -66,7 +66,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		}
 
 		$plugin = new ilExtendedTestStatisticsPlugin;
-		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU");
+		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
