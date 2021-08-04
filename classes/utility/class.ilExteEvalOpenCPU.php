@@ -111,13 +111,30 @@ class  ilExteEvalOpenCPU
 			}
 			$result = trim($result, "\n ");
 		}
+		
+		// form data to a JSON-string, compatible with fromJSON from package jsonlite
+		if($format == 'JSON') 
+		{
+			$combinedArray = array();
+			$jsonArray = array();
+			$resultArray = array();
 			
-		if($format == 'JSON') {
-			//TODO add JSON implementation
+			foreach ($active_id_array as $active_id => $reached_points_array) {
+				$active_id_array[$active_id] = array_combine($header_array,$reached_points_array);
+			}
+			
+			foreach($active_id_array as $active_id => $answerArray) {
+				$jsonArray = array();
+				foreach($answerArray as $questionID => $reached_points) {
+					$jsonArray[$questionID] = $reached_points;
+				}
+				$jsonArray['_row'] = $active_id;
+				$resultArray[] = $jsonArray;
+			}
+			$result = json_encode($resultArray);
 		}
-				
-		//error_log($result, 3, "Customizing/csv.log");
-		//error_log(json_encode($result), 3, "Customizing/json.log");
+		
+		//error_log($result, 3, "Customizing/output.log");
 		
 		$dichotomous = FALSE;
 		if (count(array_unique($all_variants_array)) === 1) {
