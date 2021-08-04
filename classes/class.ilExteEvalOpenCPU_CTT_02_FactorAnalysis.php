@@ -23,7 +23,7 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 	/**
 	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
-	protected $allowed_test_types = array();
+	protected $allowed_test_types = array(self::TEST_TYPE_FIXED);
 	
 	/**
 	 * @var array	list of question types, e.g. array('assSingleChoice', 'assMultipleChoice', ...)
@@ -74,17 +74,14 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 		$query["x"] = 'library(psych);' .
 			'library(GPArotation);' .
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			// 'cortestbartlett <- cortest.bartlett(data);' .
-			// 'kmo <- KMO(data);' .
 			'factors <- fa.parallel(data, fa = "fa");' .
 			'nrfactors <- factors$nfact;' .
 			'for (i in 1:nrfactors){ result.out <- fa(data, nfactors = i, fm="pa", max.iter = 100, rotate = "oblimin"); fa.diagram(result.out)}';
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);		
 
-		$needles = array('e.values', 'nrfactors', 'graphics');
+		$needles = array('nrfactors', 'graphics');
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
-		//$serialized = json_decode(stripslashes($results['e.values']),TRUE);
 		$plots = $results['graphics'];
 		
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");

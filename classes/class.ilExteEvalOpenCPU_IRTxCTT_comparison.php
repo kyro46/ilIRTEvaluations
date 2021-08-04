@@ -23,7 +23,7 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 	/**
 	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
-	protected $allowed_test_types = array();
+	protected $allowed_test_types = array(self::TEST_TYPE_FIXED);
 	
 	/**
 	 * @var array	list of question types, e.g. array('assSingleChoice', 'assMultipleChoice', ...)

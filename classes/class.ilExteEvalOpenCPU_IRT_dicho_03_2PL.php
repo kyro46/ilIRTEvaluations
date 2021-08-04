@@ -24,7 +24,7 @@ class ilExteEvalOpenCPU_IRT_dicho_03_2PL extends ilExteEvalTest
 	/**
 	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
-	protected $allowed_test_types = array();
+	protected $allowed_test_types = array(self::TEST_TYPE_FIXED);
 	
 	/**
 	 * @var array	list of question types, e.g. array('assSingleChoice', 'assMultipleChoice', ...)
@@ -68,8 +68,9 @@ class ilExteEvalOpenCPU_IRT_dicho_03_2PL extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$dichotomization = $config['dichotomization'];
 		
-		$data = ilExteEvalOpenCPU::getBasicData($this->getData(), TRUE); //TRUE -> dichotomize at 50% of reachable points
+		$data = ilExteEvalOpenCPU::getBasicData($this->getData(), $dichotomization);
 		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";
 		

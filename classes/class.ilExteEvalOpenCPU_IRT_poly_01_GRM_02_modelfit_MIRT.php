@@ -23,7 +23,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 	/**
 	 * @var array	list of allowed test types, e.g. array(self::TEST_TYPE_FIXED)
 	 */
-	protected $allowed_test_types = array();
+	protected $allowed_test_types = array(self::TEST_TYPE_FIXED);
 	
 	/**
 	 * @var array	list of question types, e.g. array('assSingleChoice', 'assMultipleChoice', ...)
@@ -67,8 +67,9 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$dichotomization = $config['dichotomization'];
 		
-		$dataDichotomized = ilExteEvalOpenCPU::getBasicData($this->getData(),TRUE); //TRUE -> dichotomize at 50% of reachable points
+		$dataDichotomized = ilExteEvalOpenCPU::getBasicData($this->getData(),$dichotomization);
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData()); //TRUE -> dichotomize at 50% of reachable points
 		
 		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);

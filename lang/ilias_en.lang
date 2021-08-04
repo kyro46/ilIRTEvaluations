@@ -12,8 +12,10 @@ tst_OpenCPU_calculation_error#:#Not enough participants, answers or questions fo
 
 //ilExteEvalOpenCPU
 //config
-tst_OpenCPU_Basedata_server_title#:#OpenCPU URL
-tst_OpenCPU_Basedata_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed.</br>Recommended free server: https://cloud.opencpu.org
+tst_OpenCPU_Basedata_server_title#:#OpenCPU URL (for ALL OpenCPU calculations)
+tst_OpenCPU_Basedata_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed (mirt,ltm,ggplot2,moments,psych,GPArotation). For example "https://myExampleOpenCPU.com". All OpenCPU evaluations will append paths to REST functions to this address (like /ocpu/library/base/R/summary).
+tst_OpenCPU_Basedata_dichotomization_title#:#Dichotomization (for ALL dichotomous models)
+tst_OpenCPU_Basedata_dichotomization_description#:#Options: <b>'half'</b> (from reachable points), <b>'modal'</b>, <b>'mean'</b>, <b>'median'</b> (from reached points). Threshold to simplify polytomouis grading to dichotomous (0/1) grading. Used to calculate dichotomous models with polytomous data. Default 'median', see <a href='https://www.doi.org/10.1037%2F1082-989X.7.1.19'>[DOI:10.1037//1082-989X.7.1.19]</a>.
 //table
 tst_OpenCPU_Basedata_title_long#:#Datamatrix for OpenCPU
 tst_OpenCPU_Basedata_title_short#:#Datamatrix for OpenCPU

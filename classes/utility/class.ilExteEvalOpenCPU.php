@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Helper class containing functions, used by other OpenCPU-Evaluations. 
+ * Helper class containing functions, used by other OpenCPU-Evaluations.
  */
 class  ilExteEvalOpenCPU
 {
 	/**
 	 * Transform the available data to a csv-structure, save the removed items and if the data was dichotomous
 	 * @param	object  $object 		the calling class
-	 * @param	bool	$dichotomize	trigger dichotomizing of the reached points
+	 * @param	string	$dichotomize	trigger dichotomizing of the reached points
+	 * 									Options: half (of maximum points), modal, median, mean (of reached points)
 	 * @param	bool	$missingAsNA	leave missing answers as NA and don't code them as wrong (0 points)
 	 * @param	bool	$rebaseData		transform data required for ltm::grm and ltm::gpcm
 	 * @return 	array					[csv]			the basic data for R/OpenCPU as CSV
@@ -26,16 +27,15 @@ class  ilExteEvalOpenCPU
 		{
 			//dichotomize?
 			$answers = $dichotomize ?
-			self::dichotomize($data->getAnswersForQuestion($question->question_id), 'value', $question->maximum_points/2)
+			self::dichotomize($data->getAnswersForQuestion($question->question_id), $dichotomize, $question)
 			: 	$data->getAnswersForQuestion($question->question_id);
 			
 			// missingAsNA ? (keep missing data as NA or set as wrong)
 			if(!$missingAsNA){
 				foreach ($answers as $key => $answer)
 				{
-					if (!$answer->answered) {
+					if (!$answer->answered)
 						$answers[$key]->reached_points = 0;
-					}
 				}
 			}
 			
@@ -141,7 +141,11 @@ class  ilExteEvalOpenCPU
 	 * @param	float	$value		The cut score
 	 * @return 	array				The dichotomized values
 	 */
-	public static function dichotomize($answers, $version = 'value', $value = 0) {
+	public static function dichotomize($answers, $version, $question) {
+		
+		if (!in_array($version,array('modal','median','mean','half')))
+			$version = 'median';
+			
 		switch ($version){
 			case 'modal':
 				$counted = array_count_values($answers);
@@ -164,11 +168,14 @@ class  ilExteEvalOpenCPU
 				$middle = round(count($sorted) / 2);
 				$value = $sorted[$middle-1];
 				break;
+			case 'mean':
+				$value = $question->average_points;
+				break;
+			case 'half':
+				$value = $question->maximum_points/2;
+				break;
 		}
 		
-		/*	50%  -> $value = $question->maximum_points/2
-		 *  mean -> $value = $question->average_points
-		 */
 		foreach ($answers as $key => $answer)
 		{
 			if (is_numeric ($answer->reached_points) && $answer->reached_points <= $value) {
