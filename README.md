@@ -87,11 +87,12 @@ Interactive R console
 * Data from the test is prepared as R-dataframe "data"
 * R-commands can be executed on this data and are shown via knitr inside the browser
 
-Dichotomization (to use dichotomous models with polytomous data), selectable in plugin-config
+Dichotomization (to use dichotomous models with polytomous data). Be advised, this may yield insufficient results due to loss of information, see [LINK](https://www.doi.org/10.1037%2F1082-989X.7.1.19).
+Selectable in plugin-config:
+* 50% of reachable points for the specific question (default)
 * Mean
-* Median (default, see [LINK](https://www.doi.org/10.1037%2F1082-989X.7.1.19))
+* Median 
 * Modus
-* 50% of reachable points for the specific question 
 
 ### Credits ###
 * Development by Christoph Jobst for etstat version 1.1.2+

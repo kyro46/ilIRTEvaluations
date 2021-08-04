@@ -144,7 +144,7 @@ class  ilExteEvalOpenCPU
 	public static function dichotomize($answers, $version, $question) {
 		
 		if (!in_array($version,array('modal','median','mean','half')))
-			$version = 'median';
+			$version = 'half';
 			
 		switch ($version){
 			case 'modal':

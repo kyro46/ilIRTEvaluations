@@ -55,7 +55,7 @@ class ilExteEvalOpenCPU_Basedata extends ilExteEvalTest
 	{
 		return array(
 				ilExteStatParam::_create('server', ilExteStatParam::TYPE_STRING, 'https://cloud.opencpu.org'),
-				ilExteStatParam::_create('dichotomization', ilExteStatParam::TYPE_STRING, 'median'),
+				ilExteStatParam::_create('dichotomization', ilExteStatParam::TYPE_STRING, 'half'),
 		);
 	}
 

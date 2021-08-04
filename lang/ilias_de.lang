@@ -14,8 +14,8 @@ tst_OpenCPU_calculation_error#:#Zu wenige Teilnehmer, Antworten oder Fragen für
 //config
 tst_OpenCPU_Basedata_server_title#:#URL von OpenCPU (für ALLE OpenCPU-Auswertungen)
 tst_OpenCPU_Basedata_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete für IRT-Berechnungen müssen darauf installiert sein (mirt,ltm,ggplot2,moments,psych,GPArotation). Beispielsweise "https://myExampleOpenCPU.com". Alle OpenCPU-Auswertungen werden daran Pfade zu REST-Funktionen anhängen (etwa /ocpu/library/base/R/summary).
-tst_OpenCPU_Basedata_dichotomization_title#:#Dichotomisierung (für ALLE dichotomen Modelle)
-tst_OpenCPU_Basedata_dichotomization_description#:#Optionen: <b>"half"</b> (50% der erreichBAREN Punkte), <b>"modal"</b>, <b>"mean</b>, <b>"median"</b> (der erreichTEN Punkte eines Items). Schwellenwert, an dem polytome zu dichotomen Bewertungen (0/1) vereinfacht werden. Genutzt beim Aufruf dichotomer Modelle mit polytomen Daten. Standardverfahren: 'median', siehe  <a href='https://www.doi.org/10.1037%2F1082-989X.7.1.19'>[DOI:10.1037//1082-989X.7.1.19]</a>. 
+tst_OpenCPU_Basedata_dichotomization_title#:#Dichotomisierung (für ALLE dichotomen Modelle bei polytomen Daten)
+tst_OpenCPU_Basedata_dichotomization_description#:#Optionen: <b>"half"</b> (50% der erreichBAREN Punkte), <b>"modal"</b>, <b>"mean</b>, <b>"median"</b> (der erreichTEN Punkte eines Items). Schwellenwert, an dem polytome zu dichotomen Bewertungen (0/1) vereinfacht werden. Genutzt beim Aufruf dichotomer Modelle mit polytomen Daten. Standardverfahren: 'half'. Ergebnise nach Dichotomisierung sind wegen des Informationsverlustes in der Regel unzuverlässiger, siehe  <a href='https://www.doi.org/10.1037%2F1082-989X.7.1.19'>[DOI:10.1037//1082-989X.7.1.19]</a>. 
 //table
 tst_OpenCPU_Basedata_title_long#:#Datenmatrix für OpenCPU
 tst_OpenCPU_Basedata_title_short#:#Datenmatrix für OpenCPU
