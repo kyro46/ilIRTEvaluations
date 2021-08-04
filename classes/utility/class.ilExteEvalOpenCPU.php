@@ -7,16 +7,18 @@ class  ilExteEvalOpenCPU
 {
 	/**
 	 * Transform the available data to a csv-structure, save the removed items and if the data was dichotomous
-	 * @param	object  $object 		the calling class
-	 * @param	string	$dichotomize	trigger dichotomizing of the reached points
-	 * 									Options: half (of maximum points), modal, median, mean (of reached points)
-	 * @param	bool	$missingAsNA	leave missing answers as NA and don't code them as wrong (0 points)
-	 * @param	bool	$rebaseData		transform data required for ltm::grm and ltm::gpcm
+	 * @param	ilExteStatSourceData	$data 			the source data to be transformed
+	 * @param	string					$dichotomize	trigger dichotomizing of the reached points
+	 * 													Options: half (of maximum points, default), modal, median, mean (of reached points)
+	 * @param	bool					$rebaseData		collapse observed points to consecutive integer categories
+	 * @param	bool					$missingAsNA	leave missing answers as NA and don't code them as wrong (0 points)
+	 * @param	string					$format			the resulting structure for OpenCPU
+	 * 													Options: csv (default), JSON
 	 * @return 	array					[csv]			the basic data for R/OpenCPU as CSV
 	 * 									[removed]		the removed items as question_id
 	 * 									[dichotomous]	if the test was dichotomous after reworking the data
 	 */
-	public static function getBasicData($data, $dichotomize = FALSE, $rebaseData = TRUE, $missingAsNA = FALSE) {
+	public static function getBasicData($data, $dichotomize = FALSE, $rebaseData = TRUE, $missingAsNA = FALSE, $format = 'csv') {
 		
 		$header_array = array();
 		$active_id_array = array();
@@ -85,32 +87,37 @@ class  ilExteEvalOpenCPU
 				}
 			}
 		}
-		
+
 		// form data to a csv-string
-		$csv = "";
-		foreach ($header_array as $header){
-			$csv .= ",". $header;
-			
-		}
-		$csv .= "\n";
-		
-		foreach ($active_id_array as $active_id => $reached_points_array) {
-			$csv .= $active_id;
-			$numItems = count($reached_points_array);
-			$i = 0;
-			foreach ($reached_points_array as $reached_points){
-				$csv .= "," . $reached_points;
+		if($format == 'csv') {
+			$result = "";
+			foreach ($header_array as $header){
+				$result .= ",". $header;
 				
-				if(++$i === $numItems) {
-					$csv .= "\n";
+			}
+			$result .= "\n";
+			
+			foreach ($active_id_array as $active_id => $reached_points_array) {
+				$result .= $active_id;
+				$numItems = count($reached_points_array);
+				$i = 0;
+				foreach ($reached_points_array as $reached_points){
+					$result .= "," . $reached_points;
+					
+					if(++$i === $numItems) {
+						$result .= "\n";
+					}
 				}
 			}
+			$result = trim($result, "\n ");
 		}
-		
-		$csv = trim($csv, "\n ");
-		//error_log($csv, 3, "Customizing/csv.log");
-		//error_log(json_encode($array), 3, "Customizing/json.log");
-		//error_log(json_encode($csv), 3, "Customizing/json.log");
+			
+		if($format == 'JSON') {
+			//TODO add JSON implementation
+		}
+				
+		//error_log($result, 3, "Customizing/csv.log");
+		//error_log(json_encode($result), 3, "Customizing/json.log");
 		
 		$dichotomous = FALSE;
 		if (count(array_unique($all_variants_array)) === 1) {
@@ -121,7 +128,7 @@ class  ilExteEvalOpenCPU
 		 * important for polytomous evaluations because ltm then returns a dataset without question_id
 		 * and we have to handle the different datastructure
 		 */
-		$data = array('csv' => $csv, 'removed' => $removed_id_array, 'dichotomous' => $dichotomous);
+		$data = array($format => $result, 'removed' => $removed_id_array, 'dichotomous' => $dichotomous);
 		return $data;
 	}
 	
@@ -129,17 +136,15 @@ class  ilExteEvalOpenCPU
 	 * Transforms the points into dichotomous 0 and 1 outcomes
 	 * Dichotomizing is a bad transformation with great information loss
 	 * and should be avoided if possible.
-	 * Switching between variants is currently for development only
 	 * Possible variants:
-	 * 		1. 50% of reachable points
+	 * 		1. half of reachable points)
 	 * 		2. mean of reached points
-	 * 		3. modal ...
-	 * 		4. median ...
-	 * 		5. specific value (general case of 1. and 2.)
-	 * @param	array  	$answers 	The Points to be dichotomized
-	 * @param	string	$version	The method used for dichotomizing
-	 * @param	float	$value		The cut score
-	 * @return 	array				The dichotomized values
+	 * 		3. modal of reached points
+	 * 		4. median of reached points
+	 * @param	array  						$answers 	The Points to be dichotomized
+	 * @param	string						$version	The method used for dichotomizing
+	 * @param	ilExteStatSourceQuestion	$question	The question belonging to $answers
+	 * @return 	array									The dichotomized values
 	 */
 	public static function dichotomize($answers, $version, $question) {
 		
