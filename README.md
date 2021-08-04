@@ -15,9 +15,9 @@ cd Customizing/global/plugins/Modules/Test/Evaluations
 git clone https://github.com/kyro46/ilIRTEvaluations.git
 ```
 
-You don't need to activate the plugin because it will be recognized by ExtendedTestStatistics automatically. But you have to set an URL for the REST-API of an [OpenCPU](https://www.opencpu.org/)-server in the ExtendedTestStatistics configuration.
+You have to set an URL for the REST-API of an [OpenCPU](https://www.opencpu.org/)-server in the ExtendedTestStatistics configuration.
 
-OpenCPU is free software based on rApache and available as apt-repository package and CRAN. The public instance (https://cloud.opencpu.org) can be used in the configuration for now if you don't have an own instance. Transferred data is anonymized and encryption via SSL is supported.
+OpenCPU is free software based on rApache and available as apt-repository package and CRAN. Transferred data is anonymized and encryption via SSL is supported. The public instance (https://cloud.opencpu.org) can't be used because some required packages are not installed there.
 
 ### Features
 
@@ -87,12 +87,11 @@ Interactive R console
 * Data from the test is prepared as R-dataframe "data"
 * R-commands can be executed on this data and are shown via knitr inside the browser
 
-Dichotomization (depends on chosen model, not configurable by users)
+Dichotomization (to use dichotomous models with polytomous data), selectable in plugin-config
 * Mean
-* Median
+* Median (default, see [LINK](https://www.doi.org/10.1037%2F1082-989X.7.1.19))
 * Modus
-* 50% of reachable points for the specific question (default)
-* Specific value
+* 50% of reachable points for the specific question 
 
 ### Credits ###
 * Development by Christoph Jobst for etstat version 1.1.2+
