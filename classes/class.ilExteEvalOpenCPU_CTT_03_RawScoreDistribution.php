@@ -59,9 +59,8 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 
 		$path = "/ocpu/library/base/R/identity";
 		$query["x"] = 	"data <- c({$list});" .
-						'library(moments);' .
-						'skewness <- skewness(data);' .
-						'kurtosis <- kurtosis(data);' .
+						'library(psych);' .
+						'description <- describe(data);' .
 						'library(ggplot2);' .
 						'datasim <- data.frame(data);' .
 						'ggplot(datasim, aes(x = data)) + ' .
@@ -76,10 +75,9 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 			return $details;
 		}
 		
-		$needles = array('skewness', 'kurtosis', 'graphics');
+		$needles = array('description', 'graphics');
 		$results = ilExteEvalOpenCPU::retrieveData($server, $session, $needles);
-		$skewness = json_decode(stripslashes($results['skewness']),TRUE);
-		$kurtosis = json_decode(stripslashes($results['kurtosis']),TRUE);
+		$description = json_decode(substr(stripslashes($results['description']), 2, -3),TRUE);
 		$plots = $results['graphics'];
 
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
@@ -94,13 +92,32 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 
 		// raw score details
 		$details->columns = array (
-				ilExteStatColumn::_create('skewness', $this->plugin->txt('tst_OpenCPURawScoreDistribution_skewness'),ilExteStatColumn::SORT_NUMBER),
-				ilExteStatColumn::_create('kurtosis', $this->plugin->txt('tst_OpenCPURawScoreDistribution_kurtosis'),ilExteStatColumn::SORT_NUMBER)
+				ilExteStatColumn::_create('n', $this->plugin->txt('tst_OpenCPURawScoreDistribution_n'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('mean', $this->plugin->txt('tst_OpenCPURawScoreDistribution_mean'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('sd', $this->plugin->txt('tst_OpenCPURawScoreDistribution_sd'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('median', $this->plugin->txt('tst_OpenCPURawScoreDistribution_median'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('trimmed', $this->plugin->txt('tst_OpenCPURawScoreDistribution_trimmed'),ilExteStatColumn::SORT_NUMBER),
+				//ilExteStatColumn::_create('mad', $this->plugin->txt('tst_OpenCPURawScoreDistribution_mad'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('min', $this->plugin->txt('tst_OpenCPURawScoreDistribution_min'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('max', $this->plugin->txt('tst_OpenCPURawScoreDistribution_max'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('range', $this->plugin->txt('tst_OpenCPURawScoreDistribution_range'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('skew', $this->plugin->txt('tst_OpenCPURawScoreDistribution_skewness'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('kurtosis', $this->plugin->txt('tst_OpenCPURawScoreDistribution_kurtosis'),ilExteStatColumn::SORT_NUMBER),
+				ilExteStatColumn::_create('se', $this->plugin->txt('tst_OpenCPURawScoreDistribution_se'),ilExteStatColumn::SORT_NUMBER)
 		);
 		$details->rows[] = array(
-				'skewness' => ilExteStatValue::_create($skewness[0], ilExteStatValue::TYPE_NUMBER, 3),
-				'kurtosis' => ilExteStatValue::_create($kurtosis[0], ilExteStatValue::TYPE_NUMBER, 3),
-				
+				'n' => ilExteStatValue::_create($description['n'], ilExteStatValue::TYPE_NUMBER, 0),
+				'mean' => ilExteStatValue::_create($description['mean'], ilExteStatValue::TYPE_NUMBER, 2),
+				'sd' => ilExteStatValue::_create($description['sd'], ilExteStatValue::TYPE_NUMBER, 2),
+				'median' => ilExteStatValue::_create($description['median'], ilExteStatValue::TYPE_NUMBER, 2),
+				//'trimmed' => ilExteStatValue::_create($description['trimmed'], ilExteStatValue::TYPE_NUMBER, 2),
+				//'mad' => ilExteStatValue::_create($description['mad'], ilExteStatValue::TYPE_NUMBER, 2),
+				'min' => ilExteStatValue::_create($description['min'], ilExteStatValue::TYPE_NUMBER, 2),
+				'max' => ilExteStatValue::_create($description['max'], ilExteStatValue::TYPE_NUMBER, 2),
+				'range' => ilExteStatValue::_create($description['range'], ilExteStatValue::TYPE_NUMBER, 2),
+				'skew' => ilExteStatValue::_create($description['skew'], ilExteStatValue::TYPE_NUMBER, 2),
+				'kurtosis' => ilExteStatValue::_create($description['kurtosis'], ilExteStatValue::TYPE_NUMBER, 2),
+				'se' => ilExteStatValue::_create($description['se'], ilExteStatValue::TYPE_NUMBER, 2)				
 		);
 		
 		return $details;

@@ -56,12 +56,22 @@ tst_OpenCPUAlpha_SpearmanBrownFormulaText#:#The test length might be changed by 
 
 //ilExteEvalOpenCPURawScoreDistribution
 //table
-tst_OpenCPURawScoreDistribution_title_long#:#Raw score distribution
-tst_OpenCPURawScoreDistribution_title_short#:#Raw score distribution
-tst_OpenCPURawScoreDistribution_description#:#Distribution, skewness and kurtosis
+tst_OpenCPURawScoreDistribution_title_long#:#Raw score distribution of sumscores
+tst_OpenCPURawScoreDistribution_title_short#:#Raw score distribution of sumscores
+tst_OpenCPURawScoreDistribution_description#:#Basis descriptives for sumscores
 tst_OpenCPURawScoreDistribution_Plot#:#Raw score chart
+tst_OpenCPURawScoreDistribution_n#:#Participants
+tst_OpenCPURawScoreDistribution_mean#:#Mean
+tst_OpenCPURawScoreDistribution_sd#:#Standard deviation
+tst_OpenCPURawScoreDistribution_median#:#Median
+tst_OpenCPURawScoreDistribution_trimmed#:#Trimmed Mean
+tst_OpenCPURawScoreDistribution_mad#:#Median absolute deviation
+tst_OpenCPURawScoreDistribution_min#:#Minimum
+tst_OpenCPURawScoreDistribution_max#:#Maximum
+tst_OpenCPURawScoreDistribution_range#:#Abstand
 tst_OpenCPURawScoreDistribution_skewness#:#Skewness
 tst_OpenCPURawScoreDistribution_kurtosis#:#Kurtosis
+tst_OpenCPURawScoreDistribution_se#:#Standard error
 
 //ilExteEvalOpenCPURasch
 //table

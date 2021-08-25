@@ -56,12 +56,22 @@ tst_OpenCPUAlpha_SpearmanBrownFormulaText#:#Die Anzahl der Items müsste um den 
 
 //ilExteEvalOpenCPURawScoreDistribution
 //table
-tst_OpenCPURawScoreDistribution_title_long#:#Rohwertanalyse
-tst_OpenCPURawScoreDistribution_title_short#:#Rohwertanalyse
-tst_OpenCPURawScoreDistribution_description#:#Rohwertverteilung, Schiefe, Wölbung
+tst_OpenCPURawScoreDistribution_title_long#:#Rohwertanalyse der Testergebnisse
+tst_OpenCPURawScoreDistribution_title_short#:#Rohwertanalyse der Testergebnisse
+tst_OpenCPURawScoreDistribution_description#:#Kennwerte zur Beschreibung der Gesamtpunktzahlverteilung
 tst_OpenCPURawScoreDistribution_Plot#:#Rohwertdiagramm
+tst_OpenCPURawScoreDistribution_n#:#Teilnehmer
+tst_OpenCPURawScoreDistribution_mean#:#Ø Punkte 
+tst_OpenCPURawScoreDistribution_sd#:#Standardabw.
+tst_OpenCPURawScoreDistribution_median#:#Median
+tst_OpenCPURawScoreDistribution_trimmed#:#Getrimmter Durchschnitt
+tst_OpenCPURawScoreDistribution_mad#:#Median Abweichung vom Median
+tst_OpenCPURawScoreDistribution_min#:#Minimum
+tst_OpenCPURawScoreDistribution_max#:#Maximum
+tst_OpenCPURawScoreDistribution_range#:#Abstand
 tst_OpenCPURawScoreDistribution_skewness#:#Schiefe
 tst_OpenCPURawScoreDistribution_kurtosis#:#Wölbung
+tst_OpenCPURawScoreDistribution_se#:#Standardfehler
 
 //ilExteEvalOpenCPURasch
 //table
