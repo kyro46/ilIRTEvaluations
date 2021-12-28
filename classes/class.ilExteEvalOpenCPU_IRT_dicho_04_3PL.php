@@ -77,7 +77,7 @@ class ilExteEvalOpenCPU_IRT_dicho_04_3PL extends ilExteEvalTest
 		$query["x"] =
 		"library(ltm);" .
 		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-		"fit <- tpm(data, control = list(optimizer = 'nlminb')); " .
+		"fit <- tpm(data); " .
 		"coef <- coef(fit);" .
 		"plot(fit, type = 'ICC', col = rainbow(40, start = 0, end = 1)," . 
 		"legend = TRUE, cx = 'topright', lwd = 2, cex = 1, ncol = {$columnsLegend});" .

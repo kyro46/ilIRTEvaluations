@@ -76,7 +76,7 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
 			'factors <- fa.parallel(data, fa = "fa");' .
 			'nrfactors <- factors$nfact;' .
-			'for (i in 1:nrfactors){ result.out <- fa(data, nfactors = i, fm="pa", max.iter = 100, rotate = "oblimin"); fa.diagram(result.out)}';
+			'for (i in 1:nrfactors){ result.out <- fa(data, nfactors = i); fa.diagram(result.out)}';
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);		
 

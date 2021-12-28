@@ -163,8 +163,8 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 			$details->rows[] = array(
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-					'grm_difficulty_mean' => ilExteStatValue::_create($mean, ilExteStatValue::TYPE_NUMBER, 3),
-					'grm_disc' => ilExteStatValue::_create($disc[0], ilExteStatValue::TYPE_NUMBER, 3, NULL),
+					'grm_difficulty_mean' => ilExteStatValue::_create($mean, ilExteStatValue::TYPE_NUMBER, 2),
+					'grm_disc' => ilExteStatValue::_create($disc[0], ilExteStatValue::TYPE_NUMBER, 2, NULL),
 					
 			);
 		}

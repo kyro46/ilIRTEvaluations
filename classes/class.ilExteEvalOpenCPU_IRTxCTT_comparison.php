@@ -191,10 +191,10 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 				$details->rows[] = array(
 						'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
 						'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-						'CTT_Dif' => ilExteStatValue::_create($cttdifIRT[$i]['difficultyManual.difficulty'], ilExteStatValue::TYPE_NUMBER, 3),
-						'IRT_Dif' => ilExteStatValue::_create($cttdifIRT[$i]['irtdifdisc.meandifficulty'], ilExteStatValue::TYPE_NUMBER, 3),
-						'CTT_PBIS' => ilExteStatValue::_create($cttpbisIRT[$i]['ctt_itemanalysis.itemReport.pBis'], ilExteStatValue::TYPE_NUMBER, 3),
-						'IRT_Dis' => ilExteStatValue::_create($cttpbisIRT[$i]['irtdifdisc.discrimination'], ilExteStatValue::TYPE_NUMBER, 3),
+						'CTT_Dif' => ilExteStatValue::_create($cttdifIRT[$i]['difficultyManual.difficulty'], ilExteStatValue::TYPE_NUMBER, 2),
+						'IRT_Dif' => ilExteStatValue::_create($cttdifIRT[$i]['irtdifdisc.meandifficulty'], ilExteStatValue::TYPE_NUMBER, 2),
+						'CTT_PBIS' => ilExteStatValue::_create($cttpbisIRT[$i]['ctt_itemanalysis.itemReport.pBis'], ilExteStatValue::TYPE_NUMBER, 2),
+						'IRT_Dis' => ilExteStatValue::_create($cttpbisIRT[$i]['irtdifdisc.discrimination'], ilExteStatValue::TYPE_NUMBER, 2),
 				);
 			} else { // if the question was removed due to no variance, insert empty row
 				$details->rows[] = array(

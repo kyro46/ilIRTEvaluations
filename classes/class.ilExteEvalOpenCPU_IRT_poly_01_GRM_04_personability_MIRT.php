@@ -126,9 +126,9 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_04_personability_MIRT extends ilExteEval
 		{
 			$details->rows[] = array(
 					'person_id' => ilExteStatValue::_create($participant[0], ilExteStatValue::TYPE_NUMBER, 0),
-					'grm_ability' => ilExteStatValue::_create($ability_map[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
-					'grm_standarderror' => ilExteStatValue::_create($ability_map[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL),
-					'grm_personfitZh' => ilExteStatValue::_create($personfitZh[$i]['Zh'], ilExteStatValue::TYPE_NUMBER, 3, NULL),
+					'grm_ability' => ilExteStatValue::_create($ability_map[$i][0], ilExteStatValue::TYPE_NUMBER, 2),
+					'grm_standarderror' => ilExteStatValue::_create($ability_map[$i][1], ilExteStatValue::TYPE_NUMBER, 2, NULL),
+					'grm_personfitZh' => ilExteStatValue::_create($personfitZh[$i]['Zh'], ilExteStatValue::TYPE_NUMBER, 2, NULL),
 			);
 			$i++;
 		}
