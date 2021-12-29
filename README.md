@@ -61,7 +61,7 @@ Plots for each model
 ##### Focus on the Graded Response Model (R-Package MIRT)
 
 - [x] Difficulty and discrimination per Item
-- [x] Model fit (AIC, AICc, BIC, SABIC, HQ, Convergence)
+- [x] Model fit (AIC, BIC, SABIC, HQ, Convergence)
 - [x] Item fit (Zh, signed Chi-Square)
 - [x] Person fit (Zh)
 - [x] Person ability
