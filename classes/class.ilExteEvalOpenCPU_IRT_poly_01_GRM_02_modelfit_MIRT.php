@@ -93,10 +93,20 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		"HQ <- c(Rasch=rasch@Fit\$HQ,'2PL'=m2pl@Fit\$HQ,'3PL'=m3pl@Fit\$HQ,'4PL'=m4pl@Fit\$HQ,RSM=rsm@Fit\$HQ,GRM=grm@Fit\$HQ,GPCM=gpcm@Fit\$HQ,nominal=nominal@Fit\$HQ);" .
 		"logLik <- c(Rasch=rasch@Fit\$logLik,'2PL'=m2pl@Fit\$logLik,'3PL'=m3pl@Fit\$logLik,'4PL'=m4pl@Fit\$logLik,RSM=rsm@Fit\$logLik,GRM=grm@Fit\$logLik,GPCM=gpcm@Fit\$logLik,nominal=nominal@Fit\$logLik);" .
 		"converge <- c(Rasch=rasch@OptimInfo\$converged,'2PL'=m2pl@OptimInfo\$converged,'3PL'=m3pl@OptimInfo\$converged,'4PL'=m4pl@OptimInfo\$converged,RSM=rsm@OptimInfo\$converged,GRM=grm@OptimInfo\$converged,GPCM=gpcm@OptimInfo\$converged,nominal=nominal@OptimInfo\$converged);" .
-		"plotData <- data.frame(AIC,BIC,SABIC,HQ);" .
+		//"plotData <- data.frame(AIC,BIC,SABIC,HQ);" .
 		"table <- data.frame(AIC,BIC,SABIC,HQ,logLik,converge);" .
+		"fit_Rasch <- c(AIC=rasch@Fit\$AIC,BIC=rasch@Fit\$BIC,SABIC=rasch@Fit\$SABIC,HQ=rasch@Fit\$HQ);" .
+		"fit_2PL <- c(AIC=m2pl@Fit\$AIC,BIC=m2pl@Fit\$BIC,SABIC=m2pl@Fit\$SABIC,HQ=m2pl@Fit\$HQ);" .
+		"fit_3PL <- c(AIC=m3pl@Fit\$AIC,BIC=m3pl@Fit\$BIC,SABIC=m3pl@Fit\$SABIC,HQ=m3pl@Fit\$HQ);" .
+		//"#fit_4PL <- c(AIC=m4pl@Fit\$AIC,BIC=m4pl@Fit\$BIC,SABIC=m4pl@Fit\$SABIC,HQ=m4pl@Fit\$HQ);" .
+		"fit_RSM <- c(AIC=rsm@Fit\$AIC,BIC=rsm@Fit\$BIC,SABIC=rsm@Fit\$SABIC,HQ=rsm@Fit\$HQ);" .
+		"fit_GRM <- c(AIC=grm@Fit\$AIC,BIC=grm@Fit\$BIC,SABIC=grm@Fit\$SABIC,HQ=grm@Fit\$HQ);" .
+		"fit_GPCM <- c(AIC=gpcm@Fit\$AIC,BIC=gpcm@Fit\$BIC,SABIC=gpcm@Fit\$SABIC,HQ=gpcm@Fit\$HQ);" .
+		//"#fit_nominal <- c(AIC=nominal@Fit\$AIC,BIC=nominal@Fit\$BIC,SABIC=nominal@Fit\$SABIC,HQ=nominal@Fit\$HQ);" .
+		"plotData <- data.frame(fit_Rasch,fit_2PL,fit_3PL,fit_RSM,fit_GRM,fit_GPCM);" .
+		"colnames(plotData)<- c('Rasch-Modell','2PL-Modell','3PL-Modell', 'RSM', 'GRM', 'GPCM');" .
 		"barplot(t(as.matrix(plotData)), beside=TRUE, legend.text = TRUE, args.legend = list(x = 'center'));";
-		
+
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
 		if ($session == FALSE) {
