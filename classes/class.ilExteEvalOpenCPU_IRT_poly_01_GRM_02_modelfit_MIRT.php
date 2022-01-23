@@ -82,17 +82,17 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		"rasch <- mirt(dataDichotomized, 1, itemtype='Rasch');" .
 		"m2pl <- mirt(dataDichotomized, 1, itemtype='2PL');" .
 		"m3pl <- mirt(dataDichotomized, 1, itemtype='3PL');" .
-		"m4pl <- mirt(dataDichotomized, 1, itemtype='4PL');" .
+		//"m4pl <- mirt(dataDichotomized, 1, itemtype='4PL');" .
 		"rsm <- tryCatch({mirt(data, 1, itemtype='rsm')},error = function(e){mirt(dataDichotomized, 1, itemtype='rsm')});" .
 		"grm <- mirt(data, 1, itemtype='graded');" .
 		"gpcm <- mirt(data, 1, itemtype='gpcm');" .
-		"nominal <- mirt(data, 1, itemtype='nominal');" .
-		"AIC <- c(Rasch=rasch@Fit\$AIC,'2PL'=m2pl@Fit\$AIC,'3PL'=m3pl@Fit\$AIC,'4PL'=m4pl@Fit\$AIC,RSM=rsm@Fit\$AIC,GRM=grm@Fit\$AIC,GPCM=gpcm@Fit\$AIC,nominal=nominal@Fit\$AIC);" .
-		"BIC <- c(Rasch=rasch@Fit\$BIC,'2PL'=m2pl@Fit\$BIC,'3PL'=m3pl@Fit\$BIC,'4PL'=m4pl@Fit\$BIC,RSM=rsm@Fit\$BIC,GRM=grm@Fit\$BIC,GPCM=gpcm@Fit\$BIC,nominal=nominal@Fit\$BIC);" .
-		"SABIC <- c(Rasch=rasch@Fit\$SABIC,'2PL'=m2pl@Fit\$SABIC,'3PL'=m3pl@Fit\$SABIC,'4PL'=m4pl@Fit\$SABIC,RSM=rsm@Fit\$SABIC,GRM=grm@Fit\$SABIC,GPCM=gpcm@Fit\$SABIC,nominal=nominal@Fit\$SABIC);" .
-		"HQ <- c(Rasch=rasch@Fit\$HQ,'2PL'=m2pl@Fit\$HQ,'3PL'=m3pl@Fit\$HQ,'4PL'=m4pl@Fit\$HQ,RSM=rsm@Fit\$HQ,GRM=grm@Fit\$HQ,GPCM=gpcm@Fit\$HQ,nominal=nominal@Fit\$HQ);" .
-		"logLik <- c(Rasch=rasch@Fit\$logLik,'2PL'=m2pl@Fit\$logLik,'3PL'=m3pl@Fit\$logLik,'4PL'=m4pl@Fit\$logLik,RSM=rsm@Fit\$logLik,GRM=grm@Fit\$logLik,GPCM=gpcm@Fit\$logLik,nominal=nominal@Fit\$logLik);" .
-		"converge <- c(Rasch=rasch@OptimInfo\$converged,'2PL'=m2pl@OptimInfo\$converged,'3PL'=m3pl@OptimInfo\$converged,'4PL'=m4pl@OptimInfo\$converged,RSM=rsm@OptimInfo\$converged,GRM=grm@OptimInfo\$converged,GPCM=gpcm@OptimInfo\$converged,nominal=nominal@OptimInfo\$converged);" .
+		//"nominal <- mirt(data, 1, itemtype='nominal');" .
+		"AIC <- c(Rasch=rasch@Fit\$AIC,'2PL'=m2pl@Fit\$AIC,'3PL'=m3pl@Fit\$AIC,RSM=rsm@Fit\$AIC,GRM=grm@Fit\$AIC,GPCM=gpcm@Fit\$AIC);" .
+		"BIC <- c(Rasch=rasch@Fit\$BIC,'2PL'=m2pl@Fit\$BIC,'3PL'=m3pl@Fit\$BIC,RSM=rsm@Fit\$BIC,GRM=grm@Fit\$BIC,GPCM=gpcm@Fit\$BIC);" .
+		"SABIC <- c(Rasch=rasch@Fit\$SABIC,'2PL'=m2pl@Fit\$SABIC,'3PL'=m3pl@Fit\$SABIC,RSM=rsm@Fit\$SABIC,GRM=grm@Fit\$SABIC,GPCM=gpcm@Fit\$SABIC);" .
+		"HQ <- c(Rasch=rasch@Fit\$HQ,'2PL'=m2pl@Fit\$HQ,'3PL'=m3pl@Fit\$HQ,RSM=rsm@Fit\$HQ,GRM=grm@Fit\$HQ,GPCM=gpcm@Fit\$HQ);" .
+		"logLik <- c(Rasch=rasch@Fit\$logLik,'2PL'=m2pl@Fit\$logLik,'3PL'=m3pl@Fit\$logLik,RSM=rsm@Fit\$logLik,GRM=grm@Fit\$logLik,GPCM=gpcm@Fit\$logLik);" .
+		"converge <- c(Rasch=rasch@OptimInfo\$converged,'2PL'=m2pl@OptimInfo\$converged,'3PL'=m3pl@OptimInfo\$converged,RSM=rsm@OptimInfo\$converged,GRM=grm@OptimInfo\$converged,GPCM=gpcm@OptimInfo\$converged);" .
 		//"plotData <- data.frame(AIC,BIC,SABIC,HQ);" .
 		"table <- data.frame(AIC,BIC,SABIC,HQ,logLik,converge);" .
 		"fit_Rasch <- c(AIC=rasch@Fit\$AIC,BIC=rasch@Fit\$BIC,SABIC=rasch@Fit\$SABIC,HQ=rasch@Fit\$HQ);" .
