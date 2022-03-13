@@ -24,11 +24,11 @@ tst_OpenCPU_Basedata_removedItems#:#Removed items due to zero variance
 
 //ilExteEvalOpenCPUConsole
 //table
-tst_OpenCPU_title_long#:#Interactive R-console (OpenCPU)
-tst_OpenCPU_title_short#:#Interactive R-console
-tst_OpenCPU_description#:#IRT-Calculations via OpenCPU
-tst_OpenCPU_callR#:#Execute with R
-tst_OpenCPU_callR_desc#:#The test data is saved in variable <strong>"data"</strong>. Self-initiated operations via R can be performend here.<br/>
+tst_OpenCPUConsole_title_long#:#Interactive R-console (OpenCPU)
+tst_OpenCPUConsole_title_short#:#Interactive R-console
+tst_OpenCPUConsole_description#:#IRT-Calculations via OpenCPU
+tst_OpenCPUConsole_callR#:#Execute with R
+tst_OpenCPUConsole_callR_desc#:#The test data is saved in variable <strong>"data"</strong>. Self-initiated operations via R can be performend here.<br/>
 
 //ilExteEvalOpenCPUAlpha
 //config
