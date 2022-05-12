@@ -3,7 +3,7 @@
 /**
  * Offers limited interactive R-input.
  */
-class ilExteEvalOpenCPUConsole extends ilExteEvalTest
+class ilExteEvalOpenCPU_R_Console extends ilExteEvalTest
 {
 	/**
 	 * @var bool	evaluation provides a single value for the overview level
@@ -33,7 +33,7 @@ class ilExteEvalOpenCPUConsole extends ilExteEvalTest
 	/**
 	 * @var string	specific prefix of language variables (lowercase classname is default)
 	 */
-	protected $lang_prefix = 'tst_OpenCPUConsole';
+	protected $lang_prefix = 'tst_OpenCPU_R_Console';
 
 	/**
 	 * Get the source data
@@ -72,8 +72,8 @@ class ilExteEvalOpenCPUConsole extends ilExteEvalTest
 
 		$template = new ilTemplate('tpl.il_exte_stat_OpenCPU.html', false, false, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
 		$template->setVariable('SERVER', $server);
-		$template->setVariable('CALLR_DESC', $this->plugin->txt('tst_OpenCPUConsole_callR_desc'));
-		$template->setVariable('CALLR', $this->plugin->txt('tst_OpenCPUConsole_callR'));
+		$template->setVariable('CALLR_DESC', $this->plugin->txt('tst_OpenCPU_R_Console_callR_desc'));
+		$template->setVariable('CALLR', $this->plugin->txt('tst_OpenCPU_R_Console_callR'));
 
 		$result_array = array_map("str_getcsv", explode("\n", $data['csv']));
 		$json = json_encode($result_array);
