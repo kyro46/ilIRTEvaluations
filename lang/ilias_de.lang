@@ -22,13 +22,13 @@ tst_OpenCPU_Basedata_title_short#:#Datenmatrix für OpenCPU
 tst_OpenCPU_Basedata_description#:#Dies sind die an OpenCPU gesendeten Informationen (Spalten = Items, Zeilen = Probanden).
 tst_OpenCPU_Basedata_removedItems#:#Mangels Varianz nicht berücksichtigte Items
 
-//ilExteEvalOpenCPUConsole
+//ilExteEvalOpenCPU_R_Console
 //table
-tst_OpenCPUConsole_title_long#:#Interaktive R-Konsole (OpenCPU)
-tst_OpenCPUConsole_title_short#:#Interaktive R-Konsole
-tst_OpenCPUConsole_description#:#Die IRT-Berechnungen
-tst_OpenCPUConsole_callR#:#Via R ausführen
-tst_OpenCPUConsole_callR_desc#:#Die Testdaten liegen in der Variable <strong>"data"</strong> vor. Es können hier selbstständig R-Operationen auf dem Datensatz durchgeführt werden.<br/>
+tst_OpenCPU_R_Console_title_long#:#Interaktive R-Konsole (OpenCPU)
+tst_OpenCPU_R_Console_title_short#:#Interaktive R-Konsole
+tst_OpenCPU_R_Console_description#:#Die IRT-Berechnungen
+tst_OpenCPU_R_Console_callR#:#Via R ausführen
+tst_OpenCPU_R_Console_callR_desc#:#Die Testdaten liegen in der Variable <strong>"data"</strong> vor. Es können hier selbstständig R-Operationen auf dem Datensatz durchgeführt werden.<br/>
 
 //ilExteEvalOpenCPUAlpha
 //config
@@ -57,7 +57,7 @@ tst_OpenCPUAlpha_SpearmanBrownFormulaText#:#Die Anzahl der Items müsste um den 
 //ilExteEvalOpenCPURawScoreDistribution
 //table
 tst_OpenCPURawScoreDistribution_title_long#:#Rohwertanalyse der Testergebnisse
-tst_OpenCPURawScoreDistribution_title_short#:#Rohwertanalyse der Testergebnisse
+tst_OpenCPURawScoreDistribution_title_short#:#Rohwertanalyse
 tst_OpenCPURawScoreDistribution_description#:#Kennwerte zur Beschreibung der Gesamtpunktzahlverteilung
 tst_OpenCPURawScoreDistribution_Plot#:#Rohwertdiagramm
 tst_OpenCPURawScoreDistribution_n#:#Teilnehmer
@@ -124,7 +124,7 @@ tst_OpenCPUPolytomousGPCM_table_Disc#:#Trennschärfe
 //ilExteEvalOpenCPUFactorAnalysis
 //table
 tst_OpenCPUFactorAnalysis_title_long#:#Grafische Faktorenanalyse
-tst_OpenCPUFactorAnalysis_title_short#:#Grafische Faktorenanalyse
+tst_OpenCPUFactorAnalysis_title_short#:#Faktorenanalyse
 tst_OpenCPUFactorAnalysis_description#:#Die Analyse zeigt die identifizierbaren Faktoren und deren Ladungen auf die zugehörigen Items.
 tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree-Test für Eigenwerte
 tst_OpenCPUFactorAnalysis_graph_eigenvalues_description#:#<br/>Es kommen bis zu %s Faktoren infrage.
@@ -134,7 +134,7 @@ tst_OpenCPUFactorAnalysis_graph_factorloading#:#Faktorladungen (%s-Faktor-Lösun
 //ilExteEvalOpenCPUPolytomousGRM_parameter
 //table
 tst_OpenCPUPolytomousGRM_parameter_title_long#:#IRT-Testauswertung nach dem Graded Response Model (GRM)
-tst_OpenCPUPolytomousGRM_parameter_title_short#:#IRT-Testauswertung nach dem Graded Response Model (GRM)
+tst_OpenCPUPolytomousGRM_parameter_title_short#:#Itemparameter (GRM)
 tst_OpenCPUPolytomousGRM_parameter_description#:#Das GRM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Tests wird eine Antwortkategorie des Items. Diese werden mit der unter <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a> vorgeschlagenen Methode (Mittelwert) zu einem einheitlichen Schwierigkeitswert des Items zusammengefasst. Die Daten werden mit dem R-Paket MIRT berechnet. 
 tst_OpenCPUPolytomousGRM_parameter_table_Diff#:#Mittlere Schwierigkeit
 tst_OpenCPUPolytomousGRM_parameter_table_Disc#:#Trennschärfe
@@ -145,7 +145,7 @@ tst_OpenCPUPolytomousGRM_parameter_acc_expTotalScore#:#Erwartete Gesamtpunktzahl
 //ilExteEvalOpenCPUPolytomousGRM_modelfit
 //table
 tst_OpenCPUPolytomousGRM_modelfit_title_long#:#Model-fit: Anwendbarkeit des Graded Response Models und weiterer Modelle auf Testebene
-tst_OpenCPUPolytomousGRM_modelfit_title_short#:#Model-fit: Anwendbarkeit des Graded Response Models und weiterer Modelle auf Testebene
+tst_OpenCPUPolytomousGRM_modelfit_title_short#:#Model-fit
 tst_OpenCPUPolytomousGRM_modelfit_description#:#Konvergenz ist für stabile Parameterschätzungen nötig. Wird sie nicht erreicht, liegen zu wenige oder unpassende Testdaten vor. Die weiteren Indikatoren sind umso kleiner, je besser ein Modell auf die Daten passt.
 tst_OpenCPUPolytomousGRM_modelfit_acc_indicators#:#Indikatorengrafik (niedrigere Werte -> eventuell bessere Modellpassung)
 tst_OpenCPUPolytomousGRM_modelfit_table_model#:#Modell
@@ -159,7 +159,7 @@ tst_OpenCPUPolytomousGRM_modelfit_table_HQ#:#HQ
 //tst_OpenCPUPolytomousGRM_itemfit
 //table
 tst_OpenCPUPolytomousGRM_itemfit_title_long#:#Item-fit: Anwendbarkeit des Graded Response Models auf Itemebene
-tst_OpenCPUPolytomousGRM_itemfit_title_short#:#Item-fit: Anwendbarkeit des Graded Response Models auf Itemebene
+tst_OpenCPUPolytomousGRM_itemfit_title_short#:#Item-fit (GRM)
 tst_OpenCPUPolytomousGRM_itemfit_description#:#Ist p.S_X2 kleiner 0.05 könnte das Item nicht zum Modell passen. Das Item sollte kontrolliert, muss aber nicht aus dem Test entfernt werden. Schlechter Item-fit kann auch durch unerwartetes Antwortverhalten entstehen. Die Grafiken zeigen die Übereinstimmung der geschätzten Itemparameter mit den geschätzten Fähigkeitswerten der Personen. Große Abweichungen deuten Probleme bei der Schätzung an.
 tst_OpenCPUPolytomousGRM_itemfit_table_itemnr#:#Item
 tst_OpenCPUPolytomousGRM_itemfit_table_outfit#:#outfit
@@ -184,7 +184,7 @@ tst_OpenCPUPolytomousGRM_itemfit_acc_empiricalPlot#:#Itemcharakteristikkurven un
 //ilExteEvalOpenCPUPolytomousGRM_personability
 //table
 tst_OpenCPUPolytomousGRM_personability_title_long#:#Fähigkeitsschätzung der Probanden nach dem Graded Response Model
-tst_OpenCPUPolytomousGRM_personability_title_short#:#Fähigkeitsschätzung der Probanden nach dem Graded Response Model
+tst_OpenCPUPolytomousGRM_personability_title_short#:#Fähigkeitsschätzung (GRM)
 tst_OpenCPUPolytomousGRM_personability_description#:#Schätzwerte der Fähigkeitsausprägungen der Probanden sowie der Standardfehler
 tst_OpenCPUPolytomousGRM_personability_table_personid#:#Teilnehmer ID
 tst_OpenCPUPolytomousGRM_personability_table_ability#:#Fähigkeit
@@ -195,7 +195,7 @@ tst_OpenCPUPolytomousGRM_personability_acc_ability#:#Fähigkeit und Standardfehl
 //ilExteEvalOpenCPU_IRTxCTT_comparison
 //table
 tst_OpenCPU_IRTxCTT_comparison_title_long#:#Korrelationen zwischen klassischer Testtheorie und Item Response Theorie
-tst_OpenCPU_IRTxCTT_comparison_title_short#:#Korrelationen zwischen klassischer Testtheorie und Item Response Theorie
+tst_OpenCPU_IRTxCTT_comparison_title_short#:#Korrelationen KTT - IRT
 tst_OpenCPU_IRTxCTT_comparison_description#:#Die Übereinstimmungen zwischen KTT und IRT werden untersucht. Ausreißer bei Items und Probanden sind Kandidaten für eine genauere Untersuchung.
 tst_OpenCPU_IRTxCTT_comparison_table_cttdif#:#KTT Schwierigkeit
 tst_OpenCPU_IRTxCTT_comparison_table_irtdif#:#IRT Schwierigkeit

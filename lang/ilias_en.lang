@@ -22,13 +22,13 @@ tst_OpenCPU_Basedata_title_short#:#Datamatrix for OpenCPU
 tst_OpenCPU_Basedata_description#:#Overview of the data which is sent to OpenCPU. Columns are questions, rows are participants.
 tst_OpenCPU_Basedata_removedItems#:#Removed items due to zero variance
 
-//ilExteEvalOpenCPUConsole
+//ilExteEvalOpenCPU_R_Console
 //table
-tst_OpenCPUConsole_title_long#:#Interactive R-console (OpenCPU)
-tst_OpenCPUConsole_title_short#:#Interactive R-console
-tst_OpenCPUConsole_description#:#IRT-Calculations via OpenCPU
-tst_OpenCPUConsole_callR#:#Execute with R
-tst_OpenCPUConsole_callR_desc#:#The test data is saved in variable <strong>"data"</strong>. Self-initiated operations via R can be performend here.<br/>
+tst_OpenCPU_R_Console_title_long#:#Interactive R-console (OpenCPU)
+tst_OpenCPU_R_Console_title_short#:#Interactive R-console
+tst_OpenCPU_R_Console_description#:#IRT-Calculations via OpenCPU
+tst_OpenCPU_R_Console_callR#:#Execute with R
+tst_OpenCPU_R_Console_callR_desc#:#The test data is saved in variable <strong>"data"</strong>. Self-initiated operations via R can be performend here.<br/>
 
 //ilExteEvalOpenCPUAlpha
 //config
@@ -57,7 +57,7 @@ tst_OpenCPUAlpha_SpearmanBrownFormulaText#:#The test length might be changed by 
 //ilExteEvalOpenCPURawScoreDistribution
 //table
 tst_OpenCPURawScoreDistribution_title_long#:#Raw score distribution of sumscores
-tst_OpenCPURawScoreDistribution_title_short#:#Raw score distribution of sumscores
+tst_OpenCPURawScoreDistribution_title_short#:#Raw score distribution
 tst_OpenCPURawScoreDistribution_description#:#Basis descriptives for sumscores
 tst_OpenCPURawScoreDistribution_Plot#:#Raw score chart
 tst_OpenCPURawScoreDistribution_n#:#Participants
@@ -134,7 +134,7 @@ tst_OpenCPUFactorAnalysis_graph_factorloading#:#Factor loadings (%s factor solut
 //ilExteEvalOpenCPUPolytomousGRM_parameter
 //table
 tst_OpenCPUPolytomousGRM_parameter_title_long#:#Parameter and curve estimations for the Graded Response Model (GRM)
-tst_OpenCPUPolytomousGRM_parameter_title_short#:#Parameter and curve estimations for the Graded Response Model (GRM)
+tst_OpenCPUPolytomousGRM_parameter_title_short#:#Itemparameter (GRM)
 tst_OpenCPUPolytomousGRM_parameter_description#:#The Graded Response Model (GRM) offers evaluation for items with partially correct answers. Each reached amount of points becomes an answercategory. Average difficulty is used to consolidate the categories in a single value (see <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>).
 tst_OpenCPUPolytomousGRM_parameter_table_Diff#:#Mean difficulty
 tst_OpenCPUPolytomousGRM_parameter_table_Disc#:#Discrimination
@@ -145,7 +145,7 @@ tst_OpenCPUPolytomousGRM_parameter_acc_expTotalScore#:#Expected Total Score
 //ilExteEvalOpenCPUPolytomousGRM_modelfit
 //table
 tst_OpenCPUPolytomousGRM_modelfit_title_long#:#Model-fit: applicability of the Graded Response Model and others
-tst_OpenCPUPolytomousGRM_modelfit_title_short#:#Model-fit: applicability of the Graded Response Model and others
+tst_OpenCPUPolytomousGRM_modelfit_title_short#:#Model-fit
 tst_OpenCPUPolytomousGRM_modelfit_description#:#Convergence is necessary to reach stable solutions. If convergence is not reached, the test does not contain enough or unsuiting data. The other indicators are smaller, the better a model fits the data.
 tst_OpenCPUPolytomousGRM_modelfit_acc_indicators#:#Indicators (lower values might hint better model-fit)
 tst_OpenCPUPolytomousGRM_modelfit_table_model#:#Model
@@ -159,7 +159,7 @@ tst_OpenCPUPolytomousGRM_modelfit_table_HQ#:#HQ
 //tst_OpenCPUPolytomousGRM_itemfit
 //table
 tst_OpenCPUPolytomousGRM_itemfit_title_long#:#Item-fit: applicability of the Graded Response Model per item
-tst_OpenCPUPolytomousGRM_itemfit_title_short#:#Item-fit: applicability of the Graded Response Model per item
+tst_OpenCPUPolytomousGRM_itemfit_title_short#:#Item-fit (GRM)
 tst_OpenCPUPolytomousGRM_itemfit_description#:#If p.S_X2 < 0.05 the item might be a bad fit for the model. The items should be checked but not necessarily be removed, as bad fit can also originate from unexpected anwser patterns. The plots show item tracelines and according grouped ability estimates. Anomalies far off the tracelines also indicate a bad fit for the item.
 tst_OpenCPUPolytomousGRM_itemfit_table_itemnr#:#Item
 tst_OpenCPUPolytomousGRM_itemfit_table_outfit#:#outfit
@@ -184,7 +184,7 @@ tst_OpenCPUPolytomousGRM_itemfit_acc_empiricalPlot#:#Item Tracelines and grouped
 //ilExteEvalOpenCPUPolytomousGRM_personability
 //table
 tst_OpenCPUPolytomousGRM_personability_title_long#:#Ability estimation with the Graded Response Model
-tst_OpenCPUPolytomousGRM_personability_title_short#:#Ability estimation with the Graded Response Model
+tst_OpenCPUPolytomousGRM_personability_title_short#:#Ability estimation (GRM)
 tst_OpenCPUPolytomousGRM_personability_description#:#Estimates of the ability and the standard error.
 tst_OpenCPUPolytomousGRM_personability_table_personid#:#Person ID
 tst_OpenCPUPolytomousGRM_personability_table_ability#:#Ability
@@ -195,7 +195,7 @@ tst_OpenCPUPolytomousGRM_personability_acc_ability#:#Ability and Standarderror
 //ilExteEvalOpenCPU_IRTxCTT_comparison
 //table
 tst_OpenCPU_IRTxCTT_comparison_title_long#:#Correlations between classical test theory and item response theory (GRM)
-tst_OpenCPU_IRTxCTT_comparison_title_short#:#Correlations between classical test theory and item response theory (GRM)
+tst_OpenCPU_IRTxCTT_comparison_title_short#:#Correlations CTT and IRT
 tst_OpenCPU_IRTxCTT_comparison_description#:#The similarities and differences between the approaches are investigated. Abberant persons or items are candidates for further review.
 tst_OpenCPU_IRTxCTT_comparison_table_cttdif#:#CTT Difficulty
 tst_OpenCPU_IRTxCTT_comparison_table_irtdif#:#IRT Difficulty
