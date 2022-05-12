@@ -91,12 +91,12 @@ class ilExteEvalOpenCPU_Basedata extends ilExteEvalTest
 
         // columns
         $details->columns = array (
-        	ilExteStatColumn::_create('active_id',' ',ilExteStatColumn::SORT_NUMBER),
+        	ilExteStatColumn::_create('active_id','ID',ilExteStatColumn::SORT_NUMBER),
         );
 
-        foreach ($data_array[0] as $header)
+        for ($j = 1; $j < sizeof($data_array[0]); $j++)
         {
-        	array_push($details->columns, ilExteStatColumn::_create($header,$header,ilExteStatColumn::SORT_NUMBER));
+            array_push($details->columns, ilExteStatColumn::_create($data_array[0][$j],$data_array[0][$j],ilExteStatColumn::SORT_NUMBER));
         }
         
         // rows
