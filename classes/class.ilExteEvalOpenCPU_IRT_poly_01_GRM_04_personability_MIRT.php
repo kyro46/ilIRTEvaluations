@@ -118,7 +118,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_04_personability_MIRT extends ilExteEval
 		//rows
 		// participant ids needed but not existent in ability_map, extract from source 
 		$basicData = str_getcsv($data['csv'], "\n"); //parse the rows
-		foreach($basicData as &$row) $row = str_getcsv($row, ";"); //parse the items in rows 
+		foreach($basicData as &$row) $row = str_getcsv($row, ","); //parse the items in rows 
 		array_shift($basicData); // header is not needed because there is no participant id
 		
 		$i = 0;
