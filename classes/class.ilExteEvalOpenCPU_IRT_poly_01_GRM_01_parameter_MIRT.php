@@ -68,21 +68,22 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$showCode = $config['show_R_code'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
 		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
-			"library(mirt);" .
-			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			"fit <- mirt(data, 1, itemtype='graded');" .
-			"coef <- coef(fit);" .
-			"plot_trace <- plot(fit, type = 'trace');" .
-			"plot_infoSE <- plot(fit, type = 'infoSE');" .
-			"plot_info <- plot(fit, type = 'info');" .
-			"plot_SE <- plot(fit, type = 'SE');" .
-			"plot_expected_score <- plot(fit);";
+    		"library(mirt);" . "\n" .
+    		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . "\n" .
+    		"fit <- mirt(data, 1, itemtype='graded');" . "\n" .
+    		"coef <- coef(fit);" . "\n" .
+    		"plot_trace <- plot(fit, type = 'trace');" . "\n" .
+    		"plot_infoSE <- plot(fit, type = 'infoSE');" . "\n" .
+    		"plot_info <- plot(fit, type = 'info');" . "\n" .
+    		"plot_SE <- plot(fit, type = 'SE');" . "\n" .
+    		"plot_expected_score <- plot(fit);";
 			
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
@@ -123,6 +124,14 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_01_parameter_MIRT extends ilExteEvalTest
 		$template->setVariable('PLOT', $plot);
 		$template->parseCurrentBlock("accordion_plot");
 		
+		// provide R-Code
+		if ($showCode) {
+		    $template->setCurrentBlock("accordion_plot");
+		    $template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_R_code'));
+		    $template->setVariable('DESCRIPTION', nl2br($query['x']));
+		    $template->parseCurrentBlock("accordion_plot");
+		}
+				
 		//prepare and create output of plots
 		$customHTML = $template->get();
 		$details->customHTML = $customHTML;

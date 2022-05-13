@@ -67,16 +67,18 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$showCode = $config['show_R_code'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
 		
 		$path = "/ocpu/library/base/R/identity";
-		$query["x"] = 'library(psych);' .
-			'library(GPArotation);' .
-			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			'factors <- fa.parallel(data, fa = "fa");' .
-			'nrfactors <- factors$nfact;' .
-			'for (i in 1:nrfactors){ result.out <- fa(data, nfactors = i); fa.diagram(result.out)}';
+		$query["x"] = 'library(psych);' . "\n"  .
+		    //'library(GPArotation);' . "\n"  .
+			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . "\n" .
+			'factors <- fa.parallel(data, fa = "fa");' . "\n"  .
+			'nrfactors <- factors$nfact;' . "\n" .
+			'for (i in 1:nrfactors){ result.out <- fa(data, nfactors = i);' . "\n" .
+            'fa.diagram(result.out)}';
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);		
 
@@ -103,7 +105,16 @@ class ilExteEvalOpenCPU_CTT_02_FactorAnalysis extends ilExteEvalTest
 					$this->plugin->txt('tst_OpenCPUFactorAnalysis_graph_factorloading'),
 					$i));
 			$template->setVariable('PLOT', "<img src='data:image/png;base64," . $plots[$i] . "'>");
+			$template->setVariable('DESCRIPTION', $this->plugin->txt('tst_OpenCPUFactorAnalysis_graph_factorloading_description'));
 			$template->parseCurrentBlock("accordion_plot");
+		}
+
+		// provide R-Code
+		if ($showCode) {
+		    $template->setCurrentBlock("accordion_plot");
+		    $template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_R_code'));
+		    $template->setVariable('DESCRIPTION', nl2br($query['x']));
+		    $template->parseCurrentBlock("accordion_plot");
 		}
 
 		$details->customHTML = $template->get();

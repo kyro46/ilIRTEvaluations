@@ -171,18 +171,19 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$showCode = $config['show_R_code'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData(),FALSE, FALSE, FALSE);
 		
 		$path = "/ocpu/library/base/R/identity";
-		$query["x"] = 	"library(ltm);" . 
-						"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . 
-						"result <- descript(data); " .
-						"library(jsonlite);" .
-						"cronlist <- toJSON(result\$alpha);" .
-						"cron <- cronbach.alpha(data, na.rm = TRUE);" .
-						"library(CTT);" .
-						"spearmanbrownformula <- spearman.brown(cron\$alpha, {$this->getParam('min_good')}, 'r')\$n.new;";
+		$query["x"] = 	"library(ltm);" .  "\n" .
+		  		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .  "\n" .
+		  		"result <- descript(data); " . "\n" .
+		  		"library(jsonlite);" . "\n" .
+		  		"cronlist <- toJSON(result\$alpha);" . "\n" .
+		  		"cron <- cronbach.alpha(data, na.rm = TRUE);" . "\n" .
+		  		"library(CTT);" . "\n" .
+				"spearmanbrownformula <- spearman.brown(cron\$alpha, {$this->getParam('min_good')}, 'r')\$n.new;";
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
 		
@@ -211,6 +212,18 @@ class ilExteEvalOpenCPU_CTT_01_Alpha extends ilExteEvalTest
 		//prepare and create output of custom HTML
 		$customHTML = $template->get();
 		$details->customHTML = $customHTML;
+
+		// provide R-Code
+		if ($showCode) {
+		    $template = new ilTemplate('tpl.il_exte_stat_OpenCPU_Plots.html', TRUE, TRUE, "Customizing/global/plugins/Modules/Test/Evaluations/ilIRTEvaluations");
+		    $template->setCurrentBlock("accordion_plot");
+		    $template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_R_code'));
+		    $template->setVariable('DESCRIPTION', nl2br($query['x']));
+		    $template->parseCurrentBlock("accordion_plot");
+		    
+		    $customHTML = $template->get();
+		    $details->customHTML .= '<br/>' . $customHTML;
+		}
 
 		//header
 		$details->columns = array (

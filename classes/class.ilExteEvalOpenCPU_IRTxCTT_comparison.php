@@ -67,6 +67,7 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$showCode = $config['show_R_code'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
 		
@@ -85,48 +86,48 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
-			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			"library(jsonlite);" .
-			"maxPoints <- fromJSON('{$maxPointsJSON}');" .
-			
-			"difficultyManual <- rbind(colSums(data,na.rm=TRUE),t(maxPoints));" .
-			"difficultyManual <- t(difficultyManual);" .
-			"difficultyManual <- data.frame(difficultyManual);" .
-			
-			"difficultyManual\$X1 <- as.numeric(difficultyManual\$X1);" .
-			"difficultyManual\$X2 <- as.numeric(difficultyManual\$X2);" .
-			
-			"difficultyManual\$maxObtainable <- difficultyManual\$X2 * nrow(data);" .
-			"difficultyManual\$difficulty <- difficultyManual\$X1 / difficultyManual\$maxObtainable ;" .
-
-			"library(CTT);" .
-			"ctt_itemanalysis <- itemAnalysis(data);" .
-			"library(mirt);" .
-			"grm <- mirt(data,1,itemtype='graded');" .
-			"coef <- coef(grm, simplify=TRUE);" .
-			"questionlist <- coef(grm);" .
-			"discrimination <- coef\$items[,1];" . //select discrimination in first row
-			"meandifficulty <- tryCatch({rowMeans(coef\$items[,-1], na.rm=TRUE)},error = function(e){coef\$items[,-1]});" . // rowsum only for polytomous items
-			"irtdifdisc <- data.frame(t(rbind(discrimination,meandifficulty)));" .
-			
+    		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . "\n" .
+    		"library(jsonlite);" . "\n" .
+    		"maxPoints <- fromJSON('{$maxPointsJSON}');" . "\n" .
+    			
+    		"difficultyManual <- rbind(colSums(data,na.rm=TRUE),t(maxPoints));" . "\n" .
+    		"difficultyManual <- t(difficultyManual);" . "\n" .
+    		"difficultyManual <- data.frame(difficultyManual);" . "\n" .
+    			
+    		"difficultyManual\$X1 <- as.numeric(difficultyManual\$X1);" . "\n" .
+    		"difficultyManual\$X2 <- as.numeric(difficultyManual\$X2);" . "\n" .
+    			
+    		"difficultyManual\$maxObtainable <- difficultyManual\$X2 * nrow(data);" . "\n" .
+    		"difficultyManual\$difficulty <- difficultyManual\$X1 / difficultyManual\$maxObtainable ;" . "\n" .
+    
+    		"library(CTT);" . "\n" .
+    		"ctt_itemanalysis <- itemAnalysis(data);" . "\n" .
+    		"library(mirt);" . "\n" .
+    		"grm <- mirt(data,1,itemtype='graded');" . "\n" .
+    		"coef <- coef(grm, simplify=TRUE);" . "\n" .
+    		"questionlist <- coef(grm);" . "\n" .
+    		"discrimination <- coef\$items[,1];" .  "\n" .//select discrimination in first row
+    		"meandifficulty <- tryCatch({rowMeans(coef\$items[,-1], na.rm=TRUE)},error = function(e){coef\$items[,-1]});" .  "\n" .// rowsum only for polytomous items
+    		"irtdifdisc <- data.frame(t(rbind(discrimination,meandifficulty)));" . "\n" .
+    			
 			//ctt difficulty and irt d
-			"cttdifIRT <- data.frame(difficultyManual\$difficulty, irtdifdisc\$meandifficulty);" .
-			"plot(cttdifIRT, xlab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_cttdif')}', ylab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_irtdif')}');" .
+    		"cttdifIRT <- data.frame(difficultyManual\$difficulty, irtdifdisc\$meandifficulty);" . "\n" .
+    		"plot(cttdifIRT, xlab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_cttdif')}', ylab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_irtdif')}');" . "\n" .
 			
 			//ltm calculations -> ExBisCorr
 			// ExBisCorr only possible for dichotomous items, so we use the dichotomized data
-			//"library(ltm);" .
-			//"ltm_descript <- descript(data);" .			
-			//"ltmExBisCorrIRT <- data.frame(ltm_descript\$ExBisCorr,irtdifdisc\$discrimination);" .
-			//"plot(ltmExBisCorrIRT);" .
+		    //"library(ltm);" . "\n" .
+		    //"ltm_descript <- descript(data);" .	 "\n" .
+		    //"ltmExBisCorrIRT <- data.frame(ltm_descript\$ExBisCorr,irtdifdisc\$discrimination);" . "\n" .
+		    //"plot(ltmExBisCorrIRT);" . "\n" .
 			
-			//ctt pbis and irt a
-			"cttpbisIRT <- data.frame(ctt_itemanalysis\$itemReport\$pBis, irtdifdisc\$discrimination);" .
-			"plot(cttpbisIRT, xlab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_cttpbis')}', ylab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_irtdis')}');" .
+		    //ctt pbis and irt a
+		    "cttpbisIRT <- data.frame(ctt_itemanalysis\$itemReport\$pBis, irtdifdisc\$discrimination);" . "\n" .
+		    "plot(cttpbisIRT, xlab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_cttpbis')}', ylab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_table_irtdis')}');" . "\n" .
 			
 			//ctt sumscore and irt person ability
-			"sumscore <- rowSums(data);" .
-			"person_ability <- fscores(grm, method='MAP', full.scores=TRUE);" .
+		    "sumscore <- rowSums(data);" . "\n" .
+		    "person_ability <- fscores(grm, method='MAP', full.scores=TRUE);" . "\n" .
 			"plot(sumscore,person_ability, xlab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_plot_cttsumscore')}', ylab='{$this->plugin->txt('tst_OpenCPU_IRTxCTT_comparison_plot_irt_ability')}');";
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
@@ -167,6 +168,14 @@ class ilExteEvalOpenCPU_IRTxCTT_comparison extends ilExteEvalTest
 		$plot = "<img src='data:image/png;base64," .  $results['graphics'][2] . "'>"; // sum score and ability
 		$template->setVariable('PLOT', $plot);
 		$template->parseCurrentBlock("accordion_plot");
+		
+		// provide R-Code
+		if ($showCode) {
+		    $template->setCurrentBlock("accordion_plot");
+		    $template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_R_code'));
+		    $template->setVariable('DESCRIPTION', nl2br($query['x']));
+		    $template->parseCurrentBlock("accordion_plot");
+		}
 		
 		//prepare and create output of plots
 		$customHTML = $template->get();

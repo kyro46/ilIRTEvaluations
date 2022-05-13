@@ -67,17 +67,18 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$showCode = $config['show_R_code'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
 		$columnsLegend = intdiv(count($this->data->getAllQuestions()),10);
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
-		"library(mirt);" .
-		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-		"model <- mirt(data, 1, itemtype='graded');" .
-		"for (i in 1:model@Data\$nitems) {print(itemfit(model, empirical.plot = i, na.rm=TRUE))};" .
-		//"itemfit <- itemfit(model, c('S_X2','X2','G2','infit'));";
+		"library(mirt);" . "\n" .
+		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . "\n" .
+		"model <- mirt(data, 1, itemtype='graded');" . "\n" .
+		"for (i in 1:model@Data\$nitems) {print(itemfit(model, empirical.plot = i, na.rm=TRUE))};" . "\n" .
+		//"itemfit <- itemfit(model, c('S_X2','X2','G2','infit'));"; "\n" .
 		"itemfit <- itemfit(model, c('S_X2', 'Zh'), na.rm=TRUE);";
 		
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
@@ -105,6 +106,14 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_03_itemfit_MIRT extends ilExteEvalTest
 		}
 		$template->setVariable('PLOT', $plot);
 		$template->parseCurrentBlock("accordion_plot");
+		
+		// provide R-Code
+		if ($showCode) {
+		    $template->setCurrentBlock("accordion_plot");
+		    $template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_R_code'));
+		    $template->setVariable('DESCRIPTION', nl2br($query['x']));
+		    $template->parseCurrentBlock("accordion_plot");
+		}
 		
 		//prepare and create output of plots
 		$customHTML = $template->get();

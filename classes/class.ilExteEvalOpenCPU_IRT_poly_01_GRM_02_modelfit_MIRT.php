@@ -68,6 +68,7 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
 		$dichotomization = $config['dichotomization'];
+		$showCode = $config['show_R_code'];
 		
 		$dataDichotomized = ilExteEvalOpenCPU::getBasicData($this->getData(),$dichotomization);
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData()); //TRUE -> dichotomize at 50% of reachable points
@@ -76,35 +77,35 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
-		"library(mirt);" .
-		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-		"dataDichotomized <- read.csv(text='{$dataDichotomized['csv']}', row.names = 1, header= TRUE);" .
-		"rasch <- mirt(dataDichotomized, 1, itemtype='Rasch');" .
-		"m2pl <- mirt(dataDichotomized, 1, itemtype='2PL');" .
-		"m3pl <- mirt(dataDichotomized, 1, itemtype='3PL');" .
-		//"m4pl <- mirt(dataDichotomized, 1, itemtype='4PL');" .
-		"rsm <- tryCatch({mirt(data, 1, itemtype='rsm')},error = function(e){mirt(dataDichotomized, 1, itemtype='rsm')});" .
-		"grm <- mirt(data, 1, itemtype='graded');" .
-		"gpcm <- mirt(data, 1, itemtype='gpcm');" .
-		//"nominal <- mirt(data, 1, itemtype='nominal');" .
-		"AIC <- c(Rasch=rasch@Fit\$AIC,'2PL'=m2pl@Fit\$AIC,'3PL'=m3pl@Fit\$AIC,RSM=rsm@Fit\$AIC,GRM=grm@Fit\$AIC,GPCM=gpcm@Fit\$AIC);" .
-		"BIC <- c(Rasch=rasch@Fit\$BIC,'2PL'=m2pl@Fit\$BIC,'3PL'=m3pl@Fit\$BIC,RSM=rsm@Fit\$BIC,GRM=grm@Fit\$BIC,GPCM=gpcm@Fit\$BIC);" .
-		"SABIC <- c(Rasch=rasch@Fit\$SABIC,'2PL'=m2pl@Fit\$SABIC,'3PL'=m3pl@Fit\$SABIC,RSM=rsm@Fit\$SABIC,GRM=grm@Fit\$SABIC,GPCM=gpcm@Fit\$SABIC);" .
-		"HQ <- c(Rasch=rasch@Fit\$HQ,'2PL'=m2pl@Fit\$HQ,'3PL'=m3pl@Fit\$HQ,RSM=rsm@Fit\$HQ,GRM=grm@Fit\$HQ,GPCM=gpcm@Fit\$HQ);" .
-		"logLik <- c(Rasch=rasch@Fit\$logLik,'2PL'=m2pl@Fit\$logLik,'3PL'=m3pl@Fit\$logLik,RSM=rsm@Fit\$logLik,GRM=grm@Fit\$logLik,GPCM=gpcm@Fit\$logLik);" .
-		"converge <- c(Rasch=rasch@OptimInfo\$converged,'2PL'=m2pl@OptimInfo\$converged,'3PL'=m3pl@OptimInfo\$converged,RSM=rsm@OptimInfo\$converged,GRM=grm@OptimInfo\$converged,GPCM=gpcm@OptimInfo\$converged);" .
-		//"plotData <- data.frame(AIC,BIC,SABIC,HQ);" .
-		"table <- data.frame(AIC,BIC,SABIC,HQ,logLik,converge);" .
-		"fit_Rasch <- c(AIC=rasch@Fit\$AIC,BIC=rasch@Fit\$BIC,SABIC=rasch@Fit\$SABIC,HQ=rasch@Fit\$HQ);" .
-		"fit_2PL <- c(AIC=m2pl@Fit\$AIC,BIC=m2pl@Fit\$BIC,SABIC=m2pl@Fit\$SABIC,HQ=m2pl@Fit\$HQ);" .
-		"fit_3PL <- c(AIC=m3pl@Fit\$AIC,BIC=m3pl@Fit\$BIC,SABIC=m3pl@Fit\$SABIC,HQ=m3pl@Fit\$HQ);" .
-		//"#fit_4PL <- c(AIC=m4pl@Fit\$AIC,BIC=m4pl@Fit\$BIC,SABIC=m4pl@Fit\$SABIC,HQ=m4pl@Fit\$HQ);" .
-		"fit_RSM <- c(AIC=rsm@Fit\$AIC,BIC=rsm@Fit\$BIC,SABIC=rsm@Fit\$SABIC,HQ=rsm@Fit\$HQ);" .
-		"fit_GRM <- c(AIC=grm@Fit\$AIC,BIC=grm@Fit\$BIC,SABIC=grm@Fit\$SABIC,HQ=grm@Fit\$HQ);" .
-		"fit_GPCM <- c(AIC=gpcm@Fit\$AIC,BIC=gpcm@Fit\$BIC,SABIC=gpcm@Fit\$SABIC,HQ=gpcm@Fit\$HQ);" .
-		//"#fit_nominal <- c(AIC=nominal@Fit\$AIC,BIC=nominal@Fit\$BIC,SABIC=nominal@Fit\$SABIC,HQ=nominal@Fit\$HQ);" .
-		"plotData <- data.frame(fit_Rasch,fit_2PL,fit_3PL,fit_RSM,fit_GRM,fit_GPCM);" .
-		"colnames(plotData)<- c('Rasch-Modell','2PL-Modell','3PL-Modell', 'RSM', 'GRM', 'GPCM');" .
+		"library(mirt);" . "\n" .
+		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . "\n" .
+		"dataDichotomized <- read.csv(text='{$dataDichotomized['csv']}', row.names = 1, header= TRUE);" . "\n" .
+		"rasch <- mirt(dataDichotomized, 1, itemtype='Rasch');" . "\n" .
+		"m2pl <- mirt(dataDichotomized, 1, itemtype='2PL');" . "\n" .
+		"m3pl <- mirt(dataDichotomized, 1, itemtype='3PL');" . "\n" .
+		//"m4pl <- mirt(dataDichotomized, 1, itemtype='4PL');" . "\n" .
+		"rsm <- tryCatch({mirt(data, 1, itemtype='rsm')},error = function(e){mirt(dataDichotomized, 1, itemtype='rsm')});" . "\n" .
+		"grm <- mirt(data, 1, itemtype='graded');" . "\n" .
+		"gpcm <- mirt(data, 1, itemtype='gpcm');" . "\n" .
+		//"nominal <- mirt(data, 1, itemtype='nominal');" . "\n" .
+		"AIC <- c(Rasch=rasch@Fit\$AIC,'2PL'=m2pl@Fit\$AIC,'3PL'=m3pl@Fit\$AIC,RSM=rsm@Fit\$AIC,GRM=grm@Fit\$AIC,GPCM=gpcm@Fit\$AIC);" . "\n" .
+		"BIC <- c(Rasch=rasch@Fit\$BIC,'2PL'=m2pl@Fit\$BIC,'3PL'=m3pl@Fit\$BIC,RSM=rsm@Fit\$BIC,GRM=grm@Fit\$BIC,GPCM=gpcm@Fit\$BIC);" . "\n" .
+		"SABIC <- c(Rasch=rasch@Fit\$SABIC,'2PL'=m2pl@Fit\$SABIC,'3PL'=m3pl@Fit\$SABIC,RSM=rsm@Fit\$SABIC,GRM=grm@Fit\$SABIC,GPCM=gpcm@Fit\$SABIC);" . "\n" .
+		"HQ <- c(Rasch=rasch@Fit\$HQ,'2PL'=m2pl@Fit\$HQ,'3PL'=m3pl@Fit\$HQ,RSM=rsm@Fit\$HQ,GRM=grm@Fit\$HQ,GPCM=gpcm@Fit\$HQ);" . "\n" .
+		"logLik <- c(Rasch=rasch@Fit\$logLik,'2PL'=m2pl@Fit\$logLik,'3PL'=m3pl@Fit\$logLik,RSM=rsm@Fit\$logLik,GRM=grm@Fit\$logLik,GPCM=gpcm@Fit\$logLik);" . "\n" .
+		"converge <- c(Rasch=rasch@OptimInfo\$converged,'2PL'=m2pl@OptimInfo\$converged,'3PL'=m3pl@OptimInfo\$converged,RSM=rsm@OptimInfo\$converged,GRM=grm@OptimInfo\$converged,GPCM=gpcm@OptimInfo\$converged);" . "\n" .
+		//"plotData <- data.frame(AIC,BIC,SABIC,HQ);" . "\n" .
+		"table <- data.frame(AIC,BIC,SABIC,HQ,logLik,converge);" . "\n" .
+		"fit_Rasch <- c(AIC=rasch@Fit\$AIC,BIC=rasch@Fit\$BIC,SABIC=rasch@Fit\$SABIC,HQ=rasch@Fit\$HQ);" . "\n" .
+		"fit_2PL <- c(AIC=m2pl@Fit\$AIC,BIC=m2pl@Fit\$BIC,SABIC=m2pl@Fit\$SABIC,HQ=m2pl@Fit\$HQ);" . "\n" .
+		"fit_3PL <- c(AIC=m3pl@Fit\$AIC,BIC=m3pl@Fit\$BIC,SABIC=m3pl@Fit\$SABIC,HQ=m3pl@Fit\$HQ);" . "\n" .
+		//"#fit_4PL <- c(AIC=m4pl@Fit\$AIC,BIC=m4pl@Fit\$BIC,SABIC=m4pl@Fit\$SABIC,HQ=m4pl@Fit\$HQ);" . "\n" .
+		"fit_RSM <- c(AIC=rsm@Fit\$AIC,BIC=rsm@Fit\$BIC,SABIC=rsm@Fit\$SABIC,HQ=rsm@Fit\$HQ);" . "\n" .
+		"fit_GRM <- c(AIC=grm@Fit\$AIC,BIC=grm@Fit\$BIC,SABIC=grm@Fit\$SABIC,HQ=grm@Fit\$HQ);" . "\n" .
+		"fit_GPCM <- c(AIC=gpcm@Fit\$AIC,BIC=gpcm@Fit\$BIC,SABIC=gpcm@Fit\$SABIC,HQ=gpcm@Fit\$HQ);" . "\n" .
+		//"#fit_nominal <- c(AIC=nominal@Fit\$AIC,BIC=nominal@Fit\$BIC,SABIC=nominal@Fit\$SABIC,HQ=nominal@Fit\$HQ);" . "\n" .
+		"plotData <- data.frame(fit_Rasch,fit_2PL,fit_3PL,fit_RSM,fit_GRM,fit_GPCM);" . "\n" .
+		"colnames(plotData)<- c('Rasch-Modell','2PL-Modell','3PL-Modell', 'RSM', 'GRM', 'GPCM');" . "\n" .
 		"barplot(t(as.matrix(plotData)), beside=TRUE, legend.text = TRUE, args.legend = list(x = 'center'));";
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
@@ -130,7 +131,15 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_02_modelfit_MIRT extends ilExteEvalTest
 		$plot = "<img src='data:image/png;base64," . $plots[0] . "'>";
 		$template->setVariable('PLOT', $plot);
 		$template->parseCurrentBlock("accordion_plot");
-
+		
+		// provide R-Code
+		if ($showCode) {
+		    $template->setCurrentBlock("accordion_plot");
+		    $template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_R_code'));
+		    $template->setVariable('DESCRIPTION', nl2br($query['x']));
+		    $template->parseCurrentBlock("accordion_plot");
+		}
+		
 		//prepare and create output of plots
 		$customHTML = $template->get();
 		$details->customHTML = $customHTML;

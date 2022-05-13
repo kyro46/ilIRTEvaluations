@@ -9,26 +9,29 @@ tst_OpenCPU_graph_IIC#:#Iteminformationskurve (IIC)
 tst_OpenCPU_graph_TIC#:#Testinformationskurve (TIC)
 tst_OpenCPU_unreachable#:#Der OpenCPU-Server ist nicht erreichbar
 tst_OpenCPU_calculation_error#:#Zu wenige Teilnehmer, Antworten oder Fragen für eine Auswertung.
+tst_OpenCPU_R_code#:#R-Code
 
-//ilExteEvalOpenCPU
+//ilExteEvalOpenCPU_Basedata
 //config
 tst_OpenCPU_Basedata_server_title#:#URL von OpenCPU (für ALLE OpenCPU-Auswertungen)
-tst_OpenCPU_Basedata_server_description#:#URL eines OpenCPU-Servers - benötigte R-Pakete für IRT-Berechnungen müssen darauf installiert sein (mirt,ltm,ggplot2,moments,psych,GPArotation). Beispielsweise "https://myExampleOpenCPU.com". Alle OpenCPU-Auswertungen werden daran Pfade zu REST-Funktionen anhängen (etwa /ocpu/library/base/R/summary).
+tst_OpenCPU_Basedata_server_description#:#URL eines OpenCPU-Servers (Beispiel: "https://myExampleOpenCPU.com").<br/>Alle OpenCPU-Auswertungen werden daran Pfade zu REST-Funktionen anhängen (etwa /ocpu/library/base/R/summary).<br/><b>CTT, mirt, ltm, ggplot2, psych, GPArotation</b> müssen in der R-Umgebung des OpenCPU-Servers installiert sein.
 tst_OpenCPU_Basedata_dichotomization_title#:#Dichotomisierung (für ALLE dichotomen Modelle bei polytomen Daten)
-tst_OpenCPU_Basedata_dichotomization_description#:#Optionen: <b>"half"</b> (50% der erreichBAREN Punkte), <b>"modal"</b>, <b>"mean</b>, <b>"median"</b> (der erreichTEN Punkte eines Items). Schwellenwert, an dem polytome zu dichotomen Bewertungen (0/1) vereinfacht werden. Genutzt beim Aufruf dichotomer Modelle mit polytomen Daten. Standardverfahren: 'half'. Ergebnise nach Dichotomisierung sind wegen des Informationsverlustes in der Regel unzuverlässiger, siehe  <a href='https://www.doi.org/10.1037%2F1082-989X.7.1.19'>[DOI:10.1037//1082-989X.7.1.19]</a>. 
+tst_OpenCPU_Basedata_dichotomization_description#:#Optionen: <b>"half"</b> (50% der erreichBAREN Punkte), <b>"modal"</b>, <b>"mean</b>, <b>"median"</b> (der erreichTEN Punkte eines Items). Schwellenwert, an dem polytome zu dichotomen Bewertungen (0/1) vereinfacht werden. Genutzt beim Aufruf dichotomer Modelle mit polytomen Daten. Standardverfahren: 'half'. Ergebnise nach Dichotomisierung sind wegen des Informationsverlustes in der Regel unzuverlässiger, siehe <a href='https://www.doi.org/10.1037%2F1082-989X.7.1.19'>[DOI:10.1037//1082-989X.7.1.19]</a>. 
+tst_OpenCPU_Basedata_show_R_code_title#:#R-Skript anzeigen
+tst_OpenCPU_Basedata_show_R_code_description#:#Falls von der Auswertung unterstützt, kann das zur einer Detailauswertung gehörige R-Skript in einem weiteren Akkordeon-Element zusätzlich angezeigt werden. Der Code ist kompatibel mit der interaktiven R-Konsole.
 //table
 tst_OpenCPU_Basedata_title_long#:#Datenmatrix für OpenCPU
 tst_OpenCPU_Basedata_title_short#:#Datenmatrix für OpenCPU
-tst_OpenCPU_Basedata_description#:#Dies sind die an OpenCPU gesendeten Informationen (Spalten = Items, Zeilen = Probanden).
+tst_OpenCPU_Basedata_description#:#Dies sind für IRT-Berechnungen via OpenCPU aufbereitete Testdaten (Spalten = Items, Zeilen = Probanden).<br/>Die Daten sind ohne Dichotomisierung auf sequenzielle Bewertungskategorien gestaucht und fehlende Antworten als falsch gewertet.<br/>Die gezeigte Datenmatrix steht ebenfalls in der interaktiven R-Konsole zur Verfügung.
 tst_OpenCPU_Basedata_removedItems#:#Mangels Varianz nicht berücksichtigte Items
 
 //ilExteEvalOpenCPU_R_Console
 //table
 tst_OpenCPU_R_Console_title_long#:#Interaktive R-Konsole (OpenCPU)
 tst_OpenCPU_R_Console_title_short#:#Interaktive R-Konsole
-tst_OpenCPU_R_Console_description#:#Die IRT-Berechnungen
+tst_OpenCPU_R_Console_description#:#Die IRT-Berechnungen werden ad hoc erstellt, weshalb diese Detailauswertung keine vorgefertigte Tabellenansicht bereitstellt.
 tst_OpenCPU_R_Console_callR#:#Via R ausführen
-tst_OpenCPU_R_Console_callR_desc#:#Die Testdaten liegen in der Variable <strong>"data"</strong> vor. Es können hier selbstständig R-Operationen auf dem Datensatz durchgeführt werden.<br/>
+tst_OpenCPU_R_Console_callR_desc#:#Die Testdaten liegen in der Variable <strong>"data"</strong> vor.<br/>Die Daten entsprechen jenen aus der Detailauswertung "Datenmatrix für OpenCPU".<br/>Es können hier selbstständig R-Operationen auf dem Datensatz durchgeführt werden.<br/>
 
 //ilExteEvalOpenCPUAlpha
 //config
@@ -47,7 +50,7 @@ tst_OpenCPUAlpha_min_good_description#:#Mindestwert, der als "gut" bewertet wird
 //table
 tst_OpenCPUAlpha_title_long#:#Interne Konsistenz (OpenCPU)
 tst_OpenCPUAlpha_title_short#:#Interne Konsistenz pro Item
-tst_OpenCPUAlpha_description#:#Cronbach's Alpha, berechnet nach Entfernung fehlender Antworten via OpenCPU und dem R-Paket "Latent Trait Models under IRT" (ltm).
+tst_OpenCPUAlpha_description#:#Chronbach’s alpha bezeichnet das Ausmaß, in dem alle Fragen das Gleiche messen. Der Koeffizient steigt mit zunehmendem Zusammenhang zwischen den Fragen und kann Werte zwischen minus unendlich und 1 annehmen. Fehlende Antworten werden als falsche Antworten gewertet. Diese Variante berechnet Cronbach's Alpha via OpenCPU und dem R-Paket "Latent Trait Models under IRT" (ltm).
 tst_OpenCPUAlpha_table_alphaIfRemoved#:#Alpha ohne das Item
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference#:#Differenz
 tst_OpenCPUAlpha_table_alphaIfRemoved_difference_comment#:#Sinkt die Konsistenz des Tests ohne ein bestimmtes Item, trägt dieses vermutlich relevante Informationen zur Messung bei. Niedrige und negative Werte sind hier erstrebenswert.
@@ -65,6 +68,7 @@ tst_OpenCPURawScoreDistribution_mean#:#Ø Punkte
 tst_OpenCPURawScoreDistribution_sd#:#Standardabw.
 tst_OpenCPURawScoreDistribution_median#:#Median
 tst_OpenCPURawScoreDistribution_trimmed#:#Getrimmter Durchschnitt
+tst_OpenCPURawScoreDistribution_trimmed_comment#:#Mögliche Ausreißer an den Rändern des Messspektrums (10%) wurden hierfür entfernt.
 tst_OpenCPURawScoreDistribution_mad#:#Median Abweichung vom Median
 tst_OpenCPURawScoreDistribution_min#:#Minimum
 tst_OpenCPURawScoreDistribution_max#:#Maximum
@@ -109,7 +113,7 @@ tst_OpenCPU3PL_table_3PLGues#:#Ratewahrscheinlichkeit
 //table
 tst_OpenCPUPolytomousGRM_title_long#:#IRT-Auswertung für Tests mit polytomen Items (GRM)
 tst_OpenCPUPolytomousGRM_title_short#:#GRM
-tst_OpenCPUPolytomousGRM_description#:#Das GRM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Tests wird eine Antwortkategorie des Items. Diese werden mit der unter <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a> vorgeschlagenen Methode (Mittelwert) zu einem einheitlichen Schwierigkeitswert des Items zusammengefasst. 
+tst_OpenCPUPolytomousGRM_description#:#Das GRM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Items wird als eine Antwortkategorie behandelt. Die Kategorieschwierigkeiten polytomer Items werden zur Berechnung einer allgemeinen Itemschwierigkeit gemittelt (siehe <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>). 
 tst_OpenCPUPolytomousGRM_table_Diff#:#Mittlere Schwierigkeit
 tst_OpenCPUPolytomousGRM_table_Disc#:#Trennschärfe
 
@@ -117,7 +121,7 @@ tst_OpenCPUPolytomousGRM_table_Disc#:#Trennschärfe
 //table
 tst_OpenCPUPolytomousGPCM_title_long#:#IRT-Auswertung für Tests mit polytomen Items (GPCM)
 tst_OpenCPUPolytomousGPCM_title_short#:#GPCM
-tst_OpenCPUPolytomousGPCM_description#:#Das GPCM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Tests wird eine Antwortkategorie des Items. Diese werden mit der unter <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a> vorgeschlagenen Methode (Mittelwert) zu einem einheitlichen Schwierigkeitswert des Items zusammengefasst. 
+tst_OpenCPUPolytomousGPCM_description#:#Das GPCM bietet eine Auswertung für abgestufte Antwortformate an. Jede erreichte Teilpunktzahl des Items wird als eine Antwortkategorie behandelt. Die Kategorieschwierigkeiten polytomer Items werden zur Berechnung einer allgemeinen Itemschwierigkeit gemittelt (siehe <a href='http://doi.org/cpq2'>[DOI:10.1002/ets2.12065]</a>).
 tst_OpenCPUPolytomousGPCM_table_Diff#:#Mittlere Schwierigkeit
 tst_OpenCPUPolytomousGPCM_table_Disc#:#Trennschärfe
 
@@ -129,6 +133,7 @@ tst_OpenCPUFactorAnalysis_description#:#Die Analyse zeigt die identifizierbaren 
 tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree-Test für Eigenwerte
 tst_OpenCPUFactorAnalysis_graph_eigenvalues_description#:#<br/>Es kommen bis zu %s Faktoren infrage.
 tst_OpenCPUFactorAnalysis_graph_factorloading#:#Faktorladungen (%s-Faktor-Lösung)
+tst_OpenCPUFactorAnalysis_graph_factorloading_description#:#Die Grafik kann zeigen, ob im Test mehrere Themenblöcke/Dimensionen erkennbar sind.<br/>Die Faktorladungen werden mit gerichteten Kanten angezeigt. Negative Ladungen erzeugen rote Kanten.
 
 //MIRT-Evaluations
 //ilExteEvalOpenCPUPolytomousGRM_parameter

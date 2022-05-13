@@ -9,17 +9,20 @@ tst_OpenCPU_graph_IIC#:#Item Information Curves
 tst_OpenCPU_graph_TIC#:#Test Information Curve
 tst_OpenCPU_unreachable#:#The OpenCPU server is unreachable.
 tst_OpenCPU_calculation_error#:#Not enough participants, answers or questions for an analysis.
+tst_OpenCPU_R_code#:#R-Code
 
-//ilExteEvalOpenCPU
+//ilExteEvalOpenCPU_Basedata
 //config
 tst_OpenCPU_Basedata_server_title#:#OpenCPU URL (for ALL OpenCPU calculations)
-tst_OpenCPU_Basedata_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed (mirt,ltm,ggplot2,moments,psych,GPArotation). For example "https://myExampleOpenCPU.com". All OpenCPU evaluations will append paths to REST functions to this address (like /ocpu/library/base/R/summary).
+tst_OpenCPU_Basedata_server_description#:#URL of the OpenCPU-Server - required IRT-packages for R have to be installed (CTT, mirt, ltm, ggplot2, psych, GPArotation). For example "https://myExampleOpenCPU.com". All OpenCPU evaluations will append paths to REST functions to this address (like /ocpu/library/base/R/summary).
 tst_OpenCPU_Basedata_dichotomization_title#:#Dichotomization (for ALL dichotomous models with polytomous input)
 tst_OpenCPU_Basedata_dichotomization_description#:#Options: <b>'half'</b> (from reachable points), <b>'modal'</b>, <b>'mean'</b>, <b>'median'</b> (from reached points). Threshold to simplify polytomouis grading to dichotomous (0/1) grading. Used to calculate dichotomous models with polytomous data. Default 'half'. Dichotomization yiels usualy insufficient results due to loss of information, see <a href='https://www.doi.org/10.1037%2F1082-989X.7.1.19'>[DOI:10.1037//1082-989X.7.1.19]</a>.
+tst_OpenCPU_Basedata_show_R_code_title#:#Show R-Script
+tst_OpenCPU_Basedata_show_R_code_description#:#If supported, show the underlying code for the details-view wihtin an additional accordion-element. The code is compatible with the interactive R-console.
 //table
 tst_OpenCPU_Basedata_title_long#:#Datamatrix for OpenCPU
 tst_OpenCPU_Basedata_title_short#:#Datamatrix for OpenCPU
-tst_OpenCPU_Basedata_description#:#Overview of the data which is sent to OpenCPU. Columns are questions, rows are participants.
+tst_OpenCPU_Basedata_description#:#Overview of the prepared data for IRT evaluations via OpenCPU (columns = questions, rows = participants).<br/>The data is clinched to sequential categories but not dichotomized.<br/>The shown matrix is also available for the interactive R-console.
 tst_OpenCPU_Basedata_removedItems#:#Removed items due to zero variance
 
 //ilExteEvalOpenCPU_R_Console
@@ -65,6 +68,7 @@ tst_OpenCPURawScoreDistribution_mean#:#Mean
 tst_OpenCPURawScoreDistribution_sd#:#Standard deviation
 tst_OpenCPURawScoreDistribution_median#:#Median
 tst_OpenCPURawScoreDistribution_trimmed#:#Trimmed Mean
+tst_OpenCPURawScoreDistribution_trimmed_comment#:#Calculated after trimming 10% of the data from the edges.
 tst_OpenCPURawScoreDistribution_mad#:#Median absolute deviation
 tst_OpenCPURawScoreDistribution_min#:#Minimum
 tst_OpenCPURawScoreDistribution_max#:#Maximum
@@ -129,6 +133,7 @@ tst_OpenCPUFactorAnalysis_description#:#This analysis shows the number of identi
 tst_OpenCPUFactorAnalysis_graph_eigenvalues#:#Scree plot for eigenvalues
 tst_OpenCPUFactorAnalysis_graph_eigenvalues_description#:#<br/>Up to %s factors are observable.
 tst_OpenCPUFactorAnalysis_graph_factorloading#:#Factor loadings (%s factor solution)
+tst_OpenCPUFactorAnalysis_graph_factorloading_description#:#The plot shows possible thematic blocks or dimensions.<br/>Loadings are shown on the directed lines. Negative loadings are indicated by red lines.
 
 //MIRT-Evaluations
 //ilExteEvalOpenCPUPolytomousGRM_parameter

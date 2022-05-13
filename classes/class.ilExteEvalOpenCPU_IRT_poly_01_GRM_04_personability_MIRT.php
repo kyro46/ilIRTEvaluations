@@ -67,16 +67,17 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_04_personability_MIRT extends ilExteEval
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$showCode = $config['show_R_code'];
 		
 		$data = ilExteEvalOpenCPU::getBasicData($this->getData());
 		$path = "/ocpu/library/base/R/identity";
 		
 		$query["x"] =
-			"library(mirt);" .
-			"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" .
-			"model <- mirt(data, 1, itemtype='graded');" .
-			"ability_map <- fscores(model, method='MAP', full.scores=TRUE, full.scores.SE=TRUE);" .  // map works also works for 100% correct or false answer patterns
-			"personfitZh <- personfit(model);" .
+    		"library(mirt);" . "\n" .
+    		"data <- read.csv(text='{$data['csv']}', row.names = 1, header= TRUE);" . "\n" .
+    		"model <- mirt(data, 1, itemtype='graded');" . "\n" .
+    		"ability_map <- fscores(model, method='MAP', full.scores=TRUE, full.scores.SE=TRUE);" . "\n" . // map works also works for 100% correct or false answer patterns
+    		"personfitZh <- personfit(model);" . "\n" .
 			"plot(ability_map, xlab='Estimated Ability', ylab='Standard Error');";
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);
@@ -102,6 +103,14 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM_04_personability_MIRT extends ilExteEval
 		$plot = "<img src='data:image/png;base64," .  $results['graphics'][0] . "'>";
 		$template->setVariable('PLOT', $plot);
 		$template->parseCurrentBlock("accordion_plot");
+		
+		// provide R-Code
+		if ($showCode) {
+		    $template->setCurrentBlock("accordion_plot");
+		    $template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_R_code'));
+		    $template->setVariable('DESCRIPTION', nl2br($query['x']));
+		    $template->parseCurrentBlock("accordion_plot");
+		}
 		
 		//prepare and create output of plots
 		$customHTML = $template->get();

@@ -49,6 +49,7 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 		$plugin = new ilExtendedTestStatisticsPlugin;
 		$config = $plugin->getConfig()->getEvaluationParameters("ilExteEvalOpenCPU_Basedata");
 		$server = $config['server'];
+		$showCode = $config['show_R_code'];
 		
 		$list = '';
 		foreach ($this->data->getAllParticipants() as $participant)
@@ -58,15 +59,15 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 		$list = rtrim($list, ',');
 
 		$path = "/ocpu/library/base/R/identity";
-		$query["x"] = 	"data <- c({$list});" .
-						'library(psych);' .
-						'description <- describe(data);' .
-						'library(ggplot2);' .
-						'datasim <- data.frame(data);' .
-						'ggplot(datasim, aes(x = data)) + ' .
-						'geom_density(aes(y = ..count..), colour = "blue") + xlab(expression(bold("Raw Score"))) +  ' .
-						'geom_histogram(fill = "black", binwidth = 0.5, alpha = 0.5) + ' .
-						'ylab(expression(bold("Count"))) + theme_bw()';
+		$query["x"] = 	"data <- c({$list});" . "\n" .
+		  		'library(psych);' . "\n" .
+		  		'description <- describe(data);' . "\n" .
+		  		'library(ggplot2);' . "\n" .
+		  		'datasim <- data.frame(data);' . "\n" .
+		  		'ggplot(datasim, aes(x = data)) + ' . "\n" .
+		  		'geom_density(aes(y = ..count..), colour = "blue") + xlab(expression(bold("Raw Score"))) +  ' . "\n" .
+		  		'geom_histogram(fill = "black", binwidth = 0.5, alpha = 0.5) + ' . "\n" .
+				'ylab(expression(bold("Count"))) + theme_bw();';
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);		
 		
@@ -88,6 +89,14 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 		$template->setVariable('PLOT', "<img src='data:image/png;base64," . $plots[0] . "'>");
 		$template->parseCurrentBlock("accordion_plot");
 		
+		// provide R-Code
+		if ($showCode) {
+		    $template->setCurrentBlock("accordion_plot");
+		    $template->setVariable('TITLE', $this->plugin->txt('tst_OpenCPU_R_code'));
+		    $template->setVariable('DESCRIPTION', nl2br($query['x']));
+		    $template->parseCurrentBlock("accordion_plot");
+		}
+		
 		$details->customHTML = $template->get();
 
 		// raw score details
@@ -96,7 +105,7 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 				ilExteStatColumn::_create('mean', $this->plugin->txt('tst_OpenCPURawScoreDistribution_mean'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('sd', $this->plugin->txt('tst_OpenCPURawScoreDistribution_sd'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('median', $this->plugin->txt('tst_OpenCPURawScoreDistribution_median'),ilExteStatColumn::SORT_NUMBER),
-				//ilExteStatColumn::_create('trimmed', $this->plugin->txt('tst_OpenCPURawScoreDistribution_trimmed'),ilExteStatColumn::SORT_NUMBER),
+		        //ilExteStatColumn::_create('trimmed', $this->plugin->txt('tst_OpenCPURawScoreDistribution_trimmed'),ilExteStatColumn::SORT_NUMBER, $this->plugin->txt('tst_OpenCPURawScoreDistribution_trimmed_comment')),
 				//ilExteStatColumn::_create('mad', $this->plugin->txt('tst_OpenCPURawScoreDistribution_mad'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('min', $this->plugin->txt('tst_OpenCPURawScoreDistribution_min'),ilExteStatColumn::SORT_NUMBER),
 				ilExteStatColumn::_create('max', $this->plugin->txt('tst_OpenCPURawScoreDistribution_max'),ilExteStatColumn::SORT_NUMBER),
