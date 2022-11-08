@@ -62,12 +62,8 @@ class ilExteEvalOpenCPU_CTT_03_RawScoreDistribution extends ilExteEvalTest
 		$query["x"] = 	"data <- c({$list});" . "\n" .
 		  		'library(psych);' . "\n" .
 		  		'description <- describe(data);' . "\n" .
-		  		'library(ggplot2);' . "\n" .
-		  		'datasim <- data.frame(data);' . "\n" .
-		  		'ggplot(datasim, aes(x = data)) + ' . "\n" .
-		  		'geom_density(aes(y = ..count..), colour = "blue") + xlab(expression(bold("Raw Score"))) +  ' . "\n" .
-		  		'geom_histogram(fill = "black", binwidth = 0.5, alpha = 0.5) + ' . "\n" .
-				'ylab(expression(bold("Count"))) + theme_bw();';
+		  		'table <- table(factor(round(data), levels=(if(min(data)<0) min(data) else 0):max(data)));' . "\n" .
+				'barplot(table, xlab="Anzahl Punkte", ylab = "Anzahl Personen");';
 
 		$session = ilExteEvalOpenCPU::callOpenCPU($server, $path, $query);		
 		
