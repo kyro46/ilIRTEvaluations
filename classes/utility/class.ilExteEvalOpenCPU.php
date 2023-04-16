@@ -50,7 +50,6 @@ class  ilExteEvalOpenCPU
 			{
 				//count different points given to remove items with zero variance
 				$count = array();
-				$count[] = 0;
 				foreach ($answers as $answer)
 				{
 					if ($answer->answered && !in_array((float)$answer->reached_points, $count))
@@ -137,9 +136,17 @@ class  ilExteEvalOpenCPU
 		//error_log($result, 3, "Customizing/output.log");
 		
 		$dichotomous = FALSE;
+		
+		error_log (print_r($all_variants_array,true));
+		
 		if (count(array_unique($all_variants_array)) === 1) {
+		    error_log ("Ja, es ist dichotom!");
 			$dichotomous = TRUE;
+		} else {
+		    error_log ("Nein, es ist nicht dichotom!");
+		    
 		}
+		error_log ('Dichotom laut Basisfunktion? ' . $dichotomous == TRUE ? 'true' : 'false');
 		
 		/* adding information to the result: removed questions and if data is (now) dichotomous
 		 * important for polytomous evaluations because ltm then returns a dataset without question_id
