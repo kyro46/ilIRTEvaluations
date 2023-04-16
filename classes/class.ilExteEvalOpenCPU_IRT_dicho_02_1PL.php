@@ -114,13 +114,21 @@ class ilExteEvalOpenCPU_IRT_dicho_02_1PL extends ilExteEvalTest
 		$i = 0;
 		foreach ($this->data->getAllQuestions() as $question)
 		{
-			$details->rows[] = array(
-					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
-					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
-					'1PL_difficulty' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
-					'1PL_disc' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator)					
-			);
-			$i++;
+		    if (in_array($question->question_id, $data["removed"]))
+		    {
+		        $details->rows[] = array(
+		            'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
+		            'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0)
+		        );
+		    } else {
+    			$details->rows[] = array(
+    					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
+    					'question_title' => ilExteStatValue::_create($question->question_title, ilExteStatValue::TYPE_TEXT, 0),
+    					'1PL_difficulty' => ilExteStatValue::_create($serialized[$i][0], ilExteStatValue::TYPE_NUMBER, 3),
+    					'1PL_disc' => ilExteStatValue::_create($serialized[$i][1], ilExteStatValue::TYPE_NUMBER, 3, NULL, $indicator)					
+    			);
+    			$i++;
+		    }
 		}
 		
 		return $details;
