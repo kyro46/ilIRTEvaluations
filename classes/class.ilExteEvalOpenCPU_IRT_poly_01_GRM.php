@@ -108,29 +108,34 @@ class ilExteEvalOpenCPU_IRT_poly_01_GRM extends ilExteEvalTest
 				ilExteStatColumn::_create('grm_disc', $this->plugin->txt('tst_OpenCPUPolytomousGRM_table_Disc'), ilExteStatColumn::SORT_NUMBER)
 		);
 
+		error_log (print_r($serialized, true));
+		error_log ('Dichotom? ' . $data['dichotomous'] == true ? 'true' : 'false');
+		
+		
 		//rows
 		$i = 0;
 		foreach ($this->data->getAllQuestions() as $question)
 		{
-			if(!$data['dichotomous']) {
-				//Questions in response can be != questions in test due to removing questions with 0 variance!
-				if(!array_key_exists('X'.$question->question_id,$serialized)){
-					$serialized['X'.$question->question_id] = array(0, 0);
-				}
-				
-				//calculate mean difficulty according to proposal 1 from [Usama, Chang, Anderson, 2015, DOI:10.1002/ets2.12065]
-				$disc = array_slice($serialized['X'.$question->question_id], -1);
-				$sum = array_sum($serialized['X'.$question->question_id]) - $disc[0];
-				$mean = $sum / (count($serialized['X'.$question->question_id])-1);
+			if($data['dichotomous']) {
+			    if(in_array($question->question_id,$data['removed'])){
+			        $disc[0] = 0;
+			        $mean = 0;
+			    } else {
+			        $disc[0] = $serialized['X'.$question->question_id][1];
+			        $mean = $serialized['X'.$question->question_id][0];
+			    }
+			    $i++;
 			} else {
-				if(in_array($question->question_id,$data['removed'])){
-					$disc[0] = 0;
-					$mean = 0;
-				} else {
-					$disc[0] = $serialized[$i][1];
-					$mean = $serialized[$i][0];
-				}
-				$i++;
+			    //Questions in response can be != questions in test due to removing questions with 0 variance!
+			    if(!array_key_exists('X'.$question->question_id,$serialized)){
+			        error_log ("Setze 0 für Frage " . $question->question_id);
+			        $serialized['X'.$question->question_id] = array(0, 0);
+			    }
+			    
+			    //calculate mean difficulty according to proposal 1 from [Usama, Chang, Anderson, 2015, DOI:10.1002/ets2.12065]
+			    $disc = array_slice($serialized['X'.$question->question_id], -1);
+			    $sum = array_sum($serialized['X'.$question->question_id]) - $disc[0];
+			    $mean = $sum / (count($serialized['X'.$question->question_id])-1);
 			}
 			$details->rows[] = array(
 					'question_id' => ilExteStatValue::_create($question->question_id, ilExteStatValue::TYPE_NUMBER, 0),
